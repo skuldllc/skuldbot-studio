@@ -247,13 +247,18 @@ struct CommandResult {
     data: Option<serde_json::Value>,
 }
 
-// Get the path to the engine directory
+// Get the path to the executor Python package directory.
 fn get_engine_path() -> PathBuf {
-    // Try multiple paths to find the engine
+    if let Ok(explicit_path) = std::env::var("SKULDBOT_EXECUTOR_PATH") {
+        let explicit = PathBuf::from(explicit_path);
+        if explicit.exists() {
+            println!("🔧 Executor path (SKULDBOT_EXECUTOR_PATH): {}", explicit.display());
+            return explicit;
+        }
+    }
+
     let possible_paths = vec![
-        // Absolute path (most reliable for development)
-        PathBuf::from("/Users/dubielvaldivia/Documents/khipus/skuldbot/engine"),
-        // Relative from executable
+        PathBuf::from("/Users/dubielvaldivia/Documents/khipus/skuld-projects/skuldbot-executor/python"),
         {
             let mut path = std::env::current_exe()
                 .unwrap()
@@ -263,22 +268,61 @@ fn get_engine_path() -> PathBuf {
             for _ in 0..3 {
                 path.pop();
             }
-            path.push("engine");
+            path.push("skuldbot-executor");
+            path.push("python");
             path
         },
-        // Relative path (development)
-        PathBuf::from("../../engine"),
+        PathBuf::from("../skuldbot-executor/python"),
+        PathBuf::from("../../skuldbot-executor/python"),
     ];
 
     for path in possible_paths {
-        if path.exists() && path.join(".venv").exists() {
-            println!("🔧 Engine found at: {}", path.display());
+        if path.exists() {
+            println!("🔧 Executor found at: {}", path.display());
             return path;
         }
     }
 
-    // Fallback to absolute path
-    PathBuf::from("/Users/dubielvaldivia/Documents/khipus/skuldbot/engine")
+    PathBuf::from("/Users/dubielvaldivia/Documents/khipus/skuld-projects/skuldbot-executor/python")
+}
+
+// Get the path to the compiler Python package directory.
+fn get_compiler_path() -> PathBuf {
+    if let Ok(explicit_path) = std::env::var("SKULDBOT_COMPILER_PATH") {
+        let explicit = PathBuf::from(explicit_path);
+        if explicit.exists() {
+            println!("🔧 Compiler path (SKULDBOT_COMPILER_PATH): {}", explicit.display());
+            return explicit;
+        }
+    }
+
+    let possible_paths = vec![
+        PathBuf::from("/Users/dubielvaldivia/Documents/khipus/skuld-projects/skuldbot-compiler/python"),
+        {
+            let mut path = std::env::current_exe()
+                .unwrap()
+                .parent()
+                .unwrap()
+                .to_path_buf();
+            for _ in 0..3 {
+                path.pop();
+            }
+            path.push("skuldbot-compiler");
+            path.push("python");
+            path
+        },
+        PathBuf::from("../skuldbot-compiler/python"),
+        PathBuf::from("../../skuldbot-compiler/python"),
+    ];
+
+    for path in possible_paths {
+        if path.exists() {
+            println!("🔧 Compiler found at: {}", path.display());
+            return path;
+        }
+    }
+
+    PathBuf::from("/Users/dubielvaldivia/Documents/khipus/skuld-projects/skuldbot-compiler/python")
 }
 
 // Get Python executable from the engine's venv
@@ -319,6 +363,7 @@ static SETUP_HAD_INSTALL: std::sync::atomic::AtomicBool = std::sync::atomic::Ato
 fn setup_engine() {
     println!("🔧 Setting up SkuldBot engine...");
     let engine_path = get_engine_path();
+    let compiler_path = get_compiler_path();
     let venv_path = engine_path.join(".venv");
     let requirements_path = engine_path.join("requirements.txt");
 
@@ -397,6 +442,15 @@ fn setup_engine() {
                 println!("══════════════════════════════════════════════════════════");
                 println!("");
                 let _ = std::fs::write(&marker_path, "installed");
+
+                let compiler_install = Command::new(&pip_exe)
+                    .args(["install", "-e", compiler_path.to_str().unwrap()])
+                    .status();
+                match compiler_install {
+                    Ok(s) if s.success() => println!("✅ Compiler package installed in executor venv"),
+                    Ok(s) => println!("⚠️  Compiler package install failed: exit code {:?}", s.code()),
+                    Err(e) => println!("⚠️  Compiler package install failed: {}", e),
+                }
             }
             Ok(s) => {
                 println!("");
@@ -451,7 +505,7 @@ fn get_engine_setup_status() -> SetupStatus {
 async fn compile_dsl(dsl: String) -> Result<CompileResult, String> {
     println!("🔧 Compiling DSL...");
     
-    let engine_path = get_engine_path();
+    let compiler_path = get_compiler_path();
     let python_exe = get_python_executable();
     
     // Create a temporary file with the DSL
@@ -473,7 +527,7 @@ for mod in modules_to_remove:
     del sys.modules[mod]
 
 import json
-from skuldbot import Compiler
+from skuldbot_compiler import Compiler
 
 with open('{}', 'r') as f:
     dsl = json.load(f)
@@ -483,7 +537,7 @@ output_dir = '{}'
 bot_dir = compiler.compile_to_disk(dsl, output_dir)
 print(str(bot_dir))
 "#,
-            engine_path.display(),
+            compiler_path.display(),
             dsl_file.display(),
             temp_dir.join("bots").display()
         ))
@@ -514,6 +568,7 @@ async fn run_bot(dsl: String) -> Result<ExecutionResult, String> {
     println!("▶️  Running bot...");
 
     let engine_path = get_engine_path();
+    let compiler_path = get_compiler_path();
     let python_exe = get_python_executable();
 
     // Create a temporary file with the DSL
@@ -526,6 +581,7 @@ async fn run_bot(dsl: String) -> Result<ExecutionResult, String> {
         r#"
 import sys
 sys.path.insert(0, '{}')
+sys.path.insert(0, '{}')
 
 # Clear any cached skuldbot modules to ensure fresh templates are loaded
 modules_to_remove = [key for key in sys.modules.keys() if key.startswith('skuldbot')]
@@ -535,8 +591,9 @@ for mod in modules_to_remove:
 import json
 import subprocess
 from pathlib import Path
-from skuldbot import Compiler, Executor, ExecutionMode
-from skuldbot.dsl.validator import ValidationError
+from skuldbot_compiler import Compiler
+from skuldbot import Executor, ExecutionMode
+from skuldbot_compiler.dsl.validator import ValidationError
 
 with open('{}', 'r') as f:
     dsl = json.load(f)
@@ -635,6 +692,7 @@ if evidence_writer:
         print(f'WARN: Failed to save evidence pack: {{e}}')
 "#,
         engine_path.display(),
+        compiler_path.display(),
         dsl_file.display(),
         temp_dir.join("bots_run").display()
     );
@@ -1461,7 +1519,7 @@ async fn debug_get_variables(session_state_json: String, node_id: Option<String>
 async fn validate_dsl(dsl: String) -> Result<bool, String> {
     println!("✓ Validating DSL...");
     
-    let engine_path = get_engine_path();
+    let compiler_path = get_compiler_path();
     let python_exe = get_python_executable();
     
     let temp_dir = std::env::temp_dir();
@@ -1475,7 +1533,7 @@ async fn validate_dsl(dsl: String) -> Result<bool, String> {
 import sys
 sys.path.insert(0, '{}')
 import json
-from skuldbot.dsl import DSLValidator
+from skuldbot_compiler.dsl import DSLValidator
 
 with open('{}', 'r') as f:
     dsl = json.load(f)
@@ -1492,7 +1550,7 @@ except Exception as e:
             print(' -', item)
     sys.exit(1)
 "#,
-            engine_path.display(),
+            compiler_path.display(),
             dsl_file.display()
         ))
         .output()
@@ -3995,7 +4053,7 @@ fn plan_to_dsl(goal: &str, plan: &[AIPlanStep]) -> serde_json::Value {
 
 /// Validate DSL and return detailed results
 fn validate_dsl_detailed(dsl: &serde_json::Value) -> Result<ValidationResult, String> {
-    let engine_path = get_engine_path();
+    let compiler_path = get_compiler_path();
     let python_exe = get_python_executable();
     
     // Write DSL to temp file
@@ -4011,7 +4069,7 @@ fn validate_dsl_detailed(dsl: &serde_json::Value) -> Result<ValidationResult, St
 import sys
 sys.path.insert(0, '{}')
 import json
-from skuldbot.dsl import DSLValidator
+from skuldbot_compiler.dsl import DSLValidator
 
 with open('{}', 'r') as f:
     dsl = json.load(f)
@@ -4037,7 +4095,7 @@ except Exception as e:
 
 print(json.dumps(result))
 "#,
-            engine_path.display(),
+            compiler_path.display(),
             dsl_file.display()
         ))
         .output()
@@ -4098,7 +4156,7 @@ print(json.dumps(result))
 
 /// Test compile DSL without executing
 fn test_compile_dsl(dsl: &serde_json::Value) -> Result<bool, String> {
-    let engine_path = get_engine_path();
+    let compiler_path = get_compiler_path();
     let python_exe = get_python_executable();
     
     // Write DSL to temp file
@@ -4117,7 +4175,7 @@ import sys
 sys.path.insert(0, '{}')
 import json
 import traceback
-from skuldbot.compiler import Compiler
+from skuldbot_compiler import Compiler
 
 with open('{}', 'r') as f:
     dsl = json.load(f)
@@ -4131,7 +4189,7 @@ except Exception as e:
     traceback.print_exc(file=sys.stderr)
     sys.exit(1)
 "#,
-            engine_path.display(),
+            compiler_path.display(),
             dsl_file.display()
         ))
         .output()
