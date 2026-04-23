@@ -65,3 +65,70 @@ jobs:
               -not -path "*/.git/*"
             exit 1
           fi
+
+      - name: Reject mocks, test doubles, stubs (Python / TS / Rust)
+        run: |
+          set -euo pipefail
+          VIOLATIONS=""
+          scan() {
+            local pattern="$1"
+            local matches
+            matches=$(grep -rEn "$pattern" \
+              --include="*.py" --include="*.ts" --include="*.tsx" \
+              --include="*.js" --include="*.jsx" --include="*.rs" \
+              --exclude-dir=node_modules --exclude-dir=.venv --exclude-dir=.venv-spike312 \
+              --exclude-dir=__pycache__ --exclude-dir=target --exclude-dir=dist \
+              --exclude-dir=build --exclude-dir=.next --exclude-dir=.turbo \
+              --exclude-dir=.git --exclude-dir=.github --exclude-dir=docs \
+              . 2>/dev/null || true)
+            if [ -n "$matches" ]; then
+              VIOLATIONS="${VIOLATIONS}${matches}"$'\n'
+            fi
+          }
+          # Python
+          scan 'from[[:space:]]+unittest\.mock[[:space:]]+import'
+          scan '^import[[:space:]]+unittest\.mock'
+          scan '^import[[:space:]]+mock([[:space:]]|$)'
+          scan '^from[[:space:]]+mock[[:space:]]+import'
+          scan '\bMagicMock\(|\bAsyncMock\(|\bcreate_autospec\('
+          scan '@patch\b|@patch\.object|@patch\.dict'
+          scan '\bmocker\.(patch|Mock|MagicMock)'
+          scan 'import[[:space:]]+pytest_mock|from[[:space:]]+pytest_mock'
+          scan '^import[[:space:]]+responses\b'
+          scan 'import[[:space:]]+requests_mock|from[[:space:]]+requests_mock'
+          scan 'import[[:space:]]+(vcrpy|vcr)\b'
+          scan '^import[[:space:]]+httpretty\b'
+          scan '^import[[:space:]]+aioresponses\b'
+          # TypeScript / JavaScript
+          scan '\bjest\.(fn|mock|spyOn)\('
+          scan '\bvi\.(fn|mock|spyOn)\('
+          scan '\bsinon\.(stub|spy|mock)\('
+          scan "require\(['\"]nock['\"]\\)|from[[:space:]]+['\"]nock['\"]"
+          scan "require\(['\"]msw['\"]\\)|from[[:space:]]+['\"]msw['\"]"
+          scan "require\(['\"]fetch-mock['\"]\\)|from[[:space:]]+['\"]fetch-mock['\"]"
+          # Rust
+          scan 'use[[:space:]]+mockall|#\[automock\]'
+          scan 'use[[:space:]]+(mockito|wiremock)'
+          if [ -n "$VIOLATIONS" ]; then
+            echo "::error::Prohibited mock patterns detected — see POLICY_NO_MOCKS.md"
+            echo "$VIOLATIONS"
+            exit 1
+          fi
+          echo "mock/test-double check PASS"
+
+      - name: Reject mock dependencies in package manifests
+        run: |
+          set -euo pipefail
+          BAD=""
+          for f in requirements.txt pyproject.toml setup.py package.json Cargo.toml; do
+            [ -f "$f" ] || continue
+            if grep -iE '^\s*"?(mock|pytest-mock|responses|requests-mock|vcrpy|httpretty|aioresponses|nock|msw|fetch-mock|sinon|mockall|mockito|wiremock)"?[[:space:]]*[=:><]' "$f" >/dev/null 2>&1; then
+              BAD="${BAD}${f}:"$'\n'$(grep -inE '(^|[[:space:]"])("|)(mock|pytest-mock|responses|requests-mock|vcrpy|httpretty|aioresponses|nock|msw|fetch-mock|sinon|mockall|mockito|wiremock)("|)[[:space:]]*[=:><]' "$f" | head -5)$'\n'
+            fi
+          done
+          if [ -n "$BAD" ]; then
+            echo "::error::Prohibited mock dependency in manifest — see POLICY_NO_MOCKS.md"
+            echo "$BAD"
+            exit 1
+          fi
+          echo "mock-dependency check PASS"
