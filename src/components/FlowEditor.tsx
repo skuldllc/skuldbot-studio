@@ -27,6 +27,8 @@ import AnimatedEdge from "./AnimatedEdge";
 import EmptyState from "./EmptyState";
 import { FlowNode, FlowEdge, isContainerNodeType } from "../types/flow";
 import { getCategoryColor } from "../utils/nodeCategories";
+import { isNodeExecutable, getNodePresentation } from "../lib/nodeAvailability";
+import { useToastStore } from "../store/toastStore";
 
 const nodeTypes: NodeTypes = {
   customNode: CustomNode,
@@ -117,6 +119,17 @@ export default function FlowEditor() {
       }
 
       if (!nodeData) return;
+
+      // Defence in depth: never add a node the runtime cannot execute, even if a
+      // drop somehow bypasses the palette's disabled state.
+      if (!isNodeExecutable(nodeData.type)) {
+        useToastStore.getState().error(
+          `${nodeData.label} is not available`,
+          getNodePresentation(nodeData.type).tooltip,
+        );
+        clearDraggedNodeData();
+        return;
+      }
 
       const position = screenToFlowPosition({
         x: event.clientX,
@@ -395,6 +408,15 @@ export default function FlowEditor() {
     // Check if there's a pending node to place (click-to-place for Tauri)
     const pendingNode = getPendingNodeTemplate();
     if (pendingNode) {
+      if (!isNodeExecutable(pendingNode.type)) {
+        useToastStore.getState().error(
+          `${pendingNode.label} is not available`,
+          getNodePresentation(pendingNode.type).tooltip,
+        );
+        clearPendingNodeTemplate();
+        return;
+      }
+
       const position = screenToFlowPosition({
         x: event.clientX,
         y: event.clientY,
@@ -509,6 +531,15 @@ export default function FlowEditor() {
 
       if (!nodeData) {
         console.warn("No drag data found - aborting drop");
+        return;
+      }
+
+      if (!isNodeExecutable(nodeData.type)) {
+        useToastStore.getState().error(
+          `${nodeData.label} is not available`,
+          getNodePresentation(nodeData.type).tooltip,
+        );
+        clearDraggedNodeData();
         return;
       }
 

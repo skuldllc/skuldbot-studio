@@ -1,0 +1,2467 @@
+{
+  "generatedBy": "QG19",
+  "nodes": {
+    "ai.agent": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.agent",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.classify": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.classify",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.embeddings": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.embeddings",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.extract_data": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.extract_data",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.model": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.model",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.repair_data": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.repair_data",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.sentiment": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.sentiment",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.suggest_repairs": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.suggest_repairs",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.summarize": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.summarize",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.translate": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.translate",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ai.vision": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ai.vision",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "api.ftp_upload": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.ftp_upload",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.graphql": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.graphql",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.http_request": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.http_request",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.json_path": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.json_path",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.oauth_token": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.oauth_token",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.parse_json": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.parse_json",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.rest_get": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.rest_get",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.rest_post": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.rest_post",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "api.soap": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "api.soap",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "bot.call": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "bot.call",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "bot.input": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "bot.input",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "bot.output": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "bot.output",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "bot.queue": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "bot.queue",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "code.javascript": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "code.javascript",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "code.python": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "code.python",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "compliance.audit_log": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "compliance.audit_log",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "compliance.protect_phi": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "compliance.protect_phi",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "compliance.protect_pii": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "compliance.protect_pii",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "control.append": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "control.append",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "control.filter": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "control.filter",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "control.goto": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.goto",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.if": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.if",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.loop": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.loop",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.map": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "control.map",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "control.parallel": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.parallel",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.reduce": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "control.reduce",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "control.set_variable": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.set_variable",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.stop": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.stop",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.switch": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.switch",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.try_catch": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.try_catch",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.wait": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.wait",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "control.while": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "control.while",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "data.tap.csv": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.csv",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.db2": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": false,
+      "nodeType": "data.tap.db2",
+      "reasons": [
+        "missing_compiler_mapping",
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.excel": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.excel",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.mysql": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.mysql",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.oracle": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.oracle",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.postgres": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.postgres",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.rest_api": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.rest_api",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.s3": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.s3",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.salesforce": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.salesforce",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.sftp": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.sftp",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.snowflake": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.snowflake",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.tap.sqlserver": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.tap.sqlserver",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.bigquery": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.bigquery",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.csv": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.csv",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.db2": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": false,
+      "nodeType": "data.target.db2",
+      "reasons": [
+        "missing_compiler_mapping",
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.excel": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.excel",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.mysql": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.mysql",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.oracle": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.oracle",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.postgres": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.postgres",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.s3": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.s3",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.sftp": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.sftp",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.snowflake": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.snowflake",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "data.target.sqlserver": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "data.target.sqlserver",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "database.call_procedure": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.call_procedure",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.close": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.close",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.commit": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.commit",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.connect": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.connect",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.insert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.insert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.query": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.query",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.transaction": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.transaction",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "database.update": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "database.update",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "dataquality.generate_report": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "dataquality.generate_report",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "dataquality.profile_data": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "dataquality.profile_data",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "dataquality.validate": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "dataquality.validate",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "desktop.click": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.click",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.clipboard_copy": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.clipboard_copy",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.close_window": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.close_window",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.get_window": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.get_window",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.hotkey": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.hotkey",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.image_click": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.image_click",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.maximize": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.maximize",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.minimize": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.minimize",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.open_app": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.open_app",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.screenshot": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.screenshot",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.type_text": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.type_text",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "desktop.wait_image": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "desktop.wait_image",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "document.analyze": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": false,
+      "nodeType": "document.analyze",
+      "reasons": [
+        "missing_compiler_mapping",
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "document.html_to_pdf": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.html_to_pdf",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "document.ocr": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.ocr",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "document.pdf_fill_form": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.pdf_fill_form",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "document.pdf_merge": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.pdf_merge",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "document.pdf_read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.pdf_read",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "document.pdf_split": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.pdf_split",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "document.pdf_to_image": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.pdf_to_image",
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
+    },
+    "document.word_read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.word_read",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "document.word_write": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "document.word_write",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.create_draft": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "email.create_draft",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "email.delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.download_attachment": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.download_attachment",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.forward": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.forward",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.get_folders": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "email.get_folders",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "email.mark_read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.mark_read",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.move": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.move",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.read",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.read_imap": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "email.read_imap",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "email.reply": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.reply",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.search": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.search",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.send": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "email.send",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "email.send_gmail": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "email.send_gmail",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "email.send_outlook": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "email.send_outlook",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "email.send_smtp": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "email.send_smtp",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.add_row": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.add_row",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.auto_filter": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.auto_filter",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.close": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.close",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.create": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.create",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.create_chart": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.create_chart",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.create_sheet": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.create_sheet",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.csv_read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.csv_read",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.csv_write": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.csv_write",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.delete_column": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.delete_column",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.delete_row": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.delete_row",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.delete_sheet": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.delete_sheet",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.export_pdf": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.export_pdf",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.filter": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.filter",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.find_replace": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.find_replace",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.get_sheets": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.get_sheets",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.insert_row": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.insert_row",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.merge_cells": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.merge_cells",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.open": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.open",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.pivot": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.pivot",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.read_cell": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.read_cell",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.read_range": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.read_range",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.rename_sheet": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.rename_sheet",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.save": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.save",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.set_format": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.set_format",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.sort": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.sort",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.vlookup": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "excel.vlookup",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "excel.write_cell": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.write_cell",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "excel.write_range": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "excel.write_range",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.copy": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.copy",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.create_folder": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.create_folder",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.exists": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.exists",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.get_info": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.get_info",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.list": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.list",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.move": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.move",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.presigned_url": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": false,
+      "nodeType": "files.presigned_url",
+      "reasons": [
+        "missing_compiler_mapping",
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "files.read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.read",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.unzip": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.unzip",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.watch": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.watch",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.write": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.write",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "files.zip": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "files.zip",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "human.approval": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "human.approval",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "human.exception": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "human.exception",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "human.input": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "human.input",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "human.notification": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "human.notification",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "human.review": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "human.review",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "insurance.extract_claim_data": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "insurance.extract_claim_data",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "insurance.fnol_record": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "insurance.fnol_record",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "insurance.lookup_policy": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "insurance.lookup_policy",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "insurance.validate_policy": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "insurance.validate_policy",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.audit": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.audit",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.export": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.export",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.log": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.log",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.metric": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.metric",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.notification": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.notification",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.screenshot": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.screenshot",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.timer_start": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.timer_start",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "logging.timer_stop": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "logging.timer_stop",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.connection": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.connection",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_categories": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_categories",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_copy": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_copy",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_download_attachment": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_download_attachment",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_draft": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_draft",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_flag": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_flag",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_forward": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_forward",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_get": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_get",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_get_attachments": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_get_attachments",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_importance": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_importance",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_list": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_list",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_mark_read": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_mark_read",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_move": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_move",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_reply": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_reply",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.email_search": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.email_search",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.email_send": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "ms365.email_send",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "ms365.folder_create": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.folder_create",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.folder_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.folder_delete",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "ms365.folder_list": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "ms365.folder_list",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "python.activate_venv": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "python.activate_venv",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "python.eval": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.eval",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.execute": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.execute",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.function": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.function",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.import_module": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.import_module",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.notebook": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.notebook",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.pip_install": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.pip_install",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.project": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.project",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "python.virtualenv": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "python.virtualenv",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "secrets.aws_secrets": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "secrets.aws_secrets",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "secrets.azure_keyvault": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "secrets.azure_keyvault",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "secrets.hashicorp_vault": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "secrets.hashicorp_vault",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "secrets.local_vault": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "secrets.local_vault",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "security.decrypt": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "security.decrypt",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "security.encrypt": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "security.encrypt",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "security.get_secret": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "security.get_secret",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "security.hash": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "security.hash",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "security.mask_data": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "security.mask_data",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "security.validate_cert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "security.validate_cert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "storage.provider": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "storage.provider",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "storage.sync": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "storage.sync",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "storage.transfer": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": true,
+      "nodeType": "storage.transfer",
+      "reasons": [
+        "missing_compiler_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "trigger.api_polling": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.api_polling",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.chat": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.chat",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.database_change": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.database_change",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.email_received": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.email_received",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.file_watch": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.file_watch",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.form": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.form",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.manual": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.manual",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.message_bus": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.message_bus",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.ms365_email": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.ms365_email",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.queue": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.queue",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.storage_event": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.storage_event",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.voice_inbound": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.voice_inbound",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "trigger.webhook": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "trigger.webhook",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.chroma_add": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.chroma_add",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.chroma_connect": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.chroma_connect",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.chroma_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.chroma_delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.chroma_query": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.chroma_query",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.chroma_update": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.chroma_update",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.embed_documents": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "vectordb.embed_documents",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "vectordb.load_documents": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "vectordb.load_documents",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "vectordb.memory": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.memory",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pgvector_admin": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": false,
+      "nodeType": "vectordb.pgvector_admin",
+      "reasons": [
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
+    },
+    "vectordb.pgvector_connect": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pgvector_connect",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pgvector_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pgvector_delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pgvector_query": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pgvector_query",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pgvector_upsert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pgvector_upsert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pinecone_connect": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pinecone_connect",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pinecone_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pinecone_delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pinecone_query": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pinecone_query",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.pinecone_upsert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.pinecone_upsert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.qdrant_connect": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.qdrant_connect",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.qdrant_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.qdrant_delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.qdrant_query": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.qdrant_query",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.qdrant_upsert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.qdrant_upsert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.supabase_connect": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.supabase_connect",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.supabase_delete": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.supabase_delete",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.supabase_query": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.supabase_query",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.supabase_stats": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.supabase_stats",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "vectordb.supabase_upsert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "vectordb.supabase_upsert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.add_turn": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.add_turn",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.call": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.call",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.get_context": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.get_context",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.get_recording": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.get_recording",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.get_transcript": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.get_transcript",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.hangup": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.hangup",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.listen": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.listen",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.set_context": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.set_context",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.speak": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.speak",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.transfer": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.transfer",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.twiml_gather": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.twiml_gather",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "voice.twiml_say": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "voice.twiml_say",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.click": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.click",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.close_browser": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.close_browser",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.download_file": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.download_file",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.execute_js": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.execute_js",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.get_attribute": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.get_attribute",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.get_text": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.get_text",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.handle_alert": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.handle_alert",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.navigate": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.navigate",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.open_browser": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.open_browser",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.screenshot": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.screenshot",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.scroll": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.scroll",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.select_option": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.select_option",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.switch_tab": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.switch_tab",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.type": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.type",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    },
+    "web.wait_element": {
+      "hasCompilerMapping": true,
+      "hasExecutorMapping": true,
+      "nodeType": "web.wait_element",
+      "reasons": [],
+      "runtimeBlocked": false,
+      "status": "executable"
+    }
+  },
+  "schemaVersion": "1.0.0",
+  "statuses": {
+    "executable": "executable",
+    "notImplemented": "not_implemented",
+    "runtimeBlocked": "runtime_blocked"
+  },
+  "summary": {
+    "compilerCount": 264,
+    "executorCount": 279,
+    "hiddenCompilerCount": 17,
+    "hiddenExecutorCount": 50,
+    "missingCompilerCount": 34,
+    "missingExecutorCount": 52,
+    "runtimeBlockedCount": 15,
+    "studioCount": 281
+  }
+}

@@ -6,6 +6,8 @@ import { createPortal } from "react-dom";
 import { Handle, Position, NodeProps, useReactFlow } from "reactflow";
 import { FlowNodeData, NodeCategory } from "../types/flow";
 import { getNodeTemplate } from "../data/nodeTemplates";
+import { getNodeAvailability } from "../lib/nodeAvailability";
+import { NodeAvailabilityBadge } from "./NodeAvailabilityBadge";
 import { useValidationStore } from "../store/validationStore";
 import { useDebugStore, useNodeDebugState } from "../store/debugStore";
 import { useUiPreferencesStore } from "../store/uiPreferencesStore";
@@ -168,6 +170,9 @@ const categoryStyles: Record<NodeCategory, { bg: string; border: string; icon: s
 
 function CustomNode({ data, selected, id }: NodeProps<FlowNodeData>) {
   const template = getNodeTemplate(data.nodeType);
+  // A node on the canvas that the runtime cannot execute (e.g. from an older flow
+  // or the AI Planner). It is flagged so the canvas never implies it will run.
+  const isNonExecutable = getNodeAvailability(data.nodeType).status !== "executable";
   const style = categoryStyles[data.category] || categoryStyles.control;
   const showTypeLabels = useUiPreferencesStore((state) => state.showTypeLabels);
   const isAI = data.category === "ai";
@@ -322,9 +327,15 @@ function CustomNode({ data, selected, id }: NodeProps<FlowNodeData>) {
           ? "border-primary ring-2 ring-primary/20 shadow-lg scale-[1.02]"
           : `${style.border} hover:shadow-lg hover:scale-[1.01]`
         }
+        ${isNonExecutable ? "ring-1 ring-amber-300 ring-offset-1" : ""}
       `}
       style={{ minWidth: 180 }}
     >
+      {isNonExecutable && (
+        <div className="absolute -bottom-2.5 left-2 z-20">
+          <NodeAvailabilityBadge nodeType={data.nodeType} />
+        </div>
+      )}
       {(status === "running" || status === "success") && (
         <div className="absolute top-2 right-2 z-20">
           {status === "running" ? (

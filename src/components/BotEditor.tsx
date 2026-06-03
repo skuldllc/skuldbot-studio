@@ -22,6 +22,7 @@ import "reactflow/dist/style.css";
 import { dslToFlowNodes, useProjectStore } from "../store/projectStore";
 import { useTabsStore } from "../store/tabsStore";
 import { useFlowStore, getDraggedNodeData, clearDraggedNodeData, getPendingNodeTemplate, clearPendingNodeTemplate } from "../store/flowStore";
+import { isNodeExecutable, getNodePresentation } from "../lib/nodeAvailability";
 import { useHistoryStore, generatePasteIds, duplicateNodes } from "../store/historyStore";
 import { useDebugStore } from "../store/debugStore";
 import { useToastStore } from "../store/toastStore";
@@ -720,6 +721,15 @@ export default function BotEditor() {
       // Clear immediately to prevent duplicate creation
       clearDraggedNodeData();
 
+      // Defence in depth: never add a node the runtime cannot execute.
+      if (!isNodeExecutable(nodeData.type)) {
+        useToastStore.getState().error(
+          `${nodeData.label} is not available`,
+          getNodePresentation(nodeData.type).tooltip,
+        );
+        return false;
+      }
+
       const rect = wrapper.getBoundingClientRect();
       // Check if mouse is inside the canvas
       if (clientX < rect.left || clientX > rect.right || clientY < rect.top || clientY > rect.bottom) {
@@ -1000,6 +1010,15 @@ export default function BotEditor() {
   const onPaneClick = useCallback((event: React.MouseEvent) => {
     const pendingNode = getPendingNodeTemplate();
     if (pendingNode) {
+      if (!isNodeExecutable(pendingNode.type)) {
+        useToastStore.getState().error(
+          `${pendingNode.label} is not available`,
+          getNodePresentation(pendingNode.type).tooltip,
+        );
+        clearPendingNodeTemplate();
+        return;
+      }
+
       pushToHistory();
 
       const position = screenToFlowPosition({
@@ -1086,6 +1105,15 @@ export default function BotEditor() {
       const nodeData = getDraggedNodeData();
       if (!nodeData) {
         // Already processed by dragend or no data
+        return;
+      }
+
+      if (!isNodeExecutable(nodeData.type)) {
+        useToastStore.getState().error(
+          `${nodeData.label} is not available`,
+          getNodePresentation(nodeData.type).tooltip,
+        );
+        clearDraggedNodeData();
         return;
       }
 

@@ -32,6 +32,8 @@ import { FormPreview } from "./FormPreview";
 import { ValidationBuilder } from "./ValidationBuilder";
 import { ProtectionBuilder } from "./ProtectionBuilder";
 import { FormFieldDefinition, OutputField, FlowEdge, FlowNode, ValidationRule, ProtectionRule } from "../types/flow";
+import { getNodeAvailability, getAvailabilityPresentation } from "../lib/nodeAvailability";
+import { NodeAvailabilityBadge } from "./NodeAvailabilityBadge";
 
 interface AvailableVariable {
   nodeId: string;
@@ -1949,6 +1951,63 @@ export default function NodeConfigPanel() {
 
   const template = getNodeTemplate(node.data.nodeType);
   if (!template) return null;
+
+  // Executable configuration is blocked for nodes the runtime cannot run. Such a
+  // node can still appear on the canvas (e.g. from an older flow or the AI Planner),
+  // but its settings are not editable — editing would imply it can be configured to
+  // run, which is not true yet. Show why instead, with a way to close.
+  const nodeAvailability = getNodeAvailability(node.data.nodeType);
+  const nodeAvailabilityPresentation = getAvailabilityPresentation(nodeAvailability);
+  if (nodeAvailabilityPresentation.blocked) {
+    return createPortal(
+      <>
+        <div
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
+          onClick={() => setSelectedNode(null)}
+        />
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-8 pointer-events-none">
+          <div
+            data-properties-panel="true"
+            id="node-config-panel"
+            className="bg-card border rounded-2xl shadow-2xl overflow-hidden pointer-events-auto flex flex-col w-full max-w-md"
+          >
+            <div className="flex items-center justify-between px-5 py-4 border-b">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center">
+                  <Icon name={template.icon} size={16} />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-sm font-semibold text-foreground truncate">
+                    {node.data.label || template.label}
+                  </div>
+                  <div className="text-[10px] text-muted-foreground font-mono truncate">
+                    {node.data.nodeType}
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setSelectedNode(null)}
+                className="flex-shrink-0 text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="px-5 py-5 space-y-3">
+              <NodeAvailabilityBadge nodeType={node.data.nodeType} />
+              <p className="text-sm text-foreground leading-relaxed">
+                This node can't be configured yet.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {nodeAvailabilityPresentation.tooltip}
+              </p>
+            </div>
+          </div>
+        </div>
+      </>,
+      document.body,
+    );
+  }
 
   const isFormTrigger = node.data.nodeType === "trigger.form";
   const isTrigger = node.data.category === "trigger";

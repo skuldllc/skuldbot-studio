@@ -12,6 +12,7 @@ import {
   getSchemaCandidateFromNodeData,
   parseNodeRuntimeTelemetryLine,
 } from "../utils/nodeRuntimeTelemetry";
+import { isNodeExecutable } from "../lib/nodeAvailability";
 
 // Re-export for convenience
 export type { FormTriggerConfig } from "../types/flow";
@@ -81,6 +82,21 @@ export const getFormTriggerConfig = (node: FlowNode): FormTriggerConfig | null =
     submitButtonLabel: config.submitButtonLabel || "Run Bot",
     fields: config.fields || [],
   };
+};
+
+// Names of nodes the runtime cannot execute today (per the QG19 parity manifest).
+// Used as the universal backstop before compile/run, so a flow can never be sent
+// to the runtime claiming nodes that have no compiler/executor mapping or that
+// require a graphical runtime that is not available yet — regardless of how the
+// node reached the canvas (drag, click-to-place, AI Planner, or an imported flow).
+const collectNonExecutableNodeLabels = (nodes: FlowNode[]): string[] => {
+  const labels: string[] = [];
+  for (const node of nodes) {
+    if (!isNodeExecutable(node.data.nodeType)) {
+      labels.push(node.data.label || node.data.nodeType);
+    }
+  }
+  return labels;
 };
 
 export const useFlowStore = create<FlowState>((set, get) => ({
@@ -201,6 +217,18 @@ export const useFlowStore = create<FlowState>((set, get) => ({
       return;
     }
 
+    const blockedCompile = collectNonExecutableNodeLabels(state.nodes);
+    if (blockedCompile.length > 0) {
+      const summary = blockedCompile.slice(0, 3).join(", ");
+      const extra = blockedCompile.length > 3 ? ` and ${blockedCompile.length - 3} more` : "";
+      toast.error(
+        "Flow has nodes that cannot run",
+        `Remove or replace: ${summary}${extra}. These nodes are not executable yet.`,
+      );
+      logs.error("Compilation blocked", `Non-executable nodes: ${blockedCompile.join(", ")}`);
+      return;
+    }
+
     // Check for triggers and auto-add Manual if none exists
     const hasTrigger = state.nodes.some(
       (node) => node.data.category === "trigger"
@@ -277,6 +305,18 @@ export const useFlowStore = create<FlowState>((set, get) => ({
 
     if (state.nodes.length === 0) {
       toast.warning("No nodes", "Add at least one node before running");
+      return;
+    }
+
+    const blockedRun = collectNonExecutableNodeLabels(state.nodes);
+    if (blockedRun.length > 0) {
+      const summary = blockedRun.slice(0, 3).join(", ");
+      const extra = blockedRun.length > 3 ? ` and ${blockedRun.length - 3} more` : "";
+      toast.error(
+        "Flow has nodes that cannot run",
+        `Remove or replace: ${summary}${extra}. These nodes are not executable yet.`,
+      );
+      logs.error("Run blocked", `Non-executable nodes: ${blockedRun.join(", ")}`);
       return;
     }
 

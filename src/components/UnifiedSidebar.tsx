@@ -39,6 +39,8 @@ import { useNavigationStore } from "../store/navigationStore";
 import { useAIPlannerV2Store } from "../store/aiPlannerV2Store";
 import { useCanUseAIPlanner, useLicenseStatus } from "../store/licenseStore";
 import { LicenseDialog } from "./LicenseDialog";
+import { getNodeAvailability, getAvailabilityPresentation } from "../lib/nodeAvailability";
+import { NodeAvailabilityBadge } from "./NodeAvailabilityBadge";
 
 // ============================================================
 // Sidebar Tab Types
@@ -733,6 +735,13 @@ function NodeItem({
   const isPython = node.category === "python";
   const isSpecial = isAI || isPython;
 
+  // A node may be dragged, placed or selected only when the parity manifest marks
+  // it executable. Non-executable nodes stay visible (with a badge explaining why)
+  // but cannot be added to a flow.
+  const availability = getNodeAvailability(node.type);
+  const presentation = getAvailabilityPresentation(availability);
+  const blocked = presentation.blocked;
+
   const [isPending, setIsPending] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -745,6 +754,10 @@ function NodeItem({
   }, [node.type]);
 
   const handleClick = () => {
+    if (blocked) {
+      // Non-executable nodes cannot be selected for placement.
+      return;
+    }
     const current = getPendingNodeTemplate();
     if (current?.type === node.type) {
       clearPendingNodeTemplate();
@@ -774,22 +787,28 @@ function NodeItem({
       onMouseLeave={() => setShowTooltip(false)}
     >
       <div
-        draggable="true"
+        draggable={!blocked}
         onDragStart={(e) => {
+          if (blocked) {
+            e.preventDefault();
+            return;
+          }
           onDragStart(e, node);
         }}
         onDragEnd={onDragEnd}
         onClick={handleClick}
+        aria-disabled={blocked}
         className={`
-          group flex items-center gap-2.5 px-2.5 py-2 rounded-lg cursor-pointer
+          group flex items-center gap-2.5 px-2.5 py-2 rounded-lg
           border transition-all duration-100 select-none
-          ${isPending
-            ? "bg-primary/10 border-primary ring-2 ring-primary/20"
-            : "border-transparent hover:bg-emerald-50 hover:border-emerald-200"}
-          active:scale-[0.98]
-          ${isSpecial ? "hover:shadow-sm" : ""}
+          ${blocked
+            ? "opacity-60 cursor-not-allowed border-transparent"
+            : isPending
+              ? "cursor-pointer bg-primary/10 border-primary ring-2 ring-primary/20"
+              : "cursor-pointer border-transparent hover:bg-emerald-50 hover:border-emerald-200 active:scale-[0.98]"}
+          ${!blocked && isSpecial ? "hover:shadow-sm" : ""}
         `}
-        style={{ WebkitUserDrag: 'element' } as React.CSSProperties}
+        style={{ WebkitUserDrag: (blocked ? 'none' : 'element') } as React.CSSProperties}
       >
         <div className={`
           relative flex-shrink-0 w-7 h-7 rounded-md
@@ -804,8 +823,11 @@ function NodeItem({
         </div>
 
         <div className="flex-1 min-w-0 overflow-hidden">
-          <div className="text-sm font-medium text-foreground leading-tight truncate max-w-[160px]">
-            {node.label}
+          <div className="flex items-center gap-1.5">
+            <div className="text-sm font-medium text-foreground leading-tight truncate max-w-[120px]">
+              {node.label}
+            </div>
+            <NodeAvailabilityBadge nodeType={node.type} hideWhenExecutable />
           </div>
           {showCategory ? (
             <div className="text-[11px] text-muted-foreground truncate max-w-[160px]">
@@ -857,10 +879,14 @@ function NodeItem({
               {node.description}
             </p>
 
-            <div className="mt-2 pt-2 border-t border-slate-700">
+            <div className="mt-2 pt-2 border-t border-slate-700 space-y-1.5">
               <span className={`text-[10px] px-2 py-0.5 rounded-full ${colors.bg} ${colors.text} font-medium`}>
                 {categoryNames[node.category]}
               </span>
+              <p className="text-[11px] text-slate-300 leading-relaxed">
+                <span className="font-semibold">{presentation.label}.</span>{" "}
+                {presentation.tooltip}
+              </p>
             </div>
           </div>
         </div>,
