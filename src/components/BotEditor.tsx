@@ -23,6 +23,7 @@ import { dslToFlowNodes, useProjectStore } from "../store/projectStore";
 import { useTabsStore } from "../store/tabsStore";
 import { useFlowStore, getDraggedNodeData, clearDraggedNodeData, getPendingNodeTemplate, clearPendingNodeTemplate } from "../store/flowStore";
 import { isNodeExecutable, getNodePresentation } from "../lib/nodeAvailability";
+import { FlowRuntimePreflight } from "./FlowRuntimePreflight";
 import { useHistoryStore, generatePasteIds, duplicateNodes } from "../store/historyStore";
 import { useDebugStore } from "../store/debugStore";
 import { useToastStore } from "../store/toastStore";
@@ -1197,6 +1198,9 @@ export default function BotEditor() {
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
+      <div className="absolute top-0 left-0 right-0 z-10 pointer-events-none">
+        <FlowRuntimePreflight nodes={nodes} />
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}

@@ -15,10 +15,11 @@
     "migrate:legacy-expr": "python3 ./scripts/migrate_legacy_expressions.py",
     "test:planner-flow": "node ./scripts/run_planner_flow_tests.mjs",
     "test:node-availability": "node ./scripts/run_node_availability_tests.mjs",
+    "test:flow-runtime": "node ./scripts/run_flow_runtime_requirements_tests.mjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "kill-vite": "lsof -ti:1420 | xargs kill -9 2>/dev/null || true",
     "verify": "bash ./scripts/verify_studio.sh",
-    "verify:ui": "npm run lint && npm run build && npm run test:node-availability"
+    "verify:ui": "npm run lint && npm run build && npm run test:node-availability && npm run test:flow-runtime"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",

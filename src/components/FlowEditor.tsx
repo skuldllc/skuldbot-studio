@@ -29,6 +29,7 @@ import { FlowNode, FlowEdge, isContainerNodeType } from "../types/flow";
 import { getCategoryColor } from "../utils/nodeCategories";
 import { isNodeExecutable, getNodePresentation } from "../lib/nodeAvailability";
 import { useToastStore } from "../store/toastStore";
+import { FlowRuntimePreflight } from "./FlowRuntimePreflight";
 
 const nodeTypes: NodeTypes = {
   customNode: CustomNode,
@@ -632,6 +633,9 @@ export default function FlowEditor() {
       onDragOver={onDragOver}
       onDrop={onDrop}
     >
+      <div className="absolute top-0 left-0 right-0 z-10 pointer-events-none">
+        <FlowRuntimePreflight nodes={nodes} />
+      </div>
       <ReactFlow
         nodes={nodes}
         edges={edges}
