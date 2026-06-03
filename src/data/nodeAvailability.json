@@ -1519,9 +1519,11 @@
       "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "logging.screenshot",
-      "reasons": [],
-      "runtimeBlocked": false,
-      "status": "executable"
+      "reasons": [
+        "requires_graphical_runtime"
+      ],
+      "runtimeBlocked": true,
+      "status": "runtime_blocked"
     },
     "logging.timer_start": {
       "hasCompilerMapping": true,
@@ -2461,7 +2463,7 @@
     "hiddenExecutorCount": 50,
     "missingCompilerCount": 34,
     "missingExecutorCount": 52,
-    "runtimeBlockedCount": 15,
+    "runtimeBlockedCount": 16,
     "studioCount": 281
   }
 }
