@@ -17,7 +17,8 @@
     "test:node-availability": "node ./scripts/run_node_availability_tests.mjs",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "kill-vite": "lsof -ti:1420 | xargs kill -9 2>/dev/null || true",
-    "verify": "bash ./scripts/verify_studio.sh"
+    "verify": "bash ./scripts/verify_studio.sh",
+    "verify:ui": "npm run lint && npm run build && npm run test:node-availability"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",

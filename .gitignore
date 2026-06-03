@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Transient temp file written by scripts/gen_node_availability.sh before its
+# atomic move into place; never committed.
+src/data/.nodeAvailability.json.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
