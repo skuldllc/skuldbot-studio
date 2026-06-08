@@ -1,0 +1,16 @@
+# Copyright (c) 2026 Skuld, LLC. All rights reserved.
+# Proprietary and confidential. Reverse engineering prohibited.
+
+.git
+.github
+node_modules
+dist
+coverage
+src-tauri/target
+*.log
+.env
+.env.*
+!.env.example
+Dockerfile
+docker-compose*.yml
+README.md
