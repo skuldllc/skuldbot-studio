@@ -3,6 +3,7 @@
     "routeCount": 308,
     "service": "skuldbot-orchestrator-api"
   },
+  "externalApiCallCount": 6,
   "orchestratorApiCandidateCount": 0,
   "orchestratorApiCandidates": [],
   "rawFetchCount": 0,
@@ -268,6 +269,57 @@
     {
       "command": "vault_verify_secret",
       "source": "src-tauri/src/main.rs"
+    }
+  ],
+  "rustApiCallCount": 6,
+  "rustApiCalls": [
+    {
+      "classification": "external-provider:ollama",
+      "line": 15,
+      "method": "GET",
+      "normalizedPath": "/api/tags",
+      "path": "/api/tags",
+      "source": "src-tauri/src/ai_planner/providers/ollama.rs"
+    },
+    {
+      "classification": "external-provider:ollama",
+      "line": 71,
+      "method": "POST",
+      "normalizedPath": "/api/generate",
+      "path": "/api/generate",
+      "source": "src-tauri/src/ai_planner/providers/ollama.rs"
+    },
+    {
+      "classification": "external-mcp-server",
+      "line": 88,
+      "method": "GET",
+      "normalizedPath": "/api/v1/mcp/tools",
+      "path": "/api/v1/mcp/tools",
+      "source": "src-tauri/src/mcp/client.rs"
+    },
+    {
+      "classification": "external-mcp-server",
+      "line": 136,
+      "method": "GET",
+      "normalizedPath": "/api/v1/mcp/resources",
+      "path": "/api/v1/mcp/resources",
+      "source": "src-tauri/src/mcp/client.rs"
+    },
+    {
+      "classification": "external-mcp-server",
+      "line": 174,
+      "method": "POST",
+      "normalizedPath": "/api/v1/mcp/tools/call",
+      "path": "/api/v1/mcp/tools/call",
+      "source": "src-tauri/src/mcp/client.rs"
+    },
+    {
+      "classification": "external-mcp-server",
+      "line": 208,
+      "method": "GET",
+      "normalizedPath": "/api/v1/mcp/resources/{}",
+      "path": "/api/v1/mcp/resources/{}",
+      "source": "src-tauri/src/mcp/client.rs"
     }
   ],
   "schemaVersion": 1,

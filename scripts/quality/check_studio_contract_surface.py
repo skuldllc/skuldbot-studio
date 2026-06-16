@@ -285,8 +285,33 @@ def contract_index() -> set[tuple[str, str]]:
     }
 
 
-def orchestrator_api_candidates() -> list[dict[str, object]]:
-    candidates: list[dict[str, object]] = []
+REQUIRED_RUST_API_CALLS = {
+    ("src-tauri/src/ai_planner/providers/ollama.rs", "/api/tags"),
+    ("src-tauri/src/ai_planner/providers/ollama.rs", "/api/generate"),
+    ("src-tauri/src/mcp/client.rs", "/api/v1/mcp/tools"),
+    ("src-tauri/src/mcp/client.rs", "/api/v1/mcp/resources"),
+    ("src-tauri/src/mcp/client.rs", "/api/v1/mcp/tools/call"),
+    ("src-tauri/src/mcp/client.rs", "/api/v1/mcp/resources/{}"),
+}
+
+
+def classify_rust_api_call(rel: str, endpoint: str, contract_routes: set[tuple[str, str]]) -> str:
+    normalized = normalize_path(endpoint)
+    if rel == "src-tauri/src/ai_planner/providers/ollama.rs" and normalized in {
+        "/api/tags",
+        "/api/generate",
+    }:
+        return "external-provider:ollama"
+    if rel == "src-tauri/src/mcp/client.rs" and normalized.startswith("/api/v1/mcp"):
+        return "external-mcp-server"
+    if any((method, normalized) in contract_routes for method in HTTP_METHODS):
+        return "orchestrator-api"
+    return "unclassified-api"
+
+
+def rust_api_calls() -> list[dict[str, object]]:
+    calls: list[dict[str, object]] = []
+    contract_routes = contract_index()
     for path in source_files(TAURI_SRC, {".rs"}):
         source = strip_comments(path.read_text())
         rel = str(path.relative_to(ROOT))
@@ -294,35 +319,32 @@ def orchestrator_api_candidates() -> list[dict[str, object]]:
         for index, line in enumerate(lines, start=1):
             if "/api/" not in line:
                 continue
-            window = "\n".join(lines[max(0, index - 20) : min(len(lines), index + 5)])
-            if "SKULDBOT_ORCHESTRATOR_URL" not in window:
-                continue
-            method = "POST" if ".post" in window or ".post" in line else "GET"
-            match = re.search(r"/api/[A-Za-z0-9_./:${}-]+", line)
-            if not match:
-                candidates.append(
+            method_window = "\n".join(lines[index - 1 : min(len(lines), index + 12)])
+            method = "POST" if ".post" in method_window else "GET"
+            for match in re.finditer(r"/api/[A-Za-z0-9_./:${}-]+", line):
+                endpoint = match.group(0).rstrip('",);')
+                calls.append(
                     {
                         "method": method,
-                        "path": None,
+                        "path": endpoint,
+                        "normalizedPath": normalize_path(endpoint),
+                        "classification": classify_rust_api_call(
+                            rel, endpoint, contract_routes
+                        ),
                         "source": rel,
                         "line": index,
-                        "unresolved": True,
                     }
                 )
-                continue
-            endpoint = match.group(0).rstrip('",);')
-            candidates.append(
-                {
-                    "method": method,
-                    "path": endpoint,
-                    "normalizedPath": normalize_path(endpoint),
-                    "source": rel,
-                    "line": index,
-                    "unresolved": False,
-                }
-            )
-    candidates.sort(key=lambda c: (str(c["source"]), int(c["line"])))
-    return candidates
+    calls.sort(key=lambda c: (str(c["source"]), int(c["line"]), str(c["path"])))
+    return calls
+
+
+def orchestrator_api_candidates(rust_calls: list[dict[str, object]]) -> list[dict[str, object]]:
+    return [
+        call
+        for call in rust_calls
+        if call.get("classification") == "orchestrator-api"
+    ]
 
 
 def raw_fetch_calls() -> list[dict[str, object]]:
@@ -349,7 +371,8 @@ def build_manifest() -> dict[str, object]:
     contract = json.loads(CONTRACT.read_text()) if CONTRACT.exists() else {}
     registered = registered_tauri_commands()
     invokes, unresolved = tauri_invocations()
-    remote = orchestrator_api_candidates()
+    rust_calls = rust_api_calls()
+    remote = orchestrator_api_candidates(rust_calls)
     fetches = raw_fetch_calls()
     return {
         "schemaVersion": 1,
@@ -361,11 +384,20 @@ def build_manifest() -> dict[str, object]:
         "registeredCommandCount": len(registered),
         "tauriInvokeCount": len(invokes),
         "unresolvedInvokeCount": len(unresolved),
+        "rustApiCallCount": len(rust_calls),
+        "externalApiCallCount": len(
+            [
+                call
+                for call in rust_calls
+                if str(call.get("classification", "")).startswith("external-")
+            ]
+        ),
         "orchestratorApiCandidateCount": len(remote),
         "rawFetchCount": len(fetches),
         "registeredCommands": registered,
         "tauriInvokes": invokes,
         "unresolvedInvokes": unresolved,
+        "rustApiCalls": rust_calls,
         "orchestratorApiCandidates": remote,
         "rawFetches": fetches,
     }
@@ -404,12 +436,24 @@ def run_check() -> int:
         )
 
     method_path = contract_index()
-    for call in manifest["orchestratorApiCandidates"]:
-        if call.get("unresolved"):
+    detected_rust_calls = {
+        (str(call["source"]), str(call["path"])) for call in manifest["rustApiCalls"]
+    }
+    missing_detector_guards = sorted(REQUIRED_RUST_API_CALLS - detected_rust_calls)
+    if missing_detector_guards:
+        errors.append(
+            "RUST API DETECTOR REGRESSION: missing known calls "
+            + ", ".join(f"{source}:{path}" for source, path in missing_detector_guards)
+        )
+
+    for call in manifest["rustApiCalls"]:
+        if call.get("classification") == "unclassified-api":
             errors.append(
-                f"UNRESOLVED ORCHESTRATOR API ROUTE: {call['source']}:{call['line']}"
+                f"UNCLASSIFIED RUST API CALL: {call['method']} {call['path']} "
+                f"at {call['source']}:{call['line']}"
             )
-            continue
+
+    for call in manifest["orchestratorApiCandidates"]:
         key = (str(call["method"]).upper(), str(call["normalizedPath"]))
         if key not in method_path:
             errors.append(
@@ -444,6 +488,7 @@ def run_check() -> int:
         "Studio contract surface integrity gate passed "
         f"({manifest['tauriInvokeCount']} Tauri invokes, "
         f"{manifest['registeredCommandCount']} registered commands, "
+        f"{manifest['rustApiCallCount']} Rust /api calls, "
         f"{manifest['orchestratorApiCandidateCount']} Orchestrator API candidates)."
     )
     return 0
