@@ -3,28 +3,31 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
-echo "[1/8] Checking environment..."
+echo "[1/9] Checking environment..."
 bash "$ROOT_DIR/check-setup.sh"
 
-echo "[2/8] Linting Studio frontend..."
+echo "[2/9] Linting Studio frontend..."
 (cd "$ROOT_DIR" && npm run lint)
 
-echo "[3/8] Building Studio frontend..."
+echo "[3/9] Building Studio frontend..."
 (cd "$ROOT_DIR" && npm run build)
 
-echo "[4/8] Running Tauri backend tests..."
+echo "[4/9] Running Tauri backend tests..."
 (cd "$ROOT_DIR/src-tauri" && cargo test)
 
-echo "[5/8] Running planner flow tests..."
+echo "[5/9] Running planner flow tests..."
 (cd "$ROOT_DIR" && npm run test:planner-flow)
 
-echo "[6/8] Running node availability tests..."
+echo "[6/9] Running catalog contract tests..."
+(cd "$ROOT_DIR" && npm run test:catalog-contract)
+
+echo "[7/9] Running node availability tests..."
 (cd "$ROOT_DIR" && npm run test:node-availability)
 
-echo "[7/8] Running flow runtime preflight tests..."
+echo "[8/9] Running flow runtime preflight tests..."
 (cd "$ROOT_DIR" && npm run test:flow-runtime)
 
-echo "[8/8] Running node-template compile smoke test..."
+echo "[9/9] Running node-template compile smoke test..."
 (cd "$ROOT_DIR" && npm run smoke:compile:nodes)
 
 echo "Studio verification passed."
