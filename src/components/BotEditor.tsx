@@ -96,12 +96,6 @@ export default function BotEditor() {
   const nodes = activeBot?.nodes ?? EMPTY_NODES;
   const edges = activeBot?.edges ?? EMPTY_EDGES;
 
-  // #region agent log
-  useEffect(() => {
-    fetch('http://127.0.0.1:7243/ingest/2ce691dc-013d-459b-9285-50430c26e8ac',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'BotEditor:render',message:'BotEditor rendering',data:{activeBotId,hasActiveBot:!!activeBot,nodesCount:nodes.length,edgesCount:edges.length,firstNodePositions:nodes.slice(0,3).map(n=>({id:n.id,x:n.position?.x,y:n.position?.y,type:n.data?.nodeType}))},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H5-render'})}).catch(()=>{});
-  }, [activeBotId, activeBot, nodes, edges]);
-  // #endregion
-
   // Keep refs in sync
   const nodesRef = useRef(nodes);
   const edgesRef = useRef(edges);
