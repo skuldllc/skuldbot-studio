@@ -1,0 +1,7223 @@
+{
+  "generatedFrom": "src/**/*.controller.ts",
+  "globalPrefix": "api",
+  "routeCount": 308,
+  "routes": [
+    {
+      "controller": "AppController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getHello",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "string",
+      "source": "src/app.controller.ts",
+      "surfaceOwner": "public"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api-keys",
+      "permissions": [
+        "api_keys:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ApiKeyResponseDto[]>",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/api-keys",
+      "permissions": [
+        "api_keys:write"
+      ],
+      "query": false,
+      "requestDto": "CreateApiKeyDto",
+      "responseDto": "Promise<CreateApiKeyResponseDto>",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "revoke",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/api-keys/:id",
+      "permissions": [
+        "api_keys:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/api-keys/:id",
+      "permissions": [
+        "api_keys:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ApiKeyResponseDto>",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/api-keys/:id",
+      "permissions": [
+        "api_keys:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateApiKeyDto",
+      "responseDto": "Promise<ApiKeyResponseDto>",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "regenerate",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/api-keys/:id/regenerate",
+      "permissions": [
+        "api_keys:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CreateApiKeyResponseDto>",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getUsageStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/api-keys/:id/usage",
+      "permissions": [
+        "api_keys:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ApiKeysController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAvailableScopes",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api-keys/scopes",
+      "permissions": [
+        "api_keys:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "",
+      "source": "src/auth/api-keys/api-keys.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchemasController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "submitDiscoveredSchemas",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/api/schemas/discovered",
+      "permissions": [],
+      "query": false,
+      "requestDto": "SubmitSchemasDto",
+      "responseDto": null,
+      "source": "src/schemas/schemas.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchemasController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getPendingSchemas",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api/schemas/pending",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/schemas/schemas.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchemasController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "forceSyncSchemas",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/api/schemas/sync",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/schemas/schemas.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MCPController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getCapabilities",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api/v1/mcp/capabilities",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "MCPCapabilitiesDto",
+      "source": "src/mcp/mcp.controller.ts",
+      "surfaceOwner": "mcp"
+    },
+    {
+      "controller": "MCPController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "health",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api/v1/mcp/health",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/mcp/mcp.controller.ts",
+      "surfaceOwner": "mcp"
+    },
+    {
+      "controller": "MCPController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "listResources",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api/v1/mcp/resources",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/mcp/mcp.controller.ts",
+      "surfaceOwner": "mcp"
+    },
+    {
+      "controller": "MCPController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "readResource",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "0"
+      ],
+      "path": "/api/api/v1/mcp/resources/*",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/mcp/mcp.controller.ts",
+      "surfaceOwner": "mcp"
+    },
+    {
+      "controller": "MCPController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "listTools",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/api/v1/mcp/tools",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/mcp/mcp.controller.ts",
+      "surfaceOwner": "mcp"
+    },
+    {
+      "controller": "MCPController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "callTool",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/api/v1/mcp/tools/call",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ToolCallDto",
+      "responseDto": null,
+      "source": "src/mcp/mcp.controller.ts",
+      "surfaceOwner": "mcp"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/audit",
+      "permissions": [
+        "audit:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedAuditLogsDto>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/audit/:id",
+      "permissions": [
+        "audit:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<AuditLogResponseDto>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "exportToCsv",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/audit/export/csv",
+      "permissions": [
+        "audit:export"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "exportToJson",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/audit/export/json",
+      "permissions": [
+        "audit:export"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findByResource",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "type",
+        "id"
+      ],
+      "path": "/api/audit/resource/:type/:id",
+      "permissions": [
+        "audit:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<AuditLogResponseDto[]>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getSecurityEvents",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/audit/security",
+      "permissions": [
+        "audit:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<AuditLogResponseDto[]>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getSummary",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/audit/summary",
+      "permissions": [
+        "audit:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<AuditSummaryDto>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findByUser",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/audit/user/:id",
+      "permissions": [
+        "audit:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<AuditLogResponseDto[]>",
+      "source": "src/audit/audit.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listAuditorAccounts",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/admin/accounts",
+      "permissions": [
+        "auditors:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createAuditorAccount",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auditor/admin/accounts",
+      "permissions": [
+        "auditors:write"
+      ],
+      "query": false,
+      "requestDto": "CreateAuditorDto",
+      "responseDto": "Promise<AuditorCreateResponseDto>",
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateAuditorAccount",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "auditorId"
+      ],
+      "path": "/api/auditor/admin/accounts/:auditorId",
+      "permissions": [
+        "auditors:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateAuditorDto",
+      "responseDto": "Promise<AuditorReadModelDto>",
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "regenerateAuditorAccessCode",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "auditorId"
+      ],
+      "path": "/api/auditor/admin/accounts/:auditorId/access-code",
+      "permissions": [
+        "auditors:extend"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<AuditorAccessCodeResponseDto>",
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "revokeAuditorAccount",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "auditorId"
+      ],
+      "path": "/api/auditor/admin/accounts/:auditorId/revoke",
+      "permissions": [
+        "auditors:delete"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<AuditorReadModelDto>",
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAdminCatalog",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/admin/catalog",
+      "permissions": [
+        "auditors:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<AuditorAdminCatalogDto>",
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "authenticate",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auditor/auth/token",
+      "permissions": [],
+      "query": false,
+      "requestDto": "AuditorTokenDto",
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getPublicCertificate",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/certificates/:organizationId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getComplianceScore",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/compliance-score",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "listEvidencePacks",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/evidence-packs",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getManifest",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "listAttestations",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/attestations",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getAttestation",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/attestations/:attestationId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "generateAttestation",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/attestations/generate",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getChainOfCustody",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/custody",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "verifyCustodyChain",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/custody/verify",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getMerkleProof",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/merkle-proof/:filePath",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "verifyIntegrity",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/verify-integrity",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "verifySignature",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auditor/evidence-packs/:packId/verify-signature",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuditorController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "AuditorAuthGuard"
+      ],
+      "handler": "getAuditSummary",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auditor/summary",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auditor/auditor.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "changePassword",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/change-password",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ChangePasswordDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "forgotPassword",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/forgot-password",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ForgotPasswordDto",
+      "responseDto": "",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "impersonate",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/impersonate",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ImpersonateUserDto",
+      "responseDto": "Promise<ImpersonateResponseDto>",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "login",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/login",
+      "permissions": [],
+      "query": false,
+      "requestDto": "LoginDto",
+      "responseDto": "Promise<LoginResponseDto | MfaRequiredResponseDto>",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "logout",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/logout",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "regenerateBackupCodes",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/mfa/backup-codes",
+      "permissions": [],
+      "query": false,
+      "requestDto": "RegenerateBackupCodesDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "disableMfa",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/mfa/disable",
+      "permissions": [],
+      "query": false,
+      "requestDto": "DisableMfaDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "enableMfa",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/mfa/enable",
+      "permissions": [],
+      "query": false,
+      "requestDto": "EnableMfaDto",
+      "responseDto": "Promise<EnableMfaResponseDto>",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "verifyMfa",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/mfa/verify",
+      "permissions": [],
+      "query": false,
+      "requestDto": "VerifyMfaDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "refresh",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/refresh",
+      "permissions": [],
+      "query": false,
+      "requestDto": "RefreshTokenDto",
+      "responseDto": "Promise<TokenResponseDto>",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "register",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/register",
+      "permissions": [],
+      "query": false,
+      "requestDto": "RegisterDto",
+      "responseDto": "RegisterResponseDto",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "resendVerification",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/resend-verification",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ResendVerificationDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "resetPassword",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/reset-password",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ResetPasswordDto",
+      "responseDto": "",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "revokeAllSessions",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [],
+      "path": "/api/auth/sessions",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "getSessions",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/auth/sessions",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<SessionResponseDto[]>",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard"
+      ],
+      "handler": "revokeSession",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/auth/sessions/:id",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "AuthController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "verifyEmail",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/auth/verify-email",
+      "permissions": [],
+      "query": false,
+      "requestDto": "VerifyEmailDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/auth.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/bots",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/bots",
+      "permissions": [],
+      "query": false,
+      "requestDto": "CreateBotDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "remove",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "internal-or-public",
+      "method": "PUT",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId",
+      "permissions": [],
+      "query": false,
+      "requestDto": "UpdateBotDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "archive",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/archive",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "clone",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/clone",
+      "permissions": [],
+      "query": false,
+      "requestDto": "CloneBotDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "exportBot",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/export",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ExportBotDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "toggleFavorite",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/favorite",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ToggleFavoriteDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "restore",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/restore",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "resume",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/resume",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotRunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/runs",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedRunsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotRunsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/runs",
+      "permissions": [
+        "runs:create"
+      ],
+      "query": false,
+      "requestDto": "Omit",
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotRunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/runs/stats",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunStatsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotRunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getTimelineStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/runs/timeline",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<RunTimelineStatsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotSchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/schedules",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedSchedulesDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotSchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/schedules",
+      "permissions": [
+        "schedules:create"
+      ],
+      "query": false,
+      "requestDto": "Omit",
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotSchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/schedules/stats",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ScheduleStatsDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateSharing",
+      "maturity": "internal-or-public",
+      "method": "PUT",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/sharing",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ShareBotDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "suspend",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/suspend",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "findVersions",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/versions",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "createVersion",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/versions",
+      "permissions": [],
+      "query": false,
+      "requestDto": "CreateBotVersionDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "deleteVersion",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [
+        "botId",
+        "versionId"
+      ],
+      "path": "/api/bots/:botId/versions/:versionId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "findVersion",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "botId",
+        "versionId"
+      ],
+      "path": "/api/bots/:botId/versions/:versionId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateVersion",
+      "maturity": "internal-or-public",
+      "method": "PUT",
+      "params": [
+        "botId",
+        "versionId"
+      ],
+      "path": "/api/bots/:botId/versions/:versionId",
+      "permissions": [],
+      "query": false,
+      "requestDto": "UpdateBotVersionDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "compile",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId",
+        "versionId"
+      ],
+      "path": "/api/bots/:botId/versions/:versionId/compile",
+      "permissions": [],
+      "query": false,
+      "requestDto": "CompileBotDto",
+      "responseDto": "Promise<CompileResultDto>",
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "deprecate",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId",
+        "versionId"
+      ],
+      "path": "/api/bots/:botId/versions/:versionId/deprecate",
+      "permissions": [],
+      "query": false,
+      "requestDto": "DeprecateVersionDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "publish",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId",
+        "versionId"
+      ],
+      "path": "/api/bots/:botId/versions/:versionId/publish",
+      "permissions": [],
+      "query": false,
+      "requestDto": "PublishVersionDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "getLatestPublished",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/bots/:botId/versions/latest",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "getHealthOverview",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/bots/health/overview",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "BotsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "importBot",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/bots/import",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ImportBotDto",
+      "responseDto": null,
+      "source": "src/bots/bots.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "aiEffectivePolicy",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/ai/effective-policy",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<EffectiveAgentCompliancePolicyReadModelDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "aiMemoryModes",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/ai/memory-modes",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ComplianceAiMemoryModeReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "aiModelProviders",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/ai/model-providers",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ComplianceAiModelProviderReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "aiPromptPacks",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/ai/prompt-packs",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CompliancePromptPackReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "aiToolCategories",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/ai/tool-categories",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ComplianceAiToolCategoryReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "aiVectorStores",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/ai/vector-stores",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ComplianceAiVectorStoreReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "decisions",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/decisions",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "decision",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/compliance/decisions/:id",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CompliancePolicyDecisionDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "effectivePolicy",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/effective-policy",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<EffectiveCompliancePolicyReadModelDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "evaluate",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/compliance/evaluate",
+      "permissions": [
+        "compliance:evaluate"
+      ],
+      "query": false,
+      "requestDto": "CompliancePolicyEvaluationRequestDto",
+      "responseDto": "Promise<CompliancePolicyDecisionDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "policyAssignments",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/policy-assignments",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<PolicyAssignmentReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "policyPacks",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/policy-packs",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CompliancePolicyPackAdminReadModelDto[]>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "postureReadModel",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/posture",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<CompliancePostureReadModelDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "missingEvidence",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/posture/missing-evidence",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<ComplianceMissingEvidenceReportDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "postureSnapshots",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/posture/snapshots",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "generatePostureSnapshot",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/compliance/posture/snapshots",
+      "permissions": [
+        "compliance:generate"
+      ],
+      "query": false,
+      "requestDto": "GeneratePostureSnapshotDto",
+      "responseDto": "Promise<CompliancePostureSnapshotDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "postureSnapshot",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/compliance/posture/snapshots/:id",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CompliancePostureSnapshotDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "signPostureSnapshot",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/compliance/posture/snapshots/:id/sign",
+      "permissions": [
+        "compliance:configure"
+      ],
+      "query": false,
+      "requestDto": "SignPostureSnapshotDto",
+      "responseDto": "Promise<CompliancePostureSnapshotDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "scopeCatalog",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/scope-catalog",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ComplianceScopeCatalogReadModelDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ComplianceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "sensitiveDataUse",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/compliance/sensitive-data-use",
+      "permissions": [
+        "compliance:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<SensitiveDataUseContextPageDto>",
+      "source": "src/policies/compliance.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CanonicalArchitectureContractsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getV3",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/contracts/canonical-architecture/v3",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "CanonicalArchitectureContractSurfaceDto",
+      "source": "src/runs/contracts/canonical-architecture-contracts.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/credentials",
+      "permissions": [
+        "credentials:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedCredentialsDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/credentials",
+      "permissions": [
+        "credentials:create"
+      ],
+      "query": false,
+      "requestDto": "CreateCredentialDto",
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "delete",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id",
+      "permissions": [
+        "credentials:delete"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id",
+      "permissions": [
+        "credentials:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id",
+      "permissions": [
+        "credentials:update"
+      ],
+      "query": false,
+      "requestDto": "UpdateCredentialDto",
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getCredentialAccessLogs",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id/logs",
+      "permissions": [
+        "credentials:audit"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedAccessLogsDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "revoke",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id/revoke",
+      "permissions": [
+        "credentials:revoke"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "rotate",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id/rotate",
+      "permissions": [
+        "credentials:rotate"
+      ],
+      "query": false,
+      "requestDto": "RotateCredentialDto",
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getRotationHistory",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id/rotation-history",
+      "permissions": [
+        "credentials:audit"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CredentialRotationHistoryDto[]>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateValue",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/:id/value",
+      "permissions": [
+        "credentials:update"
+      ],
+      "query": false,
+      "requestDto": "UpdateCredentialValueDto",
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listFolders",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/credentials/folders",
+      "permissions": [
+        "credentials:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<FolderDto[]>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createFolder",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/credentials/folders",
+      "permissions": [
+        "credentials:manage"
+      ],
+      "query": false,
+      "requestDto": "CreateFolderDto",
+      "responseDto": "Promise<FolderDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "deleteFolder",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/folders/:id",
+      "permissions": [
+        "credentials:manage"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateFolder",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/folders/:id",
+      "permissions": [
+        "credentials:manage"
+      ],
+      "query": false,
+      "requestDto": "UpdateFolderDto",
+      "responseDto": "Promise<FolderDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findByKey",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "key"
+      ],
+      "path": "/api/credentials/key/:key",
+      "permissions": [
+        "credentials:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CredentialDetailDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAccessLogs",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/credentials/logs",
+      "permissions": [
+        "credentials:audit"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedAccessLogsDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getSecretManifest",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/credentials/secret-manifest",
+      "permissions": [
+        "credentials:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/credentials/stats",
+      "permissions": [
+        "credentials:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CredentialStatsDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listVaultConnections",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/credentials/vaults",
+      "permissions": [
+        "credentials:admin"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<VaultConnectionDto[]>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createVaultConnection",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/credentials/vaults",
+      "permissions": [
+        "credentials:admin"
+      ],
+      "query": false,
+      "requestDto": "CreateVaultConnectionDto",
+      "responseDto": "Promise<VaultConnectionDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "testVaultConnection",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/credentials/vaults/:id/test",
+      "permissions": [
+        "credentials:admin"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "DashboardController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getOperationalOverview",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/dashboard/operational-overview",
+      "permissions": [
+        "bots:read",
+        "runs:read",
+        "runners:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<DashboardOperationalOverviewDto>",
+      "source": "src/dashboard/dashboard.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listPacks",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAttestations",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/:packId/attestations",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "AttestationRecord[]",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "generateAttestation",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/evidence/:packId/attestations/:framework",
+      "permissions": [
+        "compliance:generate"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getChainOfCustody",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/:packId/custody",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "exportForAuditor",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence/:packId/export",
+      "permissions": [
+        "evidence:download"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "applyLegalHold",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/evidence/:packId/legal-hold",
+      "permissions": [
+        "evidence:legal_hold"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getManifest",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/:packId/manifest",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<EvidenceManifest>",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "verifyCanonicalRunHash",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/:packId/verify/canonical-run-hash",
+      "permissions": [
+        "evidence:verify"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CanonicalRunHashVerification>",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "verifyIntegrity",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/:packId/verify/integrity",
+      "permissions": [
+        "evidence:verify"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "verifySignature",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/:packId/verify/signature",
+      "permissions": [
+        "evidence:verify"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getFrameworks",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence/frameworks",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "ComplianceFramework[]",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getPack",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "packId"
+      ],
+      "path": "/api/evidence/packs/:packId",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getRetentionPolicies",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence/retention-policies",
+      "permissions": [
+        "evidence:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "RetentionPolicy[]",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "enforceRetentionNow",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/evidence/retention/enforce",
+      "permissions": [
+        "evidence:retention"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<EvidenceRetentionEnforcementResult>",
+      "source": "src/evidence/evidence.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listProfiles",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence/store-profiles",
+      "permissions": [
+        "evidence-stores:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createProfile",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/evidence/store-profiles",
+      "permissions": [
+        "evidence-stores:create"
+      ],
+      "query": false,
+      "requestDto": "CreateEvidenceStoreProfileDto",
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateProfile",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "profileId"
+      ],
+      "path": "/api/evidence/store-profiles/:profileId",
+      "permissions": [
+        "evidence-stores:update"
+      ],
+      "query": false,
+      "requestDto": "UpdateEvidenceStoreProfileDto",
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "activateProfile",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "profileId"
+      ],
+      "path": "/api/evidence/store-profiles/:profileId/activate",
+      "permissions": [
+        "evidence-stores:activate"
+      ],
+      "query": false,
+      "requestDto": "EvidenceStoreProfileReasonDto",
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "archiveProfile",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "profileId"
+      ],
+      "path": "/api/evidence/store-profiles/:profileId/archive",
+      "permissions": [
+        "evidence-stores:archive"
+      ],
+      "query": false,
+      "requestDto": "EvidenceStoreProfileReasonDto",
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "restoreProfile",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "profileId"
+      ],
+      "path": "/api/evidence/store-profiles/:profileId/restore",
+      "permissions": [
+        "evidence-stores:archive"
+      ],
+      "query": false,
+      "requestDto": "EvidenceStoreProfileReasonDto",
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getTenantActions",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence/store-profiles/actions",
+      "permissions": [
+        "evidence-stores:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "EvidenceStoreProfilesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getActiveProfile",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/evidence/store-profiles/active",
+      "permissions": [
+        "evidence-stores:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/evidence/evidence-store-profiles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "HitlController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/hitl-requests",
+      "permissions": [
+        "hitl:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedHitlRequestsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "HitlController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/hitl-requests/:id",
+      "permissions": [
+        "hitl:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<HitlRequestDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "HitlController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "processAction",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/hitl-requests/:id/action",
+      "permissions": [
+        "hitl:manage"
+      ],
+      "query": false,
+      "requestDto": "HitlActionDto",
+      "responseDto": "Promise<HitlRequestDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "list",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/integrations",
+      "permissions": [
+        "integrations:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<IntegrationReadModelDto[]>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/integrations",
+      "permissions": [
+        "integrations:write"
+      ],
+      "query": false,
+      "requestDto": "CreateIntegrationConfigDto",
+      "responseDto": "Promise<IntegrationReadModelDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "get",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "integrationId"
+      ],
+      "path": "/api/integrations/:integrationId",
+      "permissions": [
+        "integrations:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<IntegrationReadModelDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "integrationId"
+      ],
+      "path": "/api/integrations/:integrationId",
+      "permissions": [
+        "integrations:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateIntegrationConfigDto",
+      "responseDto": "Promise<IntegrationReadModelDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "activate",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "integrationId"
+      ],
+      "path": "/api/integrations/:integrationId/activate",
+      "permissions": [
+        "integrations:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<IntegrationReadModelDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "disable",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "integrationId"
+      ],
+      "path": "/api/integrations/:integrationId/disable",
+      "permissions": [
+        "integrations:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<IntegrationReadModelDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "test",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "integrationId"
+      ],
+      "path": "/api/integrations/:integrationId/test",
+      "permissions": [
+        "integrations:test"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<IntegrationTestResultDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "IntegrationsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "catalog",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/integrations/catalog",
+      "permissions": [
+        "integrations:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<IntegrationCatalogDto>",
+      "source": "src/integrations/integrations.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "InternalCredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "ApiKeyGuard"
+      ],
+      "handler": "fetchCredential",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/internal/credentials/fetch",
+      "permissions": [],
+      "query": false,
+      "requestDto": "FetchCredentialDto",
+      "responseDto": "Promise<DecryptedCredentialDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "internal-only"
+    },
+    {
+      "controller": "InternalCredentialsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "ApiKeyGuard"
+      ],
+      "handler": "fetchCredentialsBulk",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/internal/credentials/fetch-bulk",
+      "permissions": [],
+      "query": false,
+      "requestDto": "BulkFetchCredentialsDto",
+      "responseDto": "Promise<BulkCredentialsResponseDto>",
+      "source": "src/credentials/credentials.controller.ts",
+      "surfaceOwner": "internal-only"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listEntries",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "domain"
+      ],
+      "path": "/api/lookups/:domain/entries",
+      "permissions": [
+        "lookups:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createEntry",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "domain"
+      ],
+      "path": "/api/lookups/:domain/entries",
+      "permissions": [
+        "lookups:create"
+      ],
+      "query": false,
+      "requestDto": "CreateLookupEntryDto",
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "reorderEntries",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "domain"
+      ],
+      "path": "/api/lookups/:domain/order",
+      "permissions": [
+        "lookups:update"
+      ],
+      "query": false,
+      "requestDto": "ReorderLookupEntriesDto",
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listDomains",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/lookups/domains",
+      "permissions": [
+        "lookups:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateEntry",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "entryId"
+      ],
+      "path": "/api/lookups/entries/:entryId",
+      "permissions": [
+        "lookups:update"
+      ],
+      "query": false,
+      "requestDto": "UpdateLookupEntryDto",
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "archiveEntry",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "entryId"
+      ],
+      "path": "/api/lookups/entries/:entryId/archive",
+      "permissions": [
+        "lookups:archive"
+      ],
+      "query": false,
+      "requestDto": "LookupReasonDto",
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "LookupsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "restoreEntry",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "entryId"
+      ],
+      "path": "/api/lookups/entries/:entryId/restore",
+      "permissions": [
+        "lookups:archive"
+      ],
+      "query": false,
+      "requestDto": "LookupReasonDto",
+      "responseDto": null,
+      "source": "src/lookups/lookups.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getCatalog",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/marketplace/catalog",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<CatalogResponse>",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getBotBySlug",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "slug"
+      ],
+      "path": "/api/marketplace/catalog/:slug",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<CatalogBot | null>",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getCategories",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/marketplace/categories",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "installBot",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/marketplace/install/:botId",
+      "permissions": [],
+      "query": false,
+      "requestDto": "Omit",
+      "responseDto": "Promise<BotInstallation>",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "isInstalled",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/marketplace/installed/:botId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getMyBots",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/marketplace/my-bots",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "uninstallBot",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/marketplace/my-bots/:id",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getInstallation",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/marketplace/my-bots/:id",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<BotInstallation>",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "checkForUpdates",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/marketplace/my-bots/:id/check-updates",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "configureInstallation",
+      "maturity": "internal-or-public",
+      "method": "PUT",
+      "params": [
+        "id"
+      ],
+      "path": "/api/marketplace/my-bots/:id/configure",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ConfigureInstallationDto",
+      "responseDto": "Promise<BotInstallation>",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "updateBot",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/marketplace/my-bots/:id/update",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<BotInstallation>",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getInstallationsForRunner",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/marketplace/runner/installations",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getPackageForRunner",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "installationId"
+      ],
+      "path": "/api/marketplace/runner/package/:installationId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "MarketplaceController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "reportRunnerExecution",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "installationId"
+      ],
+      "path": "/api/marketplace/runner/report/:installationId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/marketplace/marketplace.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ParticipantController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "listTasks",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/participant/tasks",
+      "permissions": [
+        "participant:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ParticipantTaskReadModelDto[]>",
+      "source": "src/participant/participant.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "ParticipantController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "submitAction",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "taskId"
+      ],
+      "path": "/api/participant/tasks/:taskId/action",
+      "permissions": [
+        "participant:respond"
+      ],
+      "query": false,
+      "requestDto": "ParticipantActionRequestDto",
+      "responseDto": "Promise<ParticipantTaskReadModelDto>",
+      "source": "src/participant/participant.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/roles",
+      "permissions": [
+        "roles:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<RoleDetailResponseDto[]>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/roles",
+      "permissions": [
+        "roles:write"
+      ],
+      "query": false,
+      "requestDto": "CreateRoleDto",
+      "responseDto": "Promise<RoleDetailResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "delete",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/roles/:id",
+      "permissions": [
+        "roles:delete"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/roles/:id",
+      "permissions": [
+        "roles:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RoleDetailResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/roles/:id",
+      "permissions": [
+        "roles:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateRoleDto",
+      "responseDto": "Promise<RoleDetailResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "clone",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/roles/:id/clone",
+      "permissions": [
+        "roles:write"
+      ],
+      "query": false,
+      "requestDto": "CloneRoleDto",
+      "responseDto": "Promise<RoleDetailResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "removePermissions",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/roles/:id/permissions",
+      "permissions": [
+        "roles:write"
+      ],
+      "query": false,
+      "requestDto": "RemovePermissionsDto",
+      "responseDto": "Promise<RoleDetailResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "assignPermissions",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/roles/:id/permissions",
+      "permissions": [
+        "roles:write"
+      ],
+      "query": false,
+      "requestDto": "AssignPermissionsDto",
+      "responseDto": "Promise<RoleDetailResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "compareRoles",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/roles/compare",
+      "permissions": [
+        "roles:read"
+      ],
+      "query": false,
+      "requestDto": "CompareRolesDto",
+      "responseDto": "Promise<RoleComparisonResponseDto>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RolesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAllPermissions",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/roles/permissions",
+      "permissions": [
+        "roles:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<PermissionsByCategory[]>",
+      "source": "src/roles/roles.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "completeRun",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runner-agent/complete",
+      "permissions": [],
+      "query": false,
+      "requestDto": "CompleteRunDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "heartbeat",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runner-agent/heartbeat",
+      "permissions": [],
+      "query": false,
+      "requestDto": "HeartbeatDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "getPendingJobs",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runner-agent/jobs",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "claimJob",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runner-agent/jobs/claim",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ClaimJobDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "sendLog",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runner-agent/log",
+      "permissions": [],
+      "query": false,
+      "requestDto": "SendLogDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "reportProgress",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runner-agent/progress",
+      "permissions": [],
+      "query": false,
+      "requestDto": "ReportProgressDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnerAgentController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "RunnerAuthGuard"
+      ],
+      "handler": "uploadRunArtifact",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "runId"
+      ],
+      "path": "/api/runner-agent/runs/:runId/artifacts",
+      "permissions": [],
+      "query": false,
+      "requestDto": "UploadRunArtifactDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "runner-agent"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runners",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "remove",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [
+        "runnerId"
+      ],
+      "path": "/api/runners/:runnerId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "runnerId"
+      ],
+      "path": "/api/runners/:runnerId",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "internal-or-public",
+      "method": "PUT",
+      "params": [
+        "runnerId"
+      ],
+      "path": "/api/runners/:runnerId",
+      "permissions": [],
+      "query": false,
+      "requestDto": "UpdateRunnerDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "regenerateApiKey",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "runnerId"
+      ],
+      "path": "/api/runners/:runnerId/regenerate-key",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "getWindowsSessionPool",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "runnerId"
+      ],
+      "path": "/api/runners/:runnerId/windows-session-pool",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "register",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runners/register",
+      "permissions": [],
+      "query": false,
+      "requestDto": "RegisterRunnerDto",
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "getRegistrationCatalog",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runners/registration/catalog",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunnersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "getStats",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runners/stats",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/runners/runners.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runs",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedRunsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/runs",
+      "permissions": [
+        "runs:create"
+      ],
+      "query": false,
+      "requestDto": "CreateRunDto",
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getArtifacts",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/artifacts",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunArtifactDto[]>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getArtifact",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id",
+        "artifactId"
+      ],
+      "path": "/api/runs/:id/artifacts/:artifactId",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunArtifactDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAttempts",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/attempts",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunAttemptDto[]>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "cancel",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/cancel",
+      "permissions": [
+        "runs:cancel"
+      ],
+      "query": false,
+      "requestDto": "CancelRunDto",
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getEvents",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/events",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedRunEventsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getLogs",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/logs",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<RunLogPageDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "pause",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/pause",
+      "permissions": [
+        "runs:manage"
+      ],
+      "query": false,
+      "requestDto": "PauseRunDto",
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getExecutionPlan",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/plan",
+      "permissions": [
+        "runs:admin"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ExecutionPlanV2Dto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getProjection",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/projection",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunProjectionDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getResolution",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/resolution",
+      "permissions": [
+        "runs:admin"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RunResolutionDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "resume",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/resume",
+      "permissions": [
+        "runs:manage"
+      ],
+      "query": false,
+      "requestDto": "ResumeRunDto",
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "retry",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/retry",
+      "permissions": [
+        "runs:create"
+      ],
+      "query": false,
+      "requestDto": "RetryRunDto",
+      "responseDto": "Promise<RunDetailDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getTimeline",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/runs/:id/timeline",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<RunTimelineEventDto[]>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runs/stats",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<RunStatsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RunsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getTimelineStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runs/timeline",
+      "permissions": [
+        "runs:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<RunTimelineStatsDto>",
+      "source": "src/runs/runs.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "RuntimeConnectionsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "list",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/runtime-connections",
+      "permissions": [
+        "runtime-connections:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<RuntimeConnectionReadModelDto[]>",
+      "source": "src/runtime-connections/runtime-connections.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulerAdminController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard"
+      ],
+      "handler": "getStatus",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/scheduler/status",
+      "permissions": [
+        "schedules:admin"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulerAdminController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard"
+      ],
+      "handler": "forceTick",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/scheduler/tick",
+      "permissions": [
+        "schedules:admin"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/schedules",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedSchedulesDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/schedules",
+      "permissions": [
+        "schedules:create"
+      ],
+      "query": false,
+      "requestDto": "CreateScheduleDto",
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "delete",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id",
+      "permissions": [
+        "schedules:delete"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id",
+      "permissions": [
+        "schedules:update"
+      ],
+      "query": false,
+      "requestDto": "UpdateScheduleDto",
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "activate",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/activate",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "disable",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/disable",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getEventTriggers",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/events",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<EventTriggerDto[]>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createEventTrigger",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/events",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "CreateEventTriggerDto",
+      "responseDto": "Promise<EventTriggerDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "deleteEventTrigger",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id",
+        "eventId"
+      ],
+      "path": "/api/schedules/:id/events/:eventId",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateEventTrigger",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id",
+        "eventId"
+      ],
+      "path": "/api/schedules/:id/events/:eventId",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "UpdateEventTriggerDto",
+      "responseDto": "Promise<EventTriggerDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getExecutions",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/executions",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedScheduleExecutionsDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "pause",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/pause",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "PauseScheduleDto",
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "resume",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/resume",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "ResumeScheduleDto",
+      "responseDto": "Promise<ScheduleDetailDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "trigger",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/trigger",
+      "permissions": [
+        "schedules:trigger"
+      ],
+      "query": false,
+      "requestDto": "TriggerScheduleDto",
+      "responseDto": "Promise<TriggerResultDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getWebhooks",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/webhooks",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<WebhookTriggerDto[]>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "createWebhook",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/schedules/:id/webhooks",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "CreateWebhookTriggerDto",
+      "responseDto": "Promise<WebhookTriggerDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateWebhook",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id",
+        "webhookId"
+      ],
+      "path": "/api/schedules/:id/webhooks/:webhookId",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "UpdateWebhookTriggerDto",
+      "responseDto": "Promise<WebhookTriggerDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "revokeWebhook",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id",
+        "webhookId"
+      ],
+      "path": "/api/schedules/:id/webhooks/:webhookId/revoke",
+      "permissions": [
+        "schedules:manage"
+      ],
+      "query": false,
+      "requestDto": "RevokeWebhookTriggerDto",
+      "responseDto": "Promise<void>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SchedulesController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getStats",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/schedules/stats",
+      "permissions": [
+        "schedules:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<ScheduleStatsDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SessionController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "TenantGuard"
+      ],
+      "handler": "switchTenant",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/session/switch-tenant",
+      "permissions": [],
+      "query": false,
+      "requestDto": "SwitchTenantDto",
+      "responseDto": "SwitchTenantResponse",
+      "source": "src/auth/session.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SettingsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "getSettings",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/settings",
+      "permissions": [
+        "settings:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<TenantSettingsResponse>",
+      "source": "src/settings/settings.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SettingsController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateSettings",
+      "maturity": "signed",
+      "method": "PUT",
+      "params": [],
+      "path": "/api/settings",
+      "permissions": [
+        "settings:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateSettingsDto",
+      "responseDto": "Promise<TenantSettingsResponse>",
+      "source": "src/settings/settings.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getConfig",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/sso/config",
+      "permissions": [
+        "settings:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<SsoConfigResponseDto>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "disableSso",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/sso/config/disable",
+      "permissions": [
+        "settings:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "configureOidc",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/sso/config/oidc",
+      "permissions": [
+        "settings:write"
+      ],
+      "query": false,
+      "requestDto": "ConfigureOidcDto",
+      "responseDto": "Promise<SsoConfigResponseDto>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "configureSaml",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/sso/config/saml",
+      "permissions": [
+        "settings:write"
+      ],
+      "query": false,
+      "requestDto": "ConfigureSamlDto",
+      "responseDto": "Promise<SsoConfigResponseDto>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "getMetadata",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/sso/metadata",
+      "permissions": [
+        "settings:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<SsoMetadataResponseDto>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "oidcCallback",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "tenant"
+      ],
+      "path": "/api/sso/oidc/:tenant/callback",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "oidcLogin",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "tenant"
+      ],
+      "path": "/api/sso/oidc/:tenant/login",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "samlCallback",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "tenant"
+      ],
+      "path": "/api/sso/saml/:tenant/callback",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "samlLogin",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "tenant"
+      ],
+      "path": "/api/sso/saml/:tenant/login",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "samlLogout",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "tenant"
+      ],
+      "path": "/api/sso/saml/:tenant/logout",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "samlMetadataPublic",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "tenant"
+      ],
+      "path": "/api/sso/saml/:tenant/metadata",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SsoController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "testConnection",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/sso/test",
+      "permissions": [
+        "settings:write"
+      ],
+      "query": false,
+      "requestDto": "TestSsoConnectionDto",
+      "responseDto": "Promise<",
+      "source": "src/auth/sso/sso.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "StudioPublishController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "publish",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/studio/publish",
+      "permissions": [
+        "bots:publish"
+      ],
+      "query": false,
+      "requestDto": "StudioPublishPackageContractDto",
+      "responseDto": "Promise<StudioPublishResultDto>",
+      "source": "src/studio-publish/studio-publish.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "StudioPublishController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "TenantGuard"
+      ],
+      "handler": "verify",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/studio/publish/verify",
+      "permissions": [
+        "bots:write"
+      ],
+      "query": false,
+      "requestDto": "StudioPublishPackageContractDto",
+      "responseDto": "Promise<StudioPublishGateReadModelDto>",
+      "source": "src/studio-publish/studio-publish.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "SubscriptionController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getSubscriptionInfo",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/subscription",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "SubscriptionInfo",
+      "source": "src/subscription/subscription.controller.ts",
+      "surfaceOwner": "orchestrator-bootstrap"
+    },
+    {
+      "controller": "SubscriptionController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getFeatures",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/subscription/features",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "",
+      "source": "src/subscription/subscription.controller.ts",
+      "surfaceOwner": "orchestrator-bootstrap"
+    },
+    {
+      "controller": "SubscriptionController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "validateSubscription",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/subscription/validate",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<SubscriptionInfo>",
+      "source": "src/subscription/subscription.controller.ts",
+      "surfaceOwner": "orchestrator-bootstrap"
+    },
+    {
+      "controller": "UsageController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getBotUsage",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "botId"
+      ],
+      "path": "/api/usage/bot/:botId",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/usage/usage.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsageController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getInstallationUsage",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [
+        "installationId"
+      ],
+      "path": "/api/usage/installation/:installationId",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/usage/usage.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsageController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getPendingCount",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/usage/pending-count",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/usage/usage.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsageController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [],
+      "handler": "getSummary",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/usage/summary",
+      "permissions": [],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<UsageSummary>",
+      "source": "src/usage/usage.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsageController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "trackEvent",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/usage/track",
+      "permissions": [],
+      "query": false,
+      "requestDto": "TrackUsageRequest",
+      "responseDto": "Promise<",
+      "source": "src/usage/usage.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsageController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "trackBatch",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/usage/track-batch",
+      "permissions": [],
+      "query": false,
+      "requestDto": "BatchTrackRequest",
+      "responseDto": "Promise<",
+      "source": "src/usage/usage.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "findAll",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [],
+      "path": "/api/users",
+      "permissions": [
+        "users:read"
+      ],
+      "query": true,
+      "requestDto": null,
+      "responseDto": "Promise<PaginatedUsersResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "create",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/users",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": "CreateUserDto",
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "delete",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id",
+      "permissions": [
+        "users:delete"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "findOne",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id",
+      "permissions": [
+        "users:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "update",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateUserDto",
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "deleteAvatar",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/avatar",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "getAvatar",
+      "maturity": "signed",
+      "method": "GET",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/avatar",
+      "permissions": [
+        "users:read"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "uploadAvatar",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/avatar",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "revokeInvitation",
+      "maturity": "signed",
+      "method": "DELETE",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/invitation",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<void>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "resendInvitation",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/resend-invite",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "adminResetPassword",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/reset-password",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": "AdminResetPasswordDto",
+      "responseDto": "Promise<",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateRoles",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/roles",
+      "permissions": [
+        "users:write",
+        "roles:assign"
+      ],
+      "query": false,
+      "requestDto": "UpdateUserRolesDto",
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateStatus",
+      "maturity": "signed",
+      "method": "PATCH",
+      "params": [
+        "id"
+      ],
+      "path": "/api/users/:id/status",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": "UpdateUserStatusDto",
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "inviteUser",
+      "maturity": "signed",
+      "method": "POST",
+      "params": [],
+      "path": "/api/users/invite",
+      "permissions": [
+        "users:write"
+      ],
+      "query": false,
+      "requestDto": "InviteUserDto",
+      "responseDto": "Promise<InvitationResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "getProfile",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/users/me",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<ProfileResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "updateProfile",
+      "maturity": "internal-or-public",
+      "method": "PATCH",
+      "params": [],
+      "path": "/api/users/me",
+      "permissions": [],
+      "query": false,
+      "requestDto": "UpdateProfileDto",
+      "responseDto": "Promise<ProfileResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "deleteOwnAvatar",
+      "maturity": "internal-or-public",
+      "method": "DELETE",
+      "params": [],
+      "path": "/api/users/me/avatar",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        200
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "getOwnAvatar",
+      "maturity": "internal-or-public",
+      "method": "GET",
+      "params": [],
+      "path": "/api/users/me/avatar",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": null,
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "UsersController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [
+        "JwtAuthGuard",
+        "PermissionsGuard",
+        "RolesGuard",
+        "TenantGuard"
+      ],
+      "handler": "uploadOwnAvatar",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [],
+      "path": "/api/users/me/avatar",
+      "permissions": [],
+      "query": false,
+      "requestDto": null,
+      "responseDto": "Promise<UserDetailResponseDto>",
+      "source": "src/users/users.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    },
+    {
+      "controller": "CentralWebhookIngressController",
+      "expectedStatuses": [
+        201
+      ],
+      "guards": [],
+      "handler": "invokeWebhook",
+      "maturity": "internal-or-public",
+      "method": "POST",
+      "params": [
+        "token"
+      ],
+      "path": "/api/webhooks/:token",
+      "permissions": [],
+      "query": false,
+      "requestDto": "unknown",
+      "responseDto": "Promise<TriggerResultDto>",
+      "source": "src/schedules/schedules.controller.ts",
+      "surfaceOwner": "orchestrator-ui"
+    }
+  ],
+  "schemaVersion": 1,
+  "service": "skuldbot-orchestrator-api"
+}

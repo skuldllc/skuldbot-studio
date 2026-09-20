@@ -1820,6 +1820,25 @@ async fn save_project_manifest(path: String, manifest: ProjectManifest) -> Resul
     Ok(())
 }
 
+#[tauri::command]
+async fn load_env_config(path: String) -> Result<serde_json::Value, String> {
+    let content = fs::read_to_string(&path)
+        .map_err(|e| format!("Failed to read environment config: {}", e))?;
+    serde_json::from_str::<serde_json::Value>(&content)
+        .map_err(|e| format!("Invalid environment config JSON: {}", e))
+}
+
+#[tauri::command]
+async fn save_env_config(path: String, config: serde_json::Value) -> Result<(), String> {
+    if let Some(parent) = std::path::Path::new(&path).parent() {
+        fs::create_dir_all(parent)
+            .map_err(|e| format!("Failed to create config directory: {}", e))?;
+    }
+    let payload = serde_json::to_string_pretty(&config)
+        .map_err(|e| format!("Failed to serialize environment config: {}", e))?;
+    fs::write(&path, payload).map_err(|e| format!("Failed to write environment config: {}", e))
+}
+
 // ============================================================
 // Bot Commands
 // ============================================================
@@ -5881,13 +5900,6 @@ fn get_license_validation_url() -> Option<String> {
         }
     }
 
-    if let Ok(orchestrator_url) = std::env::var("SKULDBOT_ORCHESTRATOR_URL") {
-        let base = orchestrator_url.trim_end_matches('/');
-        if !base.is_empty() {
-            return Some(format!("{}/api/licenses/validate", base));
-        }
-    }
-
     None
 }
 
@@ -6352,6 +6364,8 @@ fn main() {
             create_project,
             open_project,
             save_project_manifest,
+            load_env_config,
+            save_env_config,
             // Bot commands
             create_bot,
             load_bot,

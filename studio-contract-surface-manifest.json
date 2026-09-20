@@ -1,0 +1,590 @@
+{
+  "contractSource": {
+    "routeCount": 308,
+    "service": "skuldbot-orchestrator-api"
+  },
+  "orchestratorApiCandidateCount": 0,
+  "orchestratorApiCandidates": [],
+  "rawFetchCount": 0,
+  "rawFetches": [],
+  "registeredCommandCount": 65,
+  "registeredCommands": [
+    {
+      "command": "add_recent_project",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "ai_generate_executable_plan",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "ai_generate_plan",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "ai_refine_plan",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "cleanup_old_versions",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "compile_dsl",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "copy_asset",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "create_bot",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "create_project",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "debug_continue",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "debug_get_variables",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "debug_pause",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "debug_start",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "debug_step",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "debug_stop",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "delete_asset",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "delete_bot",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "delete_llm_connection",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "file_exists",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "get_engine_info",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "get_engine_setup_status",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "get_excel_sheets",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "get_recent_projects",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "list_assets",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "list_bot_versions",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "load_bot",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "load_bot_version",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "load_connections",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "load_env_config",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "load_llm_connections",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "load_project",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "open_project",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "protection_check_status",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "protection_get_machine_fingerprint",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "protection_validate_binary_license",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "read_directory",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "remove_recent_project",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "run_bot",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_bot",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_bot_version",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_connections",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_env_config",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_llm_connection",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_project",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "save_project_manifest",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "set_default_llm_connection",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "stop_bot",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "test_llm_connection",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "test_llm_connection_v2",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "test_ms365_connection",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "validate_dsl",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "validate_license",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_auto_unlock",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_change_password",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_create",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_create_auto",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_delete",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_delete_secret",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_exists",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_is_unlocked",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_list_secrets",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_lock",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_set_secret",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_unlock",
+      "source": "src-tauri/src/main.rs"
+    },
+    {
+      "command": "vault_verify_secret",
+      "source": "src-tauri/src/main.rs"
+    }
+  ],
+  "schemaVersion": 1,
+  "service": "skuldbot-studio",
+  "tauriInvokeCount": 62,
+  "tauriInvokes": [
+    {
+      "command": "ai_generate_executable_plan",
+      "line": 316,
+      "source": "src/store/aiPlannerV2Store.ts"
+    },
+    {
+      "command": "ai_generate_plan",
+      "line": 200,
+      "source": "src/store/aiPlannerStore.ts"
+    },
+    {
+      "command": "ai_refine_plan",
+      "line": 348,
+      "source": "src/store/aiPlannerStore.ts"
+    },
+    {
+      "command": "compile_dsl",
+      "line": 179,
+      "source": "src/components/ProjectToolbar.tsx"
+    },
+    {
+      "command": "compile_dsl",
+      "line": 269,
+      "source": "src/store/flowStore.ts"
+    },
+    {
+      "command": "create_bot",
+      "line": 612,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "create_project",
+      "line": 407,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "debug_continue",
+      "line": 596,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "debug_pause",
+      "line": 566,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "debug_start",
+      "line": 464,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "debug_step",
+      "line": 665,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "debug_step",
+      "line": 734,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "debug_stop",
+      "line": 84,
+      "source": "src/components/ProjectToolbar.tsx"
+    },
+    {
+      "command": "debug_stop",
+      "line": 635,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "delete_bot",
+      "line": 791,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "delete_llm_connection",
+      "line": 179,
+      "source": "src/store/connectionsStore.ts"
+    },
+    {
+      "command": "get_engine_setup_status",
+      "line": 26,
+      "source": "src/components/EngineSetupNotification.tsx"
+    },
+    {
+      "command": "get_excel_sheets",
+      "line": 1770,
+      "source": "src/components/NodeConfigPanel.tsx"
+    },
+    {
+      "command": "get_recent_projects",
+      "line": 948,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "load_bot",
+      "line": 673,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "load_env_config",
+      "line": 974,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "load_llm_connections",
+      "line": 84,
+      "source": "src/store/connectionsStore.ts"
+    },
+    {
+      "command": "open_project",
+      "line": 442,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "remove_recent_project",
+      "line": 957,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "run_bot",
+      "line": 256,
+      "source": "src/components/ProjectToolbar.tsx"
+    },
+    {
+      "command": "run_bot",
+      "line": 490,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "run_bot",
+      "line": 886,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "run_bot",
+      "line": 375,
+      "source": "src/store/flowStore.ts"
+    },
+    {
+      "command": "save_bot",
+      "line": 726,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "save_env_config",
+      "line": 1001,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "save_llm_connection",
+      "line": 113,
+      "source": "src/store/connectionsStore.ts"
+    },
+    {
+      "command": "save_llm_connection",
+      "line": 152,
+      "source": "src/store/connectionsStore.ts"
+    },
+    {
+      "command": "save_project_manifest",
+      "line": 535,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "save_project_manifest",
+      "line": 583,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "save_project_manifest",
+      "line": 647,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "save_project_manifest",
+      "line": 813,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "save_project_manifest",
+      "line": 863,
+      "source": "src/store/projectStore.ts"
+    },
+    {
+      "command": "set_default_llm_connection",
+      "line": 222,
+      "source": "src/store/connectionsStore.ts"
+    },
+    {
+      "command": "stop_bot",
+      "line": 83,
+      "source": "src/components/ProjectToolbar.tsx"
+    },
+    {
+      "command": "stop_bot",
+      "line": 636,
+      "source": "src/store/debugStore.ts"
+    },
+    {
+      "command": "test_llm_connection_v2",
+      "line": 234,
+      "source": "src/store/connectionsStore.ts"
+    },
+    {
+      "command": "test_ms365_connection",
+      "line": 2117,
+      "source": "src/components/NodeConfigPanel.tsx"
+    },
+    {
+      "command": "validate_license",
+      "line": 144,
+      "source": "src/store/licenseStore.ts"
+    },
+    {
+      "command": "validate_license",
+      "line": 241,
+      "source": "src/store/licenseStore.ts"
+    },
+    {
+      "command": "vault_auto_unlock",
+      "line": 75,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_auto_unlock",
+      "line": 124,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_change_password",
+      "line": 219,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_create",
+      "line": 180,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_create_auto",
+      "line": 85,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_create_auto",
+      "line": 136,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_create_auto",
+      "line": 159,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_delete",
+      "line": 84,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_delete",
+      "line": 135,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_delete_secret",
+      "line": 281,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_exists",
+      "line": 64,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_exists",
+      "line": 121,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_is_unlocked",
+      "line": 69,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_list_secrets",
+      "line": 235,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_lock",
+      "line": 209,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_set_secret",
+      "line": 262,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_unlock",
+      "line": 195,
+      "source": "src/store/vaultStore.ts"
+    },
+    {
+      "command": "vault_verify_secret",
+      "line": 248,
+      "source": "src/store/vaultStore.ts"
+    }
+  ],
+  "unresolvedInvokeCount": 0,
+  "unresolvedInvokes": []
+}

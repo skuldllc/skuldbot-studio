@@ -21,7 +21,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "kill-vite": "lsof -ti:1420 | xargs kill -9 2>/dev/null || true",
     "verify": "bash ./scripts/verify_studio.sh",
-    "verify:ui": "npm run lint && npm run build && npm run test:catalog-contract && npm run test:node-availability && npm run test:flow-runtime"
+    "verify:ui": "npm run lint && npm run quality:contract-surface-integrity && npm run build && npm run test:catalog-contract && npm run test:node-availability && npm run test:flow-runtime",
+    "quality:contract-surface-integrity": "python3 scripts/quality/check_studio_contract_surface.py",
+    "generate:studio-contract-surface": "python3 scripts/quality/check_studio_contract_surface.py --write"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.1.15",
