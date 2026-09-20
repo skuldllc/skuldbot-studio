@@ -20,6 +20,36 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create GitHub App token for private runtime checkouts
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          app-id: ${{ secrets.SKULD_RELEASE_APP_ID }}
+          private-key: ${{ secrets.SKULD_RELEASE_APP_PRIVATE_KEY }}
+          owner: skuldllc
+          repositories: skuldbot-executor,skuldbot-compiler
+
+      - name: Checkout Executor resource
+        uses: actions/checkout@v4
+        with:
+          repository: skuldllc/skuldbot-executor
+          token: ${{ steps.app-token.outputs.token }}
+          path: skuldbot-executor
+
+      - name: Checkout Compiler resource
+        uses: actions/checkout@v4
+        with:
+          repository: skuldllc/skuldbot-compiler
+          token: ${{ steps.app-token.outputs.token }}
+          path: skuldbot-compiler
+
+      - name: Link runtime resources to Tauri bundle paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          ln -s "$GITHUB_WORKSPACE/skuldbot-executor" "$GITHUB_WORKSPACE/../skuldbot-executor"
+          ln -s "$GITHUB_WORKSPACE/skuldbot-compiler" "$GITHUB_WORKSPACE/../skuldbot-compiler"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
