@@ -2862,15 +2862,6 @@ struct ExecutablePlanResponse {
     agent_mode: Option<String>, // "ask", "plan", or "generate"
 }
 
-#[derive(Debug, Serialize)]
-struct LicenseValidationResult {
-    valid: bool,
-    module: String,
-    #[serde(rename = "expiresAt")]
-    expires_at: String,
-    features: Vec<String>,
-    error: Option<String>,
-}
 
 // OpenAI API types
 #[derive(Debug, Serialize)]
@@ -4408,38 +4399,38 @@ mod planner_contract_tests {
     }
 
     #[test]
-    fn studio_seat_validation_url_is_orchestrator_only() {
+    fn studio_login_url_is_orchestrator_only() {
         let _guard = ENV_LOCK.lock().expect("env lock poisoned");
         std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
-        std::env::set_var(
-            "SKULDBOT_LICENSE_VALIDATION_URL",
-            "https://cp.example.test/api/licenses/validate",
-        );
-        assert_eq!(get_studio_seat_validation_url(), None);
+        assert_eq!(get_studio_login_url(), None);
 
         std::env::set_var("SKULDBOT_ORCHESTRATOR_URL", "https://orchestrator.example.test/");
         assert_eq!(
-            get_studio_seat_validation_url(),
-            Some("https://orchestrator.example.test/api/studio/seats/validate".to_string())
+            get_studio_login_url(),
+            Some("https://orchestrator.example.test/api/auth/studio/login".to_string())
         );
-        std::env::remove_var("SKULDBOT_LICENSE_VALIDATION_URL");
         std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
     }
 
     #[tokio::test]
-    async fn studio_seat_validation_fails_closed_without_orchestrator_url() {
+    async fn studio_login_fails_closed_without_orchestrator_url() {
         let _guard = ENV_LOCK.lock().expect("env lock poisoned");
         std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
-        std::env::set_var("SKULDBOT_ORCHESTRATOR_TOKEN", "test-token");
 
-        let result = validate_studio_seat_with_orchestrator("DEV-ALL-ACCESS").await;
+        let result = studio_login_against_orchestrator(&StudioLoginPayload {
+            email: "user@example.test".to_string(),
+            password: "password".to_string(),
+            seat_key: "seat-key-12345678".to_string(),
+            studio_instance_id: None,
+            mfa_code: None,
+            remember_me: None,
+        })
+        .await;
         assert!(result.is_err());
         assert_eq!(
             result.err().unwrap_or_default(),
-            "SKULDBOT_ORCHESTRATOR_URL is required for Studio seat validation"
+            "SKULDBOT_ORCHESTRATOR_URL is required for Studio login"
         );
-
-        std::env::remove_var("SKULDBOT_ORCHESTRATOR_TOKEN");
     }
 
     #[test]
@@ -5898,87 +5889,331 @@ Return ONLY valid JSON. Use user's language for all text."#,
 }
 
 // ============================================================
-// Studio Seat Validation Commands
+// Studio Login Commands
+//
+// Studio has no standalone "activate a seat key" action anymore: the seat
+// check happens server-side, inside real user login, before Orchestrator
+// ever issues a session (POST /api/auth/studio/login). A denied seat means
+// no session at all — there is nothing for Studio to "keep valid" locally.
+//
+// Tokens never cross into the webview/JS layer: they are written straight
+// to the OS keyring from Rust and read back the same way, the same pattern
+// already used for vault keys and LLM secrets. JS only ever sees the
+// non-secret session summary (user, studioSeat, sessionExpiresAt).
 // ============================================================
 
-#[derive(Debug, Deserialize)]
-struct RemoteStudioSeatValidationResponse {
-    valid: bool,
-    module: Option<String>,
-    #[serde(rename = "expiresAt")]
-    expires_at: Option<String>,
-    features: Option<Vec<String>>,
-    error: Option<String>,
+const STUDIO_SESSION_KEYRING_SERVICE: &str = "skuldbot-studio-session";
+const STUDIO_SESSION_KEYRING_KEY: &str = "tokens";
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct StudioSessionTokens {
+    #[serde(rename = "accessToken")]
+    access_token: String,
+    #[serde(rename = "refreshToken")]
+    refresh_token: String,
 }
 
-fn get_studio_seat_validation_url() -> Option<String> {
+fn studio_session_keyring_entry() -> Result<keyring::Entry, String> {
+    keyring::Entry::new(STUDIO_SESSION_KEYRING_SERVICE, STUDIO_SESSION_KEYRING_KEY)
+        .map_err(|e| format!("Keyring error: {}", e))
+}
+
+fn save_studio_session_tokens(tokens: &StudioSessionTokens) -> Result<(), String> {
+    let entry = studio_session_keyring_entry()?;
+    let serialized = serde_json::to_string(tokens)
+        .map_err(|e| format!("Failed to serialize session tokens: {}", e))?;
+    entry
+        .set_password(&serialized)
+        .map_err(|e| format!("Failed to save session tokens: {}", e))
+}
+
+fn load_studio_session_tokens() -> Result<Option<StudioSessionTokens>, String> {
+    let entry = studio_session_keyring_entry()?;
+    match entry.get_password() {
+        Ok(serialized) => serde_json::from_str(&serialized)
+            .map(Some)
+            .map_err(|e| format!("Failed to parse stored session tokens: {}", e)),
+        Err(keyring::Error::NoEntry) => Ok(None),
+        Err(e) => Err(format!("Failed to load session tokens: {}", e)),
+    }
+}
+
+fn clear_studio_session_tokens() -> Result<(), String> {
+    let entry = studio_session_keyring_entry()?;
+    match entry.delete_password() {
+        Ok(()) => Ok(()),
+        Err(keyring::Error::NoEntry) => Ok(()),
+        Err(e) => Err(format!("Failed to clear session tokens: {}", e)),
+    }
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct StudioAuthUser {
+    id: String,
+    email: String,
+    #[serde(rename = "firstName")]
+    first_name: String,
+    #[serde(rename = "lastName")]
+    last_name: String,
+    #[serde(rename = "tenantId")]
+    tenant_id: String,
+    roles: Vec<String>,
+    #[serde(rename = "mfaEnabled")]
+    mfa_enabled: bool,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+struct StudioSeatSession {
+    module: String,
+    #[serde(rename = "expiresAt")]
+    expires_at: Option<String>,
+    features: Vec<String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(untagged)]
+enum RemoteStudioLoginResponse {
+    MfaRequired {
+        #[serde(rename = "mfaMethod")]
+        mfa_method: String,
+        #[serde(rename = "sessionToken")]
+        session_token: String,
+    },
+    Success {
+        #[serde(rename = "accessToken")]
+        access_token: String,
+        #[serde(rename = "refreshToken")]
+        refresh_token: String,
+        #[serde(rename = "sessionExpiresAt")]
+        session_expires_at: String,
+        user: StudioAuthUser,
+        #[serde(rename = "studioSeat")]
+        studio_seat: StudioSeatSession,
+    },
+}
+
+#[derive(Debug, Deserialize)]
+struct RemoteApiError {
+    message: Option<String>,
+}
+
+#[derive(Debug, Serialize)]
+#[serde(tag = "status")]
+enum StudioLoginOutcome {
+    #[serde(rename = "mfaRequired")]
+    MfaRequired {
+        #[serde(rename = "mfaMethod")]
+        mfa_method: String,
+        #[serde(rename = "sessionToken")]
+        session_token: String,
+    },
+    #[serde(rename = "success")]
+    Success {
+        user: StudioAuthUser,
+        #[serde(rename = "studioSeat")]
+        studio_seat: StudioSeatSession,
+        #[serde(rename = "sessionExpiresAt")]
+        session_expires_at: String,
+    },
+}
+
+struct StudioLoginPayload {
+    email: String,
+    password: String,
+    seat_key: String,
+    studio_instance_id: Option<String>,
+    mfa_code: Option<String>,
+    remember_me: Option<bool>,
+}
+
+fn get_studio_login_url() -> Option<String> {
     if let Ok(orchestrator_url) = std::env::var("SKULDBOT_ORCHESTRATOR_URL") {
         let base = orchestrator_url.trim_end_matches('/');
         if !base.is_empty() {
-            return Some(format!("{}/api/studio/seats/validate", base));
+            return Some(format!("{}/api/auth/studio/login", base));
         }
     }
 
     None
 }
 
-async fn validate_studio_seat_with_orchestrator(seat_key: &str) -> Result<LicenseValidationResult, String> {
-    let Some(url) = get_studio_seat_validation_url() else {
-        return Err("SKULDBOT_ORCHESTRATOR_URL is required for Studio seat validation".to_string());
+async fn studio_login_against_orchestrator(
+    payload: &StudioLoginPayload,
+) -> Result<RemoteStudioLoginResponse, String> {
+    let Some(url) = get_studio_login_url() else {
+        return Err("SKULDBOT_ORCHESTRATOR_URL is required for Studio login".to_string());
     };
-    let orchestrator_token = std::env::var("SKULDBOT_ORCHESTRATOR_TOKEN").map_err(|_| {
-        "SKULDBOT_ORCHESTRATOR_TOKEN is required when SKULDBOT_ORCHESTRATOR_URL is configured"
-            .to_string()
-    })?;
 
     let client = reqwest::Client::builder()
-        .timeout(Duration::from_secs(8))
+        .timeout(Duration::from_secs(15))
         .build()
         .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
 
     let response = client
         .post(&url)
-        .header("Authorization", format!("Bearer {}", orchestrator_token))
-        .json(&serde_json::json!({ "seatKey": seat_key }))
+        .json(&serde_json::json!({
+            "email": payload.email,
+            "password": payload.password,
+            "seatKey": payload.seat_key,
+            "studioInstanceId": payload.studio_instance_id,
+            "mfaCode": payload.mfa_code,
+            "rememberMe": payload.remember_me,
+        }))
         .send()
         .await
-        .map_err(|e| format!("Studio seat server request failed: {}", e))?;
+        .map_err(|e| format!("Studio login request failed: {}", e))?;
 
     if !response.status().is_success() {
-        let status = response.status();
         let body = response.text().await.unwrap_or_default();
-        return Err(format!(
-            "Studio seat server rejected request ({}): {}",
-            status.as_u16(),
-            body
-        ));
+        let message = serde_json::from_str::<RemoteApiError>(&body)
+            .ok()
+            .and_then(|err| err.message)
+            .unwrap_or(body);
+        return Err(message);
     }
 
-    let payload: RemoteStudioSeatValidationResponse = response
-        .json()
+    response
+        .json::<RemoteStudioLoginResponse>()
         .await
-        .map_err(|e| format!("Failed to parse Studio seat server response: {}", e))?;
-
-    Ok(LicenseValidationResult {
-        valid: payload.valid,
-        module: payload.module.unwrap_or_default(),
-        expires_at: payload.expires_at.unwrap_or_default(),
-        features: payload.features.unwrap_or_default(),
-        error: payload.error,
-    })
+        .map_err(|e| format!("Failed to parse Studio login response: {}", e))
 }
 
 #[tauri::command]
-async fn validate_studio_seat(seat_key: String) -> Result<LicenseValidationResult, String> {
-    println!("🔑 Validating Studio seat: {}...", &seat_key[..8.min(seat_key.len())]);
+async fn studio_login(
+    email: String,
+    password: String,
+    seat_key: String,
+    studio_instance_id: Option<String>,
+    mfa_code: Option<String>,
+    remember_me: Option<bool>,
+) -> Result<StudioLoginOutcome, String> {
+    println!("🔑 Studio login attempt: {}", email);
 
-    let remote_result = validate_studio_seat_with_orchestrator(&seat_key).await?;
-    if remote_result.valid {
-        println!("✅ Studio seat validated by Orchestrator (module: {})", remote_result.module);
-    } else {
-        println!("❌ Studio seat rejected by Orchestrator");
+    let payload = StudioLoginPayload {
+        email,
+        password,
+        seat_key,
+        studio_instance_id,
+        mfa_code,
+        remember_me,
+    };
+
+    match studio_login_against_orchestrator(&payload).await? {
+        RemoteStudioLoginResponse::MfaRequired {
+            mfa_method,
+            session_token,
+        } => {
+            println!("🔐 Studio login requires MFA ({})", mfa_method);
+            Ok(StudioLoginOutcome::MfaRequired {
+                mfa_method,
+                session_token,
+            })
+        }
+        RemoteStudioLoginResponse::Success {
+            access_token,
+            refresh_token,
+            session_expires_at,
+            user,
+            studio_seat,
+        } => {
+            save_studio_session_tokens(&StudioSessionTokens {
+                access_token,
+                refresh_token,
+            })?;
+            println!(
+                "✅ Studio login succeeded (seat module: {})",
+                studio_seat.module
+            );
+            Ok(StudioLoginOutcome::Success {
+                user,
+                studio_seat,
+                session_expires_at,
+            })
+        }
     }
-    Ok(remote_result)
+}
+
+#[derive(Debug, Deserialize)]
+struct RemoteTokenResponse {
+    #[serde(rename = "accessToken")]
+    access_token: String,
+    #[serde(rename = "refreshToken")]
+    refresh_token: String,
+    #[serde(rename = "sessionExpiresAt")]
+    session_expires_at: String,
+}
+
+/// Restores a session from the keyring at app launch. Always re-validates
+/// with a live refresh call rather than trusting that stored tokens are
+/// still good — a revoked/expired refresh token fails closed here, clearing
+/// the keyring and forcing a real login instead of silently keeping a dead
+/// session "valid" (the exact bug that made the old license flow trust a
+/// seat forever once activated).
+#[tauri::command]
+async fn studio_restore_session() -> Result<Option<String>, String> {
+    let Some(tokens) = load_studio_session_tokens()? else {
+        return Ok(None);
+    };
+
+    let Some(base) = std::env::var("SKULDBOT_ORCHESTRATOR_URL").ok().map(|u| u.trim_end_matches('/').to_string()) else {
+        return Err("SKULDBOT_ORCHESTRATOR_URL is required to restore a Studio session".to_string());
+    };
+
+    let client = reqwest::Client::builder()
+        .timeout(Duration::from_secs(15))
+        .build()
+        .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
+
+    let response = client
+        .post(format!("{}/api/auth/refresh", base))
+        .json(&serde_json::json!({ "refreshToken": tokens.refresh_token }))
+        .send()
+        .await
+        .map_err(|e| format!("Studio session refresh request failed: {}", e))?;
+
+    if !response.status().is_success() {
+        // Fail closed: a rejected refresh means the session is really gone.
+        clear_studio_session_tokens()?;
+        return Ok(None);
+    }
+
+    let refreshed: RemoteTokenResponse = response
+        .json()
+        .await
+        .map_err(|e| format!("Failed to parse session refresh response: {}", e))?;
+
+    save_studio_session_tokens(&StudioSessionTokens {
+        access_token: refreshed.access_token,
+        refresh_token: refreshed.refresh_token,
+    })?;
+
+    Ok(Some(refreshed.session_expires_at))
+}
+
+#[tauri::command]
+async fn studio_logout() -> Result<(), String> {
+    if let Some(tokens) = load_studio_session_tokens()? {
+        if let Some(base) = std::env::var("SKULDBOT_ORCHESTRATOR_URL")
+            .ok()
+            .map(|u| u.trim_end_matches('/').to_string())
+        {
+            let client = reqwest::Client::builder()
+                .timeout(Duration::from_secs(8))
+                .build()
+                .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
+
+            // Best-effort server-side revoke — local tokens are cleared
+            // below regardless of whether this call succeeds, so a user can
+            // always log out even if Orchestrator is unreachable.
+            let _ = client
+                .post(format!("{}/api/auth/logout", base))
+                .header("Authorization", format!("Bearer {}", tokens.access_token))
+                .send()
+                .await;
+        }
+    }
+
+    clear_studio_session_tokens()
 }
 
 // ============================================================
@@ -6370,14 +6605,15 @@ fn main() {
             ai_generate_plan,
             ai_refine_plan,
             ai_generate_executable_plan,
-            // Studio seat commands
-            validate_studio_seat,
+            // Studio login/session commands
+            studio_login,
+            studio_restore_session,
+            studio_logout,
             // Utility commands
             read_directory,
             file_exists,
             get_excel_sheets,
             // Protection commands
-            protection::protection_validate_binary_license,
             protection::protection_check_status,
             protection::protection_get_machine_fingerprint
         ])

@@ -18,7 +18,7 @@ import {
   PlannerAgentMode,
 } from "../types/ai-planner";
 import { useToastStore } from "./toastStore";
-import { useLicenseStore } from "./licenseStore";
+import { useSessionStore } from "./sessionStore";
 import { useConnectionsStore } from "./connectionsStore";
 import { useProjectStore } from "./projectStore";
 import { useTabsStore } from "./tabsStore";
@@ -208,11 +208,11 @@ export const useAIPlannerV2Store = create<AIPlannerV2State>()(
         const { llmConfig, addMessage, iterations, maxIterations } = get();
         const effectiveMode = options?.forceMode || get().agentMode;
         const toast = useToastStore.getState();
-        const license = useLicenseStore.getState();
+        const session = useSessionStore.getState();
 
-        // Check license
-        if (!license.hasFeature("aiPlanner")) {
-          toast.error("License Required", "AI Planner requires a SkuldAI license");
+        // Check subscription
+        if (!session.hasFeature("aiPlanner")) {
+          toast.error("Subscription Required", "AI Planner requires the SkuldAI module on your Studio seat.");
           return;
         }
 

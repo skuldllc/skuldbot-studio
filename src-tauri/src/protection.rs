@@ -4,7 +4,6 @@
 //! IP Protection and Anti-Tampering Module
 //!
 //! This module provides:
-//! - License validation
 //! - Binary integrity verification
 //! - Anti-debugging measures
 //! - Encrypted configuration storage
@@ -13,85 +12,9 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use serde::{Deserialize, Serialize};
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::time::{SystemTime, UNIX_EPOCH};
-
-/// License types
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub enum LicenseType {
-    Trial,
-    Standard,
-    Professional,
-    Enterprise,
-}
-
-/// License information
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct License {
-    pub license_key: String,
-    pub license_type: LicenseType,
-    pub organization: String,
-    pub max_runners: u32,
-    pub expires_at: Option<u64>, // Unix timestamp, None = perpetual
-    pub features: Vec<String>,
-    pub signature: String,
-}
-
-impl License {
-    /// Validate license signature and expiration
-    pub fn is_valid(&self) -> bool {
-        // Check expiration
-        if let Some(expires) = self.expires_at {
-            let now = SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .unwrap()
-                .as_secs();
-            if now > expires {
-                return false;
-            }
-        }
-
-        // Verify signature
-        self.verify_signature()
-    }
-
-    /// Verify the license signature
-    fn verify_signature(&self) -> bool {
-        let data = format!(
-            "{}:{}:{}:{}:{:?}",
-            self.license_key,
-            self.organization,
-            self.max_runners,
-            self.expires_at.unwrap_or(0),
-            self.features
-        );
-
-        // Simple HMAC-like verification (in production, use proper crypto)
-        let expected = self.compute_signature(&data);
-        self.signature == expected
-    }
-
-    fn compute_signature(&self, data: &str) -> String {
-        // In production, use proper HMAC with secret key
-        // This is a placeholder - replace with real crypto
-        let mut hasher = DefaultHasher::new();
-        data.hash(&mut hasher);
-        // Mix with secret (obfuscated in binary)
-        let secret: [u8; 16] = [0x5B, 0x4B, 0x55, 0x4C, 0x44, 0x42, 0x4F, 0x54,
-                                 0x52, 0x55, 0x4E, 0x4E, 0x45, 0x52, 0x4B, 0x45];
-        for b in secret {
-            hasher.write_u8(b);
-        }
-        format!("{:016x}", hasher.finish())
-    }
-
-    /// Check if a feature is enabled
-    pub fn has_feature(&self, feature: &str) -> bool {
-        self.features.contains(&feature.to_string())
-    }
-}
 
 /// Anti-debugging detection
 pub fn detect_debugger() -> bool {
@@ -271,29 +194,6 @@ pub fn run_protection_checks() -> Result<(), String> {
 }
 
 // Tauri commands for IP protection
-
-#[tauri::command]
-pub fn protection_validate_binary_license(license_key: String) -> Result<License, String> {
-    // Binary-level license validation for IP protection
-    // This is separate from the application-level license validation
-    let license = License {
-        license_key: license_key.clone(),
-        license_type: LicenseType::Trial,
-        organization: "Trial User".to_string(),
-        max_runners: 1,
-        expires_at: Some(
-            SystemTime::now()
-                .duration_since(UNIX_EPOCH)
-                .unwrap()
-                .as_secs()
-                + 30 * 24 * 60 * 60, // 30 days
-        ),
-        features: vec!["basic".to_string()],
-        signature: String::new(), // Would be computed by license server
-    };
-
-    Ok(license)
-}
 
 #[tauri::command]
 pub fn protection_check_status() -> Result<serde_json::Value, String> {
