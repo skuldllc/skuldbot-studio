@@ -2,8 +2,8 @@
 // Proprietary and confidential. Reverse engineering prohibited.
 
 /**
- * License Dialog
- * Modal for activating and managing licenses
+ * Studio Seat Dialog
+ * Modal for activating and managing Studio seats
  */
 
 import { useState } from "react";
@@ -55,7 +55,7 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
   const { activateLicense, deactivateLicense, isValidating } = useLicenseStore();
   const { licenses, isActivated, hasAI, hasCompliance, hasDataQuality } = useLicenseStatus();
 
-  const [licenseKey, setLicenseKey] = useState("");
+  const [seatKey, setSeatKey] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [deactivateConfirm, setDeactivateConfirm] = useState<{ open: boolean; module: LicenseModule | null }>({
@@ -64,21 +64,21 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
   });
 
   const handleActivate = async () => {
-    if (!licenseKey.trim()) {
-      setError("Please enter a license key");
+    if (!seatKey.trim()) {
+      setError("Please enter a Studio seat key");
       return;
     }
 
     setError(null);
     setSuccess(null);
 
-    const result = await activateLicense(licenseKey);
+    const result = await activateLicense(seatKey);
 
     if (result.success) {
       setSuccess(`Successfully activated ${result.module} module`);
-      setLicenseKey("");
+      setSeatKey("");
     } else {
-      setError(result.error || "Failed to activate license");
+      setError(result.error || "Failed to activate Studio seat");
     }
   };
 
@@ -114,8 +114,8 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
               <Key className="w-5 h-5 text-primary-600" />
             </div>
             <div>
-              <h2 className="font-semibold text-slate-800">License Management</h2>
-              <p className="text-xs text-slate-500">Activate and manage your licenses</p>
+              <h2 className="font-semibold text-slate-800">Studio Seat Management</h2>
+              <p className="text-xs text-slate-500">Activate and manage your Studio seats</p>
             </div>
           </div>
           <button
@@ -128,16 +128,16 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
-          {/* License Key Input */}
+          {/* Studio Seat Key Input */}
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-2">
-              Activate New License
+              Activate New Studio Seat
             </label>
             <div className="flex gap-2">
               <input
                 type="text"
-                value={licenseKey}
-                onChange={(e) => setLicenseKey(e.target.value)}
+                value={seatKey}
+                onChange={(e) => setSeatKey(e.target.value)}
                 placeholder="XXXX-XXXX-XXXX-XXXX"
                 className="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 font-mono text-sm uppercase"
                 maxLength={19}
@@ -145,7 +145,7 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
               <Button
                 variant="default"
                 onClick={handleActivate}
-                disabled={isValidating || !licenseKey.trim()}
+                disabled={isValidating || !seatKey.trim()}
               >
                 {isValidating ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -170,17 +170,17 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
             )}
           </div>
 
-          {/* Active Licenses */}
+          {/* Active Studio Seats */}
           <div>
             <h3 className="text-sm font-medium text-slate-700 mb-3">
-              Active Licenses ({licenses.length})
+              Active Studio Seats ({licenses.length})
             </h3>
 
             {licenses.length === 0 ? (
               <div className="p-4 bg-slate-50 rounded-xl text-center">
-                <p className="text-sm text-slate-500">No active licenses</p>
+                <p className="text-sm text-slate-500">No active Studio seats</p>
                 <p className="text-xs text-slate-400 mt-1">
-                  Enter a license key above to activate
+                  Enter a Studio seat key above to activate
                 </p>
               </div>
             ) : (
@@ -299,7 +299,7 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
           {/* Help Text */}
           <div className="p-4 bg-blue-50 rounded-xl">
             <p className="text-xs text-blue-700">
-              <strong>Need a license?</strong> Visit{" "}
+              <strong>Need a Studio seat?</strong> Visit{" "}
               <a
                 href="https://skuldbot.com/pricing"
                 target="_blank"
@@ -308,7 +308,7 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
               >
                 skuldbot.com/pricing
               </a>{" "}
-              to purchase licenses or contact sales@skuldbot.com for enterprise options.
+              to purchase seats or contact sales@skuldbot.com for enterprise options.
             </p>
           </div>
         </div>
@@ -326,8 +326,8 @@ export function LicenseDialog({ isOpen, onClose }: LicenseDialogProps) {
       <ConfirmDialog
         open={deactivateConfirm.open}
         onOpenChange={(open) => !open && setDeactivateConfirm({ open: false, module: null })}
-        title="Deactivate License"
-        description={deactivateConfirm.module ? `Are you sure you want to deactivate the ${MODULE_INFO[deactivateConfirm.module].name} license?` : ""}
+        title="Deactivate Studio Seat"
+        description={deactivateConfirm.module ? `Are you sure you want to deactivate the ${MODULE_INFO[deactivateConfirm.module].name} seat?` : ""}
         confirmLabel="Deactivate"
         variant="destructive"
         onConfirm={confirmDeactivate}

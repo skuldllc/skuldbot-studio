@@ -7,7 +7,7 @@ import { invoke } from "@tauri-apps/api/core";
 import {
   LicenseModule,
   LicenseInfo,
-  LicenseValidationResponse,
+  StudioSeatValidationResponse,
 } from "../types/ai-planner";
 import { useToastStore } from "./toastStore";
 
@@ -136,51 +136,21 @@ export const useLicenseStore = create<LicenseStoreState>()(
         set({ isValidating: true });
 
         try {
-          // Check for dev all-access key
-          const keyUpper = key.toUpperCase();
-          const isDevKey = keyUpper === "DEV-ALL-ACCESS" || keyUpper === "KHIPUS-DEV-2024";
-
-          // Call Tauri backend to validate license with server
-          const response = await invoke<LicenseValidationResponse>("validate_license", {
-            licenseKey: key,
+          // Call Tauri backend to validate the Studio seat through Orchestrator.
+          const response = await invoke<StudioSeatValidationResponse>("validate_studio_seat", {
+            seatKey: key,
           });
 
           if (!response.valid) {
             set({ isValidating: false });
-            toast.error("Invalid License", response.error || "License key is invalid or expired");
-            return { success: false, error: response.error || "Invalid license key" };
+            toast.error("Invalid Studio Seat", response.error || "Studio seat key is invalid or expired");
+            return { success: false, error: response.error || "Invalid Studio seat key" };
           }
 
-          // For dev key, activate ALL modules at once
-          if (isDevKey) {
-            const allModules: LicenseModule[] = ["studio", "skuldai", "skuldcompliance", "skulddataquality"];
-            const devLicenses: LicenseInfo[] = allModules.map((module) => ({
-              module,
-              licenseKey: key,
-              expiresAt: response.expiresAt,
-              isValid: true,
-            }));
-
-            set({
-              activeLicenses: devLicenses,
-              isValidating: false,
-              lastValidated: new Date().toISOString(),
-            });
-
-            get()._updateEnabledFeatures();
-
-            toast.success(
-              "Dev License Activated",
-              "All modules activated for development"
-            );
-
-            return { success: true, module: "studio" as LicenseModule };
-          }
-
-          // Add to active licenses
+          // Add to active seats
           const newLicense: LicenseInfo = {
             module: response.module,
-            licenseKey: key,
+            seatKey: key,
             expiresAt: response.expiresAt,
             isValid: true,
           };
@@ -208,13 +178,13 @@ export const useLicenseStore = create<LicenseStoreState>()(
           get()._updateEnabledFeatures();
 
           toast.success(
-            "License Activated",
+            "Studio Seat Activated",
             `${response.module.charAt(0).toUpperCase() + response.module.slice(1)} module activated`
           );
 
           return { success: true, module: response.module };
         } catch (error) {
-          console.error("Failed to activate license:", error);
+          console.error("Failed to activate Studio seat:", error);
           set({ isValidating: false });
           toast.error("Activation Failed", String(error));
           return { success: false, error: String(error) };
@@ -238,8 +208,8 @@ export const useLicenseStore = create<LicenseStoreState>()(
 
         for (const license of activeLicenses) {
           try {
-            const response = await invoke<LicenseValidationResponse>("validate_license", {
-              licenseKey: license.licenseKey,
+            const response = await invoke<StudioSeatValidationResponse>("validate_studio_seat", {
+              seatKey: license.seatKey,
             });
 
             updatedLicenses.push({
@@ -279,7 +249,7 @@ export const useLicenseStore = create<LicenseStoreState>()(
         set({ activeLicenses: newLicenses });
         get()._updateEnabledFeatures();
 
-        toast.info("License Deactivated", `${module} module has been deactivated`);
+        toast.info("Studio Seat Deactivated", `${module} module has been deactivated`);
       },
 
       // ============================================================

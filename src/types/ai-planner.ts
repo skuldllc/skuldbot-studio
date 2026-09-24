@@ -109,7 +109,7 @@ export type LicenseModule = "studio" | "skuldai" | "skuldcompliance" | "skulddat
 
 export interface LicenseInfo {
   module: LicenseModule;
-  licenseKey: string;
+  seatKey: string;
   expiresAt: string;
   isValid: boolean;
 }
@@ -142,7 +142,7 @@ export interface LLMPlanResponse {
   clarifyingQuestions?: string[];
 }
 
-export interface LicenseValidationResponse {
+export interface StudioSeatValidationResponse {
   valid: boolean;
   module: LicenseModule;
   expiresAt: string;

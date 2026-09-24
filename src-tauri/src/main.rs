@@ -4408,22 +4408,38 @@ mod planner_contract_tests {
     }
 
     #[test]
-    fn license_validation_url_is_orchestrator_only() {
+    fn studio_seat_validation_url_is_orchestrator_only() {
         let _guard = ENV_LOCK.lock().expect("env lock poisoned");
         std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
         std::env::set_var(
             "SKULDBOT_LICENSE_VALIDATION_URL",
             "https://cp.example.test/api/licenses/validate",
         );
-        assert_eq!(get_license_validation_url(), None);
+        assert_eq!(get_studio_seat_validation_url(), None);
 
         std::env::set_var("SKULDBOT_ORCHESTRATOR_URL", "https://orchestrator.example.test/");
         assert_eq!(
-            get_license_validation_url(),
-            Some("https://orchestrator.example.test/api/licenses/validate".to_string())
+            get_studio_seat_validation_url(),
+            Some("https://orchestrator.example.test/api/studio/seats/validate".to_string())
         );
         std::env::remove_var("SKULDBOT_LICENSE_VALIDATION_URL");
         std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
+    }
+
+    #[tokio::test]
+    async fn studio_seat_validation_fails_closed_without_orchestrator_url() {
+        let _guard = ENV_LOCK.lock().expect("env lock poisoned");
+        std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
+        std::env::set_var("SKULDBOT_ORCHESTRATOR_TOKEN", "test-token");
+
+        let result = validate_studio_seat_with_orchestrator("DEV-ALL-ACCESS").await;
+        assert!(result.is_err());
+        assert_eq!(
+            result.err().unwrap_or_default(),
+            "SKULDBOT_ORCHESTRATOR_URL is required for Studio seat validation"
+        );
+
+        std::env::remove_var("SKULDBOT_ORCHESTRATOR_TOKEN");
     }
 
     #[test]
@@ -5882,11 +5898,11 @@ Return ONLY valid JSON. Use user's language for all text."#,
 }
 
 // ============================================================
-// License Validation Commands
+// Studio Seat Validation Commands
 // ============================================================
 
 #[derive(Debug, Deserialize)]
-struct RemoteLicenseValidationResponse {
+struct RemoteStudioSeatValidationResponse {
     valid: bool,
     module: Option<String>,
     #[serde(rename = "expiresAt")]
@@ -5895,20 +5911,20 @@ struct RemoteLicenseValidationResponse {
     error: Option<String>,
 }
 
-fn get_license_validation_url() -> Option<String> {
+fn get_studio_seat_validation_url() -> Option<String> {
     if let Ok(orchestrator_url) = std::env::var("SKULDBOT_ORCHESTRATOR_URL") {
         let base = orchestrator_url.trim_end_matches('/');
         if !base.is_empty() {
-            return Some(format!("{}/api/licenses/validate", base));
+            return Some(format!("{}/api/studio/seats/validate", base));
         }
     }
 
     None
 }
 
-async fn validate_license_with_server(license_key: &str) -> Result<Option<LicenseValidationResult>, String> {
-    let Some(url) = get_license_validation_url() else {
-        return Ok(None);
+async fn validate_studio_seat_with_orchestrator(seat_key: &str) -> Result<LicenseValidationResult, String> {
+    let Some(url) = get_studio_seat_validation_url() else {
+        return Err("SKULDBOT_ORCHESTRATOR_URL is required for Studio seat validation".to_string());
     };
     let orchestrator_token = std::env::var("SKULDBOT_ORCHESTRATOR_TOKEN").map_err(|_| {
         "SKULDBOT_ORCHESTRATOR_TOKEN is required when SKULDBOT_ORCHESTRATOR_URL is configured"
@@ -5923,112 +5939,46 @@ async fn validate_license_with_server(license_key: &str) -> Result<Option<Licens
     let response = client
         .post(&url)
         .header("Authorization", format!("Bearer {}", orchestrator_token))
-        .json(&serde_json::json!({ "licenseKey": license_key }))
+        .json(&serde_json::json!({ "seatKey": seat_key }))
         .send()
         .await
-        .map_err(|e| format!("License server request failed: {}", e))?;
+        .map_err(|e| format!("Studio seat server request failed: {}", e))?;
 
     if !response.status().is_success() {
         let status = response.status();
         let body = response.text().await.unwrap_or_default();
         return Err(format!(
-            "License server rejected request ({}): {}",
+            "Studio seat server rejected request ({}): {}",
             status.as_u16(),
             body
         ));
     }
 
-    let payload: RemoteLicenseValidationResponse = response
+    let payload: RemoteStudioSeatValidationResponse = response
         .json()
         .await
-        .map_err(|e| format!("Failed to parse license server response: {}", e))?;
+        .map_err(|e| format!("Failed to parse Studio seat server response: {}", e))?;
 
-    Ok(Some(LicenseValidationResult {
+    Ok(LicenseValidationResult {
         valid: payload.valid,
         module: payload.module.unwrap_or_default(),
         expires_at: payload.expires_at.unwrap_or_default(),
         features: payload.features.unwrap_or_default(),
         error: payload.error,
-    }))
+    })
 }
 
 #[tauri::command]
-async fn validate_license(license_key: String) -> Result<LicenseValidationResult, String> {
-    println!("🔑 Validating license: {}...", &license_key[..8.min(license_key.len())]);
+async fn validate_studio_seat(seat_key: String) -> Result<LicenseValidationResult, String> {
+    println!("🔑 Validating Studio seat: {}...", &seat_key[..8.min(seat_key.len())]);
 
-    match validate_license_with_server(&license_key).await {
-        Ok(Some(remote_result)) => {
-            if remote_result.valid {
-                println!("✅ License validated by server (module: {})", remote_result.module);
-            } else {
-                println!("❌ License rejected by server");
-            }
-            return Ok(remote_result);
-        }
-        Ok(None) => {
-            println!("ℹ️  No license server configured; using local format validation");
-        }
-        Err(e) => {
-            println!("❌ License server validation failed: {}", e);
-            return Err(e);
-        }
-    }
-
-    let key_upper = license_key.to_uppercase();
-
-    // Check key format and determine module
-    // DEV-ALL-ACCESS: Special development key that activates all modules
-    let (valid, module, features) = if key_upper == "DEV-ALL-ACCESS" || key_upper == "KHIPUS-DEV-2024" {
-        // Development key - returns studio but store will handle activating all modules
-        println!("🔓 DEV MODE: All-access key detected");
-        (true, "studio", vec![
-            "flowEditor", "localExecution", "projectManagement", "170+BaseNodes",
-            "aiPlanner", "aiRefinement", "localLLM", "ai.llm_prompt", "ai.extract_data",
-            "compliance.protect_pii", "compliance.protect_phi", "compliance.audit_log",
-            "dataquality.validate", "dataquality.profile_data", "ai.repair_data"
-        ])
-    } else if key_upper.starts_with("STUDIO-") {
-        (true, "studio", vec!["flowEditor", "localExecution", "projectManagement", "170+BaseNodes"])
-    } else if key_upper.starts_with("SKULDAI-") {
-        (true, "skuldai", vec!["aiPlanner", "aiRefinement", "localLLM", "ai.llm_prompt", "ai.extract_data"])
-    } else if key_upper.starts_with("COMPLY-") {
-        (true, "skuldcompliance", vec!["compliance.protect_pii", "compliance.protect_phi", "compliance.audit_log"])
-    } else if key_upper.starts_with("DATAQ-") {
-        (true, "skulddataquality", vec!["dataquality.validate", "dataquality.profile_data", "ai.repair_data"])
-    } else if key_upper.starts_with("DEMO-") {
-        // Demo key activates all modules for testing
-        (true, "studio", vec!["flowEditor", "localExecution", "projectManagement"])
+    let remote_result = validate_studio_seat_with_orchestrator(&seat_key).await?;
+    if remote_result.valid {
+        println!("✅ Studio seat validated by Orchestrator (module: {})", remote_result.module);
     } else {
-        (false, "", vec![])
-    };
-
-    if valid {
-        // Set expiration to 1 year from now for demo
-        let expires_at = chrono::Utc::now()
-            .checked_add_signed(chrono::Duration::days(365))
-            .unwrap_or_else(chrono::Utc::now)
-            .to_rfc3339();
-
-        println!("✅ License valid for module: {}", module);
-
-        Ok(LicenseValidationResult {
-            valid: true,
-            module: module.to_string(),
-            expires_at,
-            features: features.into_iter().map(String::from).collect(),
-            error: None,
-        })
-    } else {
-        println!("❌ Invalid license key");
-
-        Ok(LicenseValidationResult {
-            valid: false,
-            module: String::new(),
-            expires_at: String::new(),
-            features: vec![],
-            error: Some("Invalid license key format".to_string()),
-        })
+        println!("❌ Studio seat rejected by Orchestrator");
     }
+    Ok(remote_result)
 }
 
 // ============================================================
@@ -6420,8 +6370,8 @@ fn main() {
             ai_generate_plan,
             ai_refine_plan,
             ai_generate_executable_plan,
-            // License commands
-            validate_license,
+            // Studio seat commands
+            validate_studio_seat,
             // Utility commands
             read_directory,
             file_exists,
