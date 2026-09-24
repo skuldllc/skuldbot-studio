@@ -65,8 +65,11 @@ export function LoginScreen() {
           {!isMfaStep ? (
             <form onSubmit={handleCredentialsSubmit} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                <label htmlFor="studio-login-email" className="block text-sm font-medium text-slate-700 mb-1">
+                  Email
+                </label>
                 <Input
+                  id="studio-login-email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -78,8 +81,11 @@ export function LoginScreen() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Password</label>
+                <label htmlFor="studio-login-password" className="block text-sm font-medium text-slate-700 mb-1">
+                  Password
+                </label>
                 <Input
+                  id="studio-login-password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -89,10 +95,11 @@ export function LoginScreen() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label htmlFor="studio-login-seat-key" className="block text-sm font-medium text-slate-700 mb-1">
                   Studio seat key
                 </label>
                 <Input
+                  id="studio-login-seat-key"
                   type="text"
                   value={seatKey}
                   onChange={(e) => setSeatKey(e.target.value)}
@@ -102,8 +109,9 @@ export function LoginScreen() {
                 />
               </div>
 
-              <label className="flex items-center gap-2 text-sm text-slate-600">
+              <label htmlFor="studio-login-remember-me" className="flex items-center gap-2 text-sm text-slate-600">
                 <input
+                  id="studio-login-remember-me"
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
@@ -146,10 +154,11 @@ export function LoginScreen() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label htmlFor="studio-login-mfa-code" className="block text-sm font-medium text-slate-700 mb-1">
                   Verification code
                 </label>
                 <Input
+                  id="studio-login-mfa-code"
                   type="text"
                   inputMode="numeric"
                   value={mfaCode}
