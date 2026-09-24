@@ -4373,6 +4373,9 @@ fn get_api_key_from_env(provider: &str) -> Option<String> {
 mod planner_contract_tests {
     use super::*;
     use serde_json::json;
+    use std::sync::Mutex;
+
+    static ENV_LOCK: Mutex<()> = Mutex::new(());
 
     fn mk_step(id: &str, node_type: &str, label: &str) -> AIPlanStep {
         AIPlanStep {
@@ -4402,6 +4405,25 @@ mod planner_contract_tests {
 
         let err = result.err().unwrap_or_default();
         assert!(err.contains("uses label 'Next'"));
+    }
+
+    #[test]
+    fn license_validation_url_is_orchestrator_only() {
+        let _guard = ENV_LOCK.lock().expect("env lock poisoned");
+        std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
+        std::env::set_var(
+            "SKULDBOT_LICENSE_VALIDATION_URL",
+            "https://cp.example.test/api/licenses/validate",
+        );
+        assert_eq!(get_license_validation_url(), None);
+
+        std::env::set_var("SKULDBOT_ORCHESTRATOR_URL", "https://orchestrator.example.test/");
+        assert_eq!(
+            get_license_validation_url(),
+            Some("https://orchestrator.example.test/api/licenses/validate".to_string())
+        );
+        std::env::remove_var("SKULDBOT_LICENSE_VALIDATION_URL");
+        std::env::remove_var("SKULDBOT_ORCHESTRATOR_URL");
     }
 
     #[test]
@@ -5874,13 +5896,6 @@ struct RemoteLicenseValidationResponse {
 }
 
 fn get_license_validation_url() -> Option<String> {
-    if let Ok(explicit_url) = std::env::var("SKULDBOT_LICENSE_VALIDATION_URL") {
-        let trimmed = explicit_url.trim();
-        if !trimmed.is_empty() {
-            return Some(trimmed.to_string());
-        }
-    }
-
     if let Ok(orchestrator_url) = std::env::var("SKULDBOT_ORCHESTRATOR_URL") {
         let base = orchestrator_url.trim_end_matches('/');
         if !base.is_empty() {
@@ -5895,6 +5910,10 @@ async fn validate_license_with_server(license_key: &str) -> Result<Option<Licens
     let Some(url) = get_license_validation_url() else {
         return Ok(None);
     };
+    let orchestrator_token = std::env::var("SKULDBOT_ORCHESTRATOR_TOKEN").map_err(|_| {
+        "SKULDBOT_ORCHESTRATOR_TOKEN is required when SKULDBOT_ORCHESTRATOR_URL is configured"
+            .to_string()
+    })?;
 
     let client = reqwest::Client::builder()
         .timeout(Duration::from_secs(8))
@@ -5903,6 +5922,7 @@ async fn validate_license_with_server(license_key: &str) -> Result<Option<Licens
 
     let response = client
         .post(&url)
+        .header("Authorization", format!("Bearer {}", orchestrator_token))
         .json(&serde_json::json!({ "licenseKey": license_key }))
         .send()
         .await
@@ -5949,7 +5969,8 @@ async fn validate_license(license_key: String) -> Result<LicenseValidationResult
             println!("ℹ️  No license server configured; using local format validation");
         }
         Err(e) => {
-            println!("⚠️  License server validation failed, falling back to local format validation: {}", e);
+            println!("❌ License server validation failed: {}", e);
+            return Err(e);
         }
     }
 
