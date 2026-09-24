@@ -38,7 +38,7 @@ export function RefinementInput() {
   const suggestions = [
     "Add error handling with email notification",
     "Add a logging step for each action",
-    "Make this run on a daily schedule",
+    "Mark this as schedulable in Orchestrator",
     "Add a condition to skip duplicates",
   ];
 

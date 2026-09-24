@@ -17,6 +17,11 @@ import {
   buildExpressionNormalizationIndex,
   normalizeN8nExpressionsInValue,
 } from "../utils/expressionSyntax";
+import {
+  EXPLICIT_TRIGGER_REQUIRED_MESSAGE,
+  EXPLICIT_TRIGGER_REQUIRED_TITLE,
+  hasExplicitTrigger,
+} from "../lib/triggerGuards";
 
 export type DebugState = "idle" | "running" | "paused" | "stopped";
 
@@ -399,6 +404,13 @@ export const useDebugStore = create<DebugStoreState>((set, get) => ({
       return;
     }
 
+    if (!hasExplicitTrigger(currentFlowState.nodes)) {
+      logs.openPanel();
+      logs.error("Debug blocked", EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      toast.error(EXPLICIT_TRIGGER_REQUIRED_TITLE, EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      return;
+    }
+
     // Reset state
     set({
       state: "running",
@@ -418,11 +430,6 @@ export const useDebugStore = create<DebugStoreState>((set, get) => ({
     logs.info("Starting debug execution...");
     logs.openPanel();
 
-    // Check for triggers and auto-add Manual if none exists
-    const hasTrigger = currentFlowState.nodes.some(
-      (node) => node.data.category === "trigger"
-    );
-
     // Generate DSL from fresh state
     const dsl = currentFlowState.generateDSL();
 
@@ -432,28 +439,6 @@ export const useDebugStore = create<DebugStoreState>((set, get) => ({
     if (aiClassifyNode) {
       console.log("[debugStore] AI Classify node:", aiClassifyNode);
       console.log("[debugStore] model_config_:", aiClassifyNode.model_config_);
-    }
-
-    if (!hasTrigger) {
-      const manualTriggerId = `trigger-manual-${Date.now()}`;
-      const firstNodeId = dsl.nodes[0]?.id;
-
-      const manualTriggerNode = {
-        id: manualTriggerId,
-        type: "trigger.manual",
-        config: {},
-        outputs: {
-          success: firstNodeId || manualTriggerId,
-          error: manualTriggerId,
-        },
-        label: "Manual Trigger",
-      };
-
-      dsl.nodes.unshift(manualTriggerNode);
-      dsl.triggers = [manualTriggerId];
-      dsl.start_node = manualTriggerId;
-
-      logs.info("Auto-added Manual Trigger");
     }
 
     // Use interactive debug mode with breakpoints

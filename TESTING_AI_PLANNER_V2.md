@@ -113,8 +113,8 @@ cargo build --release
 
 ---
 
-### Test Case 3: Web Scraping with Scheduling
-**Goal**: Test trigger nodes and scheduling
+### Test Case 3: Web Scraping with Orchestrator Scheduling Intent
+**Goal**: Test that Studio declares a schedule intent but does not create runtime schedules
 
 **Steps**:
 1. In Chat tab, enter:
@@ -124,15 +124,69 @@ cargo build --release
 2. Send request
 
 **Expected Result**:
-- Workflow starts with `trigger.schedule` (not manual)
-- Schedule config: cron expression for 2 AM daily
+- Workflow may include `trigger.scheduled_run` as a declarative intent
+- Workflow must not include the legacy runtime `trigger.schedule`
+- The schedule intent must not carry cron, timezone, runner, blackout, activation or secret settings
+- Runtime schedule config (2 AM daily, timezone, blackout, placement) is configured in Orchestrator
+  after publish
 - Steps include:
-  - `trigger.schedule`
+  - `trigger.scheduled_run`
   - `web.open_browser`
   - `web.navigate`
   - `web.extract_table` or `web.scrape`
   - `spreadsheet.google_sheets_update`
   - Error handling nodes
+- Confidence: >= 0.75
+- Validation: Valid & Compilable
+
+---
+
+### Test Case 3A: Public Form Intake Intent
+**Goal**: Test form trigger planning without publishing a live public form from Studio
+
+**Steps**:
+1. In Chat tab, enter:
+   ```
+   Create a client intake form that starts an onboarding automation when submitted
+   ```
+2. Send request
+
+**Expected Result**:
+- Workflow may include `trigger.form` as a declarative form intent
+- `trigger.form` may include form schema fields, validation intent and output contract
+- `trigger.form` must not include live `publicUrl`, embed snippet, allowed origins, captcha,
+  rate limit, activation status, retention policy, evidence policy or runtime placement
+- Published URL/embed and submission ingress are configured by Orchestrator after publish
+- Steps include:
+  - `trigger.form`
+  - validation or enrichment nodes
+  - one or more business action nodes
+- Confidence: >= 0.75
+- Validation: Valid & Compilable
+
+---
+
+### Test Case 3B: Webhook Ingress Intent
+**Goal**: Test webhook trigger planning without assigning runtime endpoint/security in Studio
+
+**Steps**:
+1. In Chat tab, enter:
+   ```
+   Start a remediation bot whenever our incident system sends a webhook payload
+   ```
+2. Send request
+
+**Expected Result**:
+- Workflow may include `trigger.webhook` as a declarative webhook intent
+- `trigger.webhook` may include payload schema, sample payload and mapping intent
+- `trigger.webhook` must not include live endpoint URL/path, signing secret, allowed IPs,
+  required headers, rate limit, replay window, max calls, expiry or activation status
+- Endpoint URL, signature/secretRef and anti-abuse controls are configured by Orchestrator
+  after publish
+- Steps include:
+  - `trigger.webhook`
+  - validation/classification nodes as needed
+  - remediation or notification nodes
 - Confidence: >= 0.75
 - Validation: Valid & Compilable
 
@@ -150,7 +204,7 @@ cargo build --release
 
 **Expected Result**:
 - Workflow includes:
-  - `trigger.manual` or `trigger.schedule`
+  - `trigger.manual` or another non-time trigger intent
   - `data.sqlserver_tap` (source)
   - `data.transform` with deduplication
   - `data.transform` with null filtering
@@ -432,5 +486,3 @@ After testing:
 ## Contact
 
 For questions or issues, contact the development team or create an issue in the repository.
-
-

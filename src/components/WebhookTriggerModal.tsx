@@ -11,10 +11,6 @@ interface WebhookTriggerModalProps {
   onClose: () => void;
   onSubmit: (data: { body: Record<string, any>; headers: Record<string, string>; query: Record<string, string> }) => void;
   isLoading?: boolean;
-  webhookConfig: {
-    path?: string;
-    method?: string;
-  };
 }
 
 export function WebhookTriggerModal({
@@ -22,7 +18,6 @@ export function WebhookTriggerModal({
   onClose,
   onSubmit,
   isLoading = false,
-  webhookConfig,
 }: WebhookTriggerModalProps) {
   const [bodyJson, setBodyJson] = useState('{\n  "example": "data"\n}');
   const [headersJson, setHeadersJson] = useState('{}');
@@ -68,10 +63,10 @@ export function WebhookTriggerModal({
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-blue-500 animate-pulse" />
             <span className="text-sm font-medium text-slate-700">
-              Simulate Webhook
+              Webhook Payload Preview
             </span>
             <span className="text-xs text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-              {webhookConfig.method || "POST"} {webhookConfig.path || "/webhook"}
+              endpoint owned by Orchestrator
             </span>
           </div>
           <Button
