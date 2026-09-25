@@ -6292,6 +6292,74 @@ async fn studio_logout() -> Result<(), String> {
 }
 
 // ============================================================
+// Studio Publish Gate Commands
+//
+// Real endpoints, already live on Orchestrator (`skuldbot-orchestrator-api`
+// src/studio-publish/): POST /studio/publish/verify (read-only check) and
+// POST /studio/publish (mutating, requires bots:publish). Both take the
+// exact same request shape (`StudioPublishPackageContractDto`) and are
+// JWT-guarded — the payload itself is built and classified in TypeScript
+// (it already owns the honest runtime-requirements analysis via
+// analyzeFlowRuntimeRequirements), this layer only attaches the real
+// session token and makes the real HTTP call. No verdict is computed here
+// or in JS — canPublish/blockedReasons/checks all come back from the
+// server exactly as issued.
+// ============================================================
+
+async fn studio_publish_call(
+    path: &str,
+    payload: serde_json::Value,
+) -> Result<serde_json::Value, String> {
+    let tokens = current_studio_session_tokens()?
+        .ok_or_else(|| "Not signed in".to_string())?;
+
+    let base = std::env::var("SKULDBOT_ORCHESTRATOR_URL")
+        .ok()
+        .map(|u| u.trim_end_matches('/').to_string())
+        .ok_or_else(|| "SKULDBOT_ORCHESTRATOR_URL is required".to_string())?;
+
+    let client = reqwest::Client::builder()
+        .timeout(Duration::from_secs(30))
+        .build()
+        .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
+
+    let response = client
+        .post(format!("{}/api/studio/publish{}", base, path))
+        .header("Authorization", format!("Bearer {}", tokens.access_token))
+        .json(&payload)
+        .send()
+        .await
+        .map_err(|e| format!("Studio publish request failed: {}", e))?;
+
+    let status = response.status();
+    let body: serde_json::Value = response
+        .json()
+        .await
+        .map_err(|e| format!("Failed to parse Studio publish response: {}", e))?;
+
+    if !status.is_success() {
+        let message = body
+            .get("message")
+            .and_then(|m| m.as_str())
+            .map(str::to_string)
+            .unwrap_or_else(|| body.to_string());
+        return Err(message);
+    }
+
+    Ok(body)
+}
+
+#[tauri::command]
+async fn studio_publish_verify(payload: serde_json::Value) -> Result<serde_json::Value, String> {
+    studio_publish_call("/verify", payload).await
+}
+
+#[tauri::command]
+async fn studio_publish(payload: serde_json::Value) -> Result<serde_json::Value, String> {
+    studio_publish_call("", payload).await
+}
+
+// ============================================================
 // Utility Commands
 // ============================================================
 
@@ -6684,6 +6752,9 @@ fn main() {
             studio_login,
             studio_restore_session,
             studio_logout,
+            // Studio publish gate commands
+            studio_publish_verify,
+            studio_publish,
             // Utility commands
             read_directory,
             file_exists,

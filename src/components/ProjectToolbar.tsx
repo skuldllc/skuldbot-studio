@@ -1,7 +1,7 @@
 // Copyright (c) 2026 Skuld, LLC. All rights reserved.
 // Proprietary and confidential. Reverse engineering prohibited.
 
-import { Play, Square, Download, Save, Package, Loader2, Undo, Redo } from "lucide-react";
+import { Play, Square, Download, Save, Package, Loader2, Undo, Redo, UploadCloud } from "lucide-react";
 import { useState } from "react";
 import { invoke } from "@tauri-apps/api/core";
 import { useProjectStore } from "../store/projectStore";
@@ -14,6 +14,7 @@ import { useDebugStore } from "../store/debugStore";
 import { SkuldLogoBox } from "./ui/SkuldLogo";
 import { Button } from "./ui/Button";
 import FormTriggerModal from "./FormTriggerModal";
+import { PublishDialog } from "./publish/PublishDialog";
 import { buildExecutionDSL } from "../lib/dsl";
 import {
   EXPLICIT_TRIGGER_REQUIRED_MESSAGE,
@@ -42,6 +43,7 @@ export default function ProjectToolbar() {
   const [isSaving, setIsSaving] = useState(false);
   const [showFormModal, setShowFormModal] = useState(false);
   const [formConfig, setFormConfig] = useState<FormTriggerConfig | null>(null);
+  const [showPublishDialog, setShowPublishDialog] = useState(false);
 
   const activeBot = getActiveBot();
   const activeTab = tabs.find((t) => t.botId === activeBotId);
@@ -391,6 +393,19 @@ export default function ProjectToolbar() {
 
         <div className="w-px h-5 bg-slate-200 mx-1" />
 
+        {/* Publish */}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setShowPublishDialog(true)}
+          disabled={!activeBot || !hasNodes}
+          title="Publish to Orchestrator"
+          className="text-slate-500 hover:text-slate-700"
+        >
+          <UploadCloud className="h-4 w-4" />
+          <span className="ml-1">Publish</span>
+        </Button>
+
         {/* Export */}
         <Button
           variant="ghost"
@@ -436,6 +451,17 @@ export default function ProjectToolbar() {
             fields: formConfig.fields,
             submitButtonLabel: formConfig.submitButtonLabel,
           }}
+        />
+      )}
+
+      {/* Publish Dialog */}
+      {activeBot && (
+        <PublishDialog
+          isOpen={showPublishDialog}
+          onClose={() => setShowPublishDialog(false)}
+          bot={{ id: activeBot.id, name: activeBot.name, description: activeBot.description }}
+          nodes={activeBot.nodes}
+          edges={activeBot.edges}
         />
       )}
     </header>
