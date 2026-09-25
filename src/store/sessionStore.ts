@@ -4,7 +4,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { invoke } from "@tauri-apps/api/core";
-import { StudioAuthUser, StudioSeatSession, StudioLoginOutcome } from "../types/ai-planner";
+import {
+  StudioAuthUser,
+  StudioSeatSession,
+  StudioLoginOutcome,
+  StudioSessionRestored,
+} from "../types/ai-planner";
 import { useToastStore } from "./toastStore";
 
 // ============================================================
@@ -106,8 +111,10 @@ export const useSessionStore = create<SessionStoreState>()(
       restoreSession: async () => {
         set({ status: "checking" });
         try {
-          const sessionExpiresAt = await invoke<string | null>("studio_restore_session");
-          if (!sessionExpiresAt) {
+          const restored = await invoke<StudioSessionRestored | null>(
+            "studio_restore_session",
+          );
+          if (!restored) {
             set({
               status: "unauthenticated",
               user: null,
@@ -116,11 +123,14 @@ export const useSessionStore = create<SessionStoreState>()(
             });
             return;
           }
-          // Refresh confirms the session is alive but doesn't carry user/
-          // studioSeat (Orchestrator's refresh contract is tokens-only) — the
-          // cached values from the last real login remain the display source
-          // until the user logs in again.
-          set({ status: "authenticated", sessionExpiresAt });
+          // The Studio-specific refresh re-validates the seat against
+          // Control Plane on every restore, so studioSeat here is fresh —
+          // not the cached value from the last login.
+          set({
+            status: "authenticated",
+            sessionExpiresAt: restored.sessionExpiresAt,
+            studioSeat: restored.studioSeat,
+          });
         } catch (error) {
           set({
             status: "unauthenticated",

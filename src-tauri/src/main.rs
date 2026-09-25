@@ -5913,21 +5913,57 @@ struct StudioSessionTokens {
     refresh_token: String,
 }
 
+// A "remembered" session (rememberMe=true) is the only kind ever written to
+// the OS keyring, so it can outlive the process. A normal session lives only
+// in this in-memory holder, for the lifetime of the current run — closing
+// Studio ends it for good, same as a browser dropping a session cookie.
+// This is a real, load-bearing distinction, not an implementation detail:
+// admins can disable "remember me" outright or set its duration, and neither
+// setting means anything if a "normal" login secretly survived a restart.
+static STUDIO_SESSION_MEMORY: Lazy<StdMutex<Option<StudioSessionTokens>>> =
+    Lazy::new(|| StdMutex::new(None));
+
 fn studio_session_keyring_entry() -> Result<keyring::Entry, String> {
     keyring::Entry::new(STUDIO_SESSION_KEYRING_SERVICE, STUDIO_SESSION_KEYRING_KEY)
         .map_err(|e| format!("Keyring error: {}", e))
 }
 
-fn save_studio_session_tokens(tokens: &StudioSessionTokens) -> Result<(), String> {
-    let entry = studio_session_keyring_entry()?;
-    let serialized = serde_json::to_string(tokens)
-        .map_err(|e| format!("Failed to serialize session tokens: {}", e))?;
-    entry
-        .set_password(&serialized)
-        .map_err(|e| format!("Failed to save session tokens: {}", e))
+/// Records the session for the current run, and persists it to the keyring
+/// ONLY when the user asked to be remembered. A non-remembered login also
+/// actively clears any leftover keyring entry from a prior remembered
+/// session, so the choice made at THIS login is always the one that governs
+/// whether anything survives a restart.
+fn remember_studio_session_tokens(tokens: &StudioSessionTokens, remember_me: bool) -> Result<(), String> {
+    {
+        let mut memory = STUDIO_SESSION_MEMORY
+            .lock()
+            .map_err(|_| "Session memory lock poisoned".to_string())?;
+        *memory = Some(tokens.clone());
+    }
+
+    if remember_me {
+        let entry = studio_session_keyring_entry()?;
+        let serialized = serde_json::to_string(tokens)
+            .map_err(|e| format!("Failed to serialize session tokens: {}", e))?;
+        entry
+            .set_password(&serialized)
+            .map_err(|e| format!("Failed to save session tokens: {}", e))
+    } else {
+        clear_studio_session_keyring()
+    }
 }
 
-fn load_studio_session_tokens() -> Result<Option<StudioSessionTokens>, String> {
+/// The current in-process session, if any — populated by login or by a
+/// successful restore. This is what authenticated Tauri commands should
+/// read from; it does not touch the keyring.
+fn current_studio_session_tokens() -> Result<Option<StudioSessionTokens>, String> {
+    STUDIO_SESSION_MEMORY
+        .lock()
+        .map(|memory| memory.clone())
+        .map_err(|_| "Session memory lock poisoned".to_string())
+}
+
+fn load_studio_session_tokens_from_keyring() -> Result<Option<StudioSessionTokens>, String> {
     let entry = studio_session_keyring_entry()?;
     match entry.get_password() {
         Ok(serialized) => serde_json::from_str(&serialized)
@@ -5938,13 +5974,23 @@ fn load_studio_session_tokens() -> Result<Option<StudioSessionTokens>, String> {
     }
 }
 
-fn clear_studio_session_tokens() -> Result<(), String> {
+fn clear_studio_session_keyring() -> Result<(), String> {
     let entry = studio_session_keyring_entry()?;
     match entry.delete_password() {
         Ok(()) => Ok(()),
         Err(keyring::Error::NoEntry) => Ok(()),
         Err(e) => Err(format!("Failed to clear session tokens: {}", e)),
     }
+}
+
+fn clear_studio_session_everywhere() -> Result<(), String> {
+    {
+        let mut memory = STUDIO_SESSION_MEMORY
+            .lock()
+            .map_err(|_| "Session memory lock poisoned".to_string())?;
+        *memory = None;
+    }
+    clear_studio_session_keyring()
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -5964,6 +6010,8 @@ struct StudioAuthUser {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct StudioSeatSession {
+    #[serde(rename = "studioSeatGrantId")]
+    studio_seat_grant_id: String,
     module: String,
     #[serde(rename = "expiresAt")]
     expires_at: Option<String>,
@@ -6116,10 +6164,13 @@ async fn studio_login(
             user,
             studio_seat,
         } => {
-            save_studio_session_tokens(&StudioSessionTokens {
-                access_token,
-                refresh_token,
-            })?;
+            remember_studio_session_tokens(
+                &StudioSessionTokens {
+                    access_token,
+                    refresh_token,
+                },
+                remember_me.unwrap_or(false),
+            )?;
             println!(
                 "✅ Studio login succeeded (seat module: {})",
                 studio_seat.module
@@ -6134,24 +6185,39 @@ async fn studio_login(
 }
 
 #[derive(Debug, Deserialize)]
-struct RemoteTokenResponse {
+struct RemoteStudioRefreshResponse {
     #[serde(rename = "accessToken")]
     access_token: String,
     #[serde(rename = "refreshToken")]
     refresh_token: String,
     #[serde(rename = "sessionExpiresAt")]
     session_expires_at: String,
+    #[serde(rename = "studioSeat")]
+    studio_seat: StudioSeatSession,
 }
 
-/// Restores a session from the keyring at app launch. Always re-validates
-/// with a live refresh call rather than trusting that stored tokens are
-/// still good — a revoked/expired refresh token fails closed here, clearing
-/// the keyring and forcing a real login instead of silently keeping a dead
-/// session "valid" (the exact bug that made the old license flow trust a
-/// seat forever once activated).
+#[derive(Debug, Serialize)]
+struct StudioSessionRestored {
+    #[serde(rename = "sessionExpiresAt")]
+    session_expires_at: String,
+    #[serde(rename = "studioSeat")]
+    studio_seat: StudioSeatSession,
+}
+
+/// Restores a session from the keyring at app launch — meaning ONLY a
+/// remembered session can ever be restored, since a normal (non-remembered)
+/// login never reaches the keyring in the first place (see
+/// `remember_studio_session_tokens`). Calls the Studio-specific refresh
+/// (`POST /auth/studio/refresh`), NOT the generic one — it re-validates
+/// `studio.access`/`studio_seat` against Control Plane before rotating
+/// tokens, so a seat revoked mid-session is caught here too, not just at
+/// the next full login. A rejected refresh (expired token OR denied seat)
+/// fails closed here, clearing the keyring and forcing a real login instead
+/// of silently keeping a dead session "valid" (the exact bug that made the
+/// old license flow trust a seat forever once activated).
 #[tauri::command]
-async fn studio_restore_session() -> Result<Option<String>, String> {
-    let Some(tokens) = load_studio_session_tokens()? else {
+async fn studio_restore_session() -> Result<Option<StudioSessionRestored>, String> {
+    let Some(tokens) = load_studio_session_tokens_from_keyring()? else {
         return Ok(None);
     };
 
@@ -6165,34 +6231,43 @@ async fn studio_restore_session() -> Result<Option<String>, String> {
         .map_err(|e| format!("Failed to initialize HTTP client: {}", e))?;
 
     let response = client
-        .post(format!("{}/api/auth/refresh", base))
+        .post(format!("{}/api/auth/studio/refresh", base))
         .json(&serde_json::json!({ "refreshToken": tokens.refresh_token }))
         .send()
         .await
         .map_err(|e| format!("Studio session refresh request failed: {}", e))?;
 
     if !response.status().is_success() {
-        // Fail closed: a rejected refresh means the session is really gone.
-        clear_studio_session_tokens()?;
+        // Fail closed: a rejected refresh (expired token, or a seat revoked
+        // mid-session) means the session is really gone.
+        clear_studio_session_everywhere()?;
         return Ok(None);
     }
 
-    let refreshed: RemoteTokenResponse = response
+    let refreshed: RemoteStudioRefreshResponse = response
         .json()
         .await
         .map_err(|e| format!("Failed to parse session refresh response: {}", e))?;
 
-    save_studio_session_tokens(&StudioSessionTokens {
-        access_token: refreshed.access_token,
-        refresh_token: refreshed.refresh_token,
-    })?;
+    // It was in the keyring, so it was remembered — stays remembered across
+    // the rotation.
+    remember_studio_session_tokens(
+        &StudioSessionTokens {
+            access_token: refreshed.access_token,
+            refresh_token: refreshed.refresh_token,
+        },
+        true,
+    )?;
 
-    Ok(Some(refreshed.session_expires_at))
+    Ok(Some(StudioSessionRestored {
+        session_expires_at: refreshed.session_expires_at,
+        studio_seat: refreshed.studio_seat,
+    }))
 }
 
 #[tauri::command]
 async fn studio_logout() -> Result<(), String> {
-    if let Some(tokens) = load_studio_session_tokens()? {
+    if let Some(tokens) = current_studio_session_tokens()? {
         if let Some(base) = std::env::var("SKULDBOT_ORCHESTRATOR_URL")
             .ok()
             .map(|u| u.trim_end_matches('/').to_string())
@@ -6213,7 +6288,7 @@ async fn studio_logout() -> Result<(), String> {
         }
     }
 
-    clear_studio_session_tokens()
+    clear_studio_session_everywhere()
 }
 
 // ============================================================

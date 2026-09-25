@@ -122,6 +122,7 @@ export interface StudioAuthUser {
 }
 
 export interface StudioSeatSession {
+  studioSeatGrantId: string;
   module: string;
   expiresAt: string | null;
   features: string[];
@@ -135,6 +136,14 @@ export type StudioLoginOutcome =
       studioSeat: StudioSeatSession;
       sessionExpiresAt: string;
     };
+
+// Returned by studio_restore_session (Rust) — POST /auth/studio/refresh
+// re-validates the seat on every restore, so this carries a fresh
+// studioSeat, not just the cached one from the last real login.
+export interface StudioSessionRestored {
+  sessionExpiresAt: string;
+  studioSeat: StudioSeatSession;
+}
 
 // API Response types
 export interface LLMPlanResponse {
