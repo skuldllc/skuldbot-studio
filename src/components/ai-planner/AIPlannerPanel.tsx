@@ -10,7 +10,7 @@ import { useEffect, useCallback } from "react";
 import { X, Bot, Sparkles, Settings, Play, Loader2 } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useAIPlannerStore } from "../../store/aiPlannerStore";
-import { useLicenseStore, useCanUseAIPlanner } from "../../store/licenseStore";
+import { useCanUseAIPlanner } from "../../store/sessionStore";
 import { PlannerInput } from "./PlannerInput";
 import { PlanStepList } from "./PlanStepList";
 import { RefinementInput } from "./RefinementInput";
@@ -30,7 +30,6 @@ export function AIPlannerPanel() {
   } = useAIPlannerStore();
 
   const canUseAI = useCanUseAIPlanner();
-  const isStudioActivated = useLicenseStore((state) => state.isStudioActivated);
   const [showLLMConfig, setShowLLMConfig] = useState(false);
 
   // Handle apply to canvas
@@ -96,36 +95,28 @@ export function AIPlannerPanel() {
 
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6">
-          {/* License Check */}
-          {!isStudioActivated() && (
-            <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-              <h3 className="font-medium text-amber-800 mb-2">License Required</h3>
-              <p className="text-sm text-amber-700 mb-3">
-                SkuldBot Studio requires a license to use. Please activate your license
-                to continue.
-              </p>
-              <Button variant="outline" size="sm">
-                Activate License
-              </Button>
-            </div>
-          )}
-
-          {/* AI License Check */}
-          {isStudioActivated() && !canUseAI && (
+          {/* SkuldAI Module Check */}
+          {!canUseAI && (
             <div className="mb-6 p-4 bg-primary-50 border border-primary-200 rounded-xl">
               <div className="flex items-start gap-3">
                 <Sparkles className="w-5 h-5 text-primary-500 mt-0.5" />
                 <div>
                   <h3 className="font-medium text-primary-800 mb-2">
-                    Upgrade to SkuldAI
+                    SkuldAI module required
                   </h3>
-                  <p className="text-sm text-primary-700 mb-3">
-                    AI Planner is a premium feature that helps you design automations
-                    using natural language. Upgrade to unlock this feature.
+                  <p className="text-sm text-primary-700">
+                    AI Planner helps you design automations using natural language.
+                    It's part of the SkuldAI module — contact your admin or{" "}
+                    <a
+                      href="https://skuldbot.com/pricing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline"
+                    >
+                      skuldbot.com/pricing
+                    </a>{" "}
+                    to add it to your Studio seat.
                   </p>
-                  <Button variant="default" size="sm">
-                    Upgrade Now
-                  </Button>
                 </div>
               </div>
             </div>

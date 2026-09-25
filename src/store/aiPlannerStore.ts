@@ -12,7 +12,7 @@ import {
   LLMPlanResponse,
 } from "../types/ai-planner";
 import { useToastStore } from "./toastStore";
-import { useLicenseStore } from "./licenseStore";
+import { useSessionStore } from "./sessionStore";
 
 // ============================================================
 // AI Planner Store State
@@ -142,16 +142,16 @@ export const useAIPlannerStore = create<AIPlannerStoreState>()(
   // ============================================================
 
   openPanel: () => {
-    const license = useLicenseStore.getState();
+    const session = useSessionStore.getState();
     const toast = useToastStore.getState();
 
     // Check if AI Planner feature is available
-    if (!license.hasFeature("aiPlanner")) {
+    if (!session.hasFeature("aiPlanner")) {
       toast.warning(
-        "License Required",
-        "AI Planner requires a SkuldAI license. Please activate your license."
+        "Subscription Required",
+        "AI Planner requires the SkuldAI module on your Studio seat."
       );
-      // Still open panel to show license prompt
+      // Still open panel to show subscription prompt
     }
 
     set({ isPanelOpen: true });
@@ -180,11 +180,11 @@ export const useAIPlannerStore = create<AIPlannerStoreState>()(
   generatePlan: async () => {
     const { userDescription, llmConfig } = get();
     const toast = useToastStore.getState();
-    const license = useLicenseStore.getState();
+    const session = useSessionStore.getState();
 
-    // Check license
-    if (!license.hasFeature("aiPlanner")) {
-      toast.error("License Required", "AI Planner requires a SkuldAI license");
+    // Check subscription
+    if (!session.hasFeature("aiPlanner")) {
+      toast.error("Subscription Required", "AI Planner requires the SkuldAI module on your Studio seat.");
       return;
     }
 
@@ -316,11 +316,11 @@ export const useAIPlannerStore = create<AIPlannerStoreState>()(
   refineWithAI: async (userMessage: string) => {
     const { planSteps, llmConfig, conversation } = get();
     const toast = useToastStore.getState();
-    const license = useLicenseStore.getState();
+    const session = useSessionStore.getState();
 
-    // Check license
-    if (!license.hasFeature("aiRefinement")) {
-      toast.error("License Required", "AI Refinement requires a SkuldAI license");
+    // Check subscription
+    if (!session.hasFeature("aiRefinement")) {
+      toast.error("Subscription Required", "AI Refinement requires the SkuldAI module on your Studio seat.");
       return;
     }
 

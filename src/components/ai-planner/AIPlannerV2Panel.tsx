@@ -10,13 +10,12 @@ import { useEffect } from "react";
 import { X, Bot, Sparkles, Settings, MessageSquare, Eye, ShieldCheck, Link2, type LucideIcon } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
-import { useLicenseStore, useCanUseAIPlanner } from "../../store/licenseStore";
+import { useCanUseAIPlanner } from "../../store/sessionStore";
 import { ChatPanel } from "./v2/ChatPanel";
 import { PreviewPanel } from "./v2/PreviewPanel";
 import { ValidationPanel } from "./v2/ValidationPanel";
 import { ConnectionsPanel } from "./v2/ConnectionsPanel";
 import { LLMConfigDialog } from "./LLMConfigDialog";
-import { LicenseDialog } from "../LicenseDialog";
 import { useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select";
 
@@ -66,9 +65,7 @@ const PANEL_OPTIONS: Array<{
 
 export function AIPlannerV2Panel({ isOpen, onClose }: AIPlannerV2PanelProps) {
   const canUseAI = useCanUseAIPlanner();
-  const isStudioActivated = useLicenseStore((state) => state.isStudioActivated);
   const [showLLMConfig, setShowLLMConfig] = useState(false);
-  const [showLicenseDialog, setShowLicenseDialog] = useState(false);
   const [activeTab, setActiveTab] = useState<PlannerPanelTab>("chat");
   const activePanel = PANEL_OPTIONS.find((option) => option.value === activeTab) || PANEL_OPTIONS[0];
 
@@ -169,29 +166,8 @@ export function AIPlannerV2Panel({ isOpen, onClose }: AIPlannerV2PanelProps) {
           </div>
         </div>
 
-        {/* License Check */}
-        {!isStudioActivated() && (
-          <div className="mx-6 mt-6 p-5 bg-amber-50 border border-amber-200 rounded-xl">
-            <h3 className="font-semibold text-amber-900 mb-2 text-sm">
-              License Required
-            </h3>
-            <p className="text-sm text-amber-700 mb-3 leading-relaxed">
-              SkuldBot Studio requires a license to use. Please activate your license
-              to continue.
-            </p>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="border-amber-300 text-amber-900 hover:bg-amber-100"
-              onClick={() => setShowLicenseDialog(true)}
-            >
-              Activate License
-            </Button>
-          </div>
-        )}
-
-        {/* AI License Check */}
-        {isStudioActivated() && !canUseAI && (
+        {/* SkuldAI Module Check */}
+        {!canUseAI && (
           <div className="mx-6 mt-6 p-5 bg-primary-50 border border-primary-200 rounded-xl">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
@@ -199,15 +175,21 @@ export function AIPlannerV2Panel({ isOpen, onClose }: AIPlannerV2PanelProps) {
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold text-primary-900 mb-2 text-sm">
-                  Upgrade to SkuldAI
+                  SkuldAI module required
                 </h3>
-                <p className="text-sm text-primary-700 mb-3 leading-relaxed">
-                  AI Planner is a premium feature that creates production-ready
-                  automations with intelligent validation. Upgrade to unlock this feature.
+                <p className="text-sm text-primary-700 leading-relaxed">
+                  AI Planner creates production-ready automations with intelligent
+                  validation. It's part of the SkuldAI module — contact your admin or{" "}
+                  <a
+                    href="https://skuldbot.com/pricing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline"
+                  >
+                    skuldbot.com/pricing
+                  </a>{" "}
+                  to add it to your Studio seat.
                 </p>
-                <Button variant="default" size="sm" className="bg-primary-600 hover:bg-primary-700">
-                  Upgrade Now
-                </Button>
               </div>
             </div>
           </div>
@@ -298,12 +280,6 @@ export function AIPlannerV2Panel({ isOpen, onClose }: AIPlannerV2PanelProps) {
       <LLMConfigDialog
         isOpen={showLLMConfig}
         onClose={() => setShowLLMConfig(false)}
-      />
-
-      {/* License Dialog */}
-      <LicenseDialog
-        isOpen={showLicenseDialog}
-        onClose={() => setShowLicenseDialog(false)}
       />
     </>
   );

@@ -104,34 +104,45 @@ export interface AIPlannerState {
   reset: () => void;
 }
 
-// License Types
-export type LicenseModule = "studio" | "skuldai" | "skuldcompliance" | "skulddataquality";
-
-export interface LicenseInfo {
-  module: LicenseModule;
-  licenseKey: string;
-  expiresAt: string;
-  isValid: boolean;
+// Studio Session Types
+//
+// A Studio session comes from one call to POST /auth/studio/login: real user
+// credentials plus a seat key, checked together before any session exists at
+// all (see StudioLoginOutcome). There is no separate "activate a seat" step
+// and no client-side module/feature table — `features` is server-owned and
+// rendered verbatim, the same discipline as the publish-gate read model.
+export interface StudioAuthUser {
+  id: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  tenantId: string;
+  roles: string[];
+  mfaEnabled: boolean;
 }
 
-export interface LicenseState {
-  // Active licenses (can have multiple modules)
-  activeLicenses: LicenseInfo[];
+export interface StudioSeatSession {
+  studioSeatGrantId: string;
+  module: string;
+  expiresAt: string | null;
+  features: string[];
+}
 
-  // Enabled features (derived from active modules)
-  enabledFeatures: Set<string>;
+export type StudioLoginOutcome =
+  | { status: "mfaRequired"; mfaMethod: string; sessionToken: string }
+  | {
+      status: "success";
+      user: StudioAuthUser;
+      studioSeat: StudioSeatSession;
+      sessionExpiresAt: string;
+    };
 
-  // Loading state
-  isValidating: boolean;
-
-  // Actions
-  activateLicense: (key: string) => Promise<{ success: boolean; module?: LicenseModule; error?: string }>;
-  validateAllLicenses: () => Promise<void>;
-  deactivateLicense: (module: LicenseModule) => void;
-  hasModule: (module: LicenseModule) => boolean;
-  hasFeature: (feature: string) => boolean;
-  canUseNode: (nodeType: string) => boolean;
-  isStudioActivated: () => boolean;
+// Returned by studio_restore_session (Rust) — POST /auth/studio/refresh
+// re-validates the seat on every restore, so this carries a fresh
+// studioSeat, not just the cached one from the last real login.
+export interface StudioSessionRestored {
+  sessionExpiresAt: string;
+  studioSeat: StudioSeatSession;
 }
 
 // API Response types
@@ -140,14 +151,6 @@ export interface LLMPlanResponse {
   plan?: PlanStep[];
   error?: string;
   clarifyingQuestions?: string[];
-}
-
-export interface LicenseValidationResponse {
-  valid: boolean;
-  module: LicenseModule;
-  expiresAt: string;
-  features: string[];
-  error?: string;
 }
 
 // ============================================================
