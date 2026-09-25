@@ -13,6 +13,11 @@ import {
   parseNodeRuntimeTelemetryLine,
 } from "../utils/nodeRuntimeTelemetry";
 import { isNodeExecutable } from "../lib/nodeAvailability";
+import {
+  EXPLICIT_TRIGGER_REQUIRED_MESSAGE,
+  EXPLICIT_TRIGGER_REQUIRED_TITLE,
+  hasExplicitTrigger,
+} from "../lib/triggerGuards";
 
 // Re-export for convenience
 export type { FormTriggerConfig } from "../types/flow";
@@ -229,37 +234,13 @@ export const useFlowStore = create<FlowState>((set, get) => ({
       return;
     }
 
-    // Check for triggers and auto-add Manual if none exists
-    const hasTrigger = state.nodes.some(
-      (node) => node.data.category === "trigger"
-    );
+    if (!hasExplicitTrigger(state.nodes)) {
+      toast.error(EXPLICIT_TRIGGER_REQUIRED_TITLE, EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      logs.error("Compilation blocked", EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      return;
+    }
 
     const dsl = state.generateDSL();
-
-    if (!hasTrigger) {
-      // Auto-add Manual Trigger to the DSL
-      const manualTriggerId = `trigger-manual-${Date.now()}`;
-      const firstNodeId = dsl.nodes[0]?.id;
-
-      const manualTriggerNode = {
-        id: manualTriggerId,
-        type: "trigger.manual",
-        config: {},
-        outputs: {
-          success: firstNodeId || manualTriggerId,
-          error: manualTriggerId,
-        },
-        label: "Manual Trigger",
-      };
-
-      // Insert at beginning
-      dsl.nodes.unshift(manualTriggerNode);
-      dsl.triggers = [manualTriggerId];
-      dsl.start_node = manualTriggerId;
-
-      logs.info("Auto-added Manual Trigger (no trigger defined)");
-      toast.info("Trigger added", "Manual Trigger added automatically");
-    }
 
     logs.info("Starting compilation...");
     logs.openPanel();
@@ -320,35 +301,13 @@ export const useFlowStore = create<FlowState>((set, get) => ({
       return;
     }
 
-    // Check for triggers and auto-add Manual if none exists
-    const hasTrigger = state.nodes.some(
-      (node) => node.data.category === "trigger"
-    );
+    if (!hasExplicitTrigger(state.nodes)) {
+      toast.error(EXPLICIT_TRIGGER_REQUIRED_TITLE, EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      logs.error("Run blocked", EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      return;
+    }
 
     const dsl = state.generateDSL();
-
-    if (!hasTrigger) {
-      // Auto-add Manual Trigger to the DSL
-      const manualTriggerId = `trigger-manual-${Date.now()}`;
-      const firstNodeId = dsl.nodes[0]?.id;
-
-      const manualTriggerNode = {
-        id: manualTriggerId,
-        type: "trigger.manual",
-        config: {},
-        outputs: {
-          success: firstNodeId || manualTriggerId,
-          error: manualTriggerId,
-        },
-        label: "Manual Trigger",
-      };
-
-      dsl.nodes.unshift(manualTriggerNode);
-      dsl.triggers = [manualTriggerId];
-      dsl.start_node = manualTriggerId;
-
-      logs.info("Auto-added Manual Trigger");
-    }
 
     // Add form data to DSL variables if provided
     if (formData && Object.keys(formData).length > 0) {

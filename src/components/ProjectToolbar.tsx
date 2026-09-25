@@ -14,8 +14,12 @@ import { useDebugStore } from "../store/debugStore";
 import { SkuldLogoBox } from "./ui/SkuldLogo";
 import { Button } from "./ui/Button";
 import FormTriggerModal from "./FormTriggerModal";
-import { DSLNode } from "../types/flow";
 import { buildExecutionDSL } from "../lib/dsl";
+import {
+  EXPLICIT_TRIGGER_REQUIRED_MESSAGE,
+  EXPLICIT_TRIGGER_REQUIRED_TITLE,
+  hasExplicitTrigger,
+} from "../lib/triggerGuards";
 import {
   getSchemaCandidateFromNodeData,
   parseNodeRuntimeTelemetryLine,
@@ -137,44 +141,23 @@ export default function ProjectToolbar() {
   const handleCompile = async () => {
     if (!activeBot || !hasNodes) return;
 
+    if (!hasExplicitTrigger(activeBot.nodes)) {
+      logs.openPanel();
+      logs.error("Compilation blocked", EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      toast.error(EXPLICIT_TRIGGER_REQUIRED_TITLE, EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      return;
+    }
+
     setIsCompiling(true);
     logs.info("Starting compilation...");
     logs.openPanel();
 
     try {
-      // Generate DSL with auto-trigger if needed
       const dsl = buildExecutionDSL(
         { id: activeBot.id, name: activeBot.name, description: activeBot.description },
         activeBot.nodes,
         activeBot.edges
       );
-
-      // Auto-add manual trigger if none exists
-      const hasTrigger = activeBot.nodes.some(
-        (n) => n.data.category === "trigger"
-      );
-
-      if (!hasTrigger) {
-        const manualTriggerId = `trigger-manual-${Date.now()}`;
-        const firstNodeId = dsl.nodes[0]?.id;
-
-        const manualTriggerNode: DSLNode = {
-          id: manualTriggerId,
-          type: "trigger.manual",
-          config: {},
-          outputs: {
-            success: firstNodeId || "END",
-            error: "END",
-          },
-          label: "Manual Trigger",
-        };
-
-        dsl.nodes.unshift(manualTriggerNode);
-        dsl.triggers = [manualTriggerId];
-        dsl.start_node = manualTriggerId;
-
-        logs.info("Auto-added Manual Trigger");
-      }
 
       const result = await invoke<{ success: boolean; message: string; bot_path?: string }>(
         "compile_dsl",
@@ -194,6 +177,13 @@ export default function ProjectToolbar() {
   const handleRun = async (formData?: Record<string, any>) => {
     if (!activeBot || !hasNodes) return;
 
+    if (!hasExplicitTrigger(activeBot.nodes)) {
+      logs.openPanel();
+      logs.error("Run blocked", EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      toast.error(EXPLICIT_TRIGGER_REQUIRED_TITLE, EXPLICIT_TRIGGER_REQUIRED_MESSAGE);
+      return;
+    }
+
     // Check for form trigger
     if (!formData && requiresFormInput()) {
       const config = getFormTriggerConfig();
@@ -209,37 +199,11 @@ export default function ProjectToolbar() {
     logs.openPanel();
 
     try {
-      // Generate DSL from project store's active bot
       const dsl = buildExecutionDSL(
         { id: activeBot.id, name: activeBot.name, description: activeBot.description },
         activeBot.nodes,
         activeBot.edges
       );
-
-      // Auto-add manual trigger if none exists
-      const hasTrigger = activeBot.nodes.some(
-        (n) => n.data.category === "trigger"
-      );
-
-      if (!hasTrigger) {
-        const manualTriggerId = `trigger-manual-${Date.now()}`;
-        const firstNodeId = dsl.nodes[0]?.id;
-
-        const manualTriggerNode: DSLNode = {
-          id: manualTriggerId,
-          type: "trigger.manual",
-          config: {},
-          outputs: {
-            success: firstNodeId || "END",
-            error: "END",
-          },
-          label: "Manual Trigger",
-        };
-
-        dsl.nodes.unshift(manualTriggerNode);
-        dsl.triggers = [manualTriggerId];
-        dsl.start_node = manualTriggerId;
-      }
 
       // Add form data to DSL if provided
       if (formData && Object.keys(formData).length > 0) {

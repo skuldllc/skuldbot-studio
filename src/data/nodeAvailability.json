@@ -233,43 +233,35 @@
     },
     "compliance.protect_phi": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "compliance.protect_phi",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "compliance.protect_pii": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "compliance.protect_pii",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "control.append": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "control.append",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "control.filter": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "control.filter",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "control.goto": {
       "hasCompilerMapping": true,
@@ -297,13 +289,11 @@
     },
     "control.map": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "control.map",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "control.parallel": {
       "hasCompilerMapping": true,
@@ -315,13 +305,11 @@
     },
     "control.reduce": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "control.reduce",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "control.set_variable": {
       "hasCompilerMapping": true,
@@ -372,236 +360,192 @@
       "status": "executable"
     },
     "data.tap.csv": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.csv",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.db2": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": false,
       "nodeType": "data.tap.db2",
       "reasons": [
-        "missing_compiler_mapping",
         "missing_executor_mapping"
       ],
       "runtimeBlocked": false,
       "status": "not_implemented"
     },
     "data.tap.excel": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.excel",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.mysql": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.mysql",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.oracle": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.oracle",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.postgres": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.postgres",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.rest_api": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.rest_api",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.s3": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.s3",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.salesforce": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.salesforce",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.sftp": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.sftp",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.snowflake": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.snowflake",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.tap.sqlserver": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.tap.sqlserver",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.bigquery": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.bigquery",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.csv": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.csv",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.db2": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": false,
       "nodeType": "data.target.db2",
       "reasons": [
-        "missing_compiler_mapping",
         "missing_executor_mapping"
       ],
       "runtimeBlocked": false,
       "status": "not_implemented"
     },
     "data.target.excel": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.excel",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.mysql": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.mysql",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.oracle": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.oracle",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.postgres": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.postgres",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.s3": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.s3",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.sftp": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.sftp",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.snowflake": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.snowflake",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "data.target.sqlserver": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "data.target.sqlserver",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "database.call_procedure": {
       "hasCompilerMapping": true,
@@ -693,13 +637,11 @@
     },
     "dataquality.validate": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "dataquality.validate",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "desktop.click": {
       "hasCompilerMapping": true,
@@ -1050,13 +992,11 @@
     },
     "excel.auto_filter": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.auto_filter",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.close": {
       "hasCompilerMapping": true,
@@ -1068,13 +1008,11 @@
     },
     "excel.create": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.create",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.create_chart": {
       "hasCompilerMapping": true,
@@ -1088,13 +1026,11 @@
     },
     "excel.create_sheet": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.create_sheet",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.csv_read": {
       "hasCompilerMapping": true,
@@ -1114,33 +1050,27 @@
     },
     "excel.delete_column": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.delete_column",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.delete_row": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.delete_row",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.delete_sheet": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.delete_sheet",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.export_pdf": {
       "hasCompilerMapping": true,
@@ -1162,43 +1092,35 @@
     },
     "excel.find_replace": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.find_replace",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.get_sheets": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.get_sheets",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.insert_row": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.insert_row",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.merge_cells": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.merge_cells",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.open": {
       "hasCompilerMapping": true,
@@ -1234,13 +1156,11 @@
     },
     "excel.rename_sheet": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.rename_sheet",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.save": {
       "hasCompilerMapping": true,
@@ -1252,33 +1172,27 @@
     },
     "excel.set_format": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.set_format",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.sort": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.sort",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.vlookup": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "excel.vlookup",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "excel.write_cell": {
       "hasCompilerMapping": true,
@@ -1551,23 +1465,19 @@
     },
     "ms365.email_categories": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_categories",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_copy": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_copy",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_delete": {
       "hasCompilerMapping": true,
@@ -1587,23 +1497,19 @@
     },
     "ms365.email_draft": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_draft",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_flag": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_flag",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_forward": {
       "hasCompilerMapping": true,
@@ -1615,33 +1521,27 @@
     },
     "ms365.email_get": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_get",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_get_attachments": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_get_attachments",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_importance": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_importance",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_list": {
       "hasCompilerMapping": true,
@@ -1653,13 +1553,11 @@
     },
     "ms365.email_mark_read": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_mark_read",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_move": {
       "hasCompilerMapping": true,
@@ -1679,13 +1577,11 @@
     },
     "ms365.email_search": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.email_search",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.email_send": {
       "hasCompilerMapping": true,
@@ -1697,33 +1593,27 @@
     },
     "ms365.folder_create": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.folder_create",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.folder_delete": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.folder_delete",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "ms365.folder_list": {
       "hasCompilerMapping": true,
-      "hasExecutorMapping": false,
+      "hasExecutorMapping": true,
       "nodeType": "ms365.folder_list",
-      "reasons": [
-        "missing_executor_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "python.activate_venv": {
       "hasCompilerMapping": false,
@@ -1896,24 +1786,20 @@
       "status": "executable"
     },
     "storage.sync": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "storage.sync",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "storage.transfer": {
-      "hasCompilerMapping": false,
+      "hasCompilerMapping": true,
       "hasExecutorMapping": true,
       "nodeType": "storage.transfer",
-      "reasons": [
-        "missing_compiler_mapping"
-      ],
+      "reasons": [],
       "runtimeBlocked": false,
-      "status": "not_implemented"
+      "status": "executable"
     },
     "trigger.api_polling": {
       "hasCompilerMapping": true,
@@ -1994,6 +1880,17 @@
       "reasons": [],
       "runtimeBlocked": false,
       "status": "executable"
+    },
+    "trigger.scheduled_run": {
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": false,
+      "nodeType": "trigger.scheduled_run",
+      "reasons": [
+        "missing_compiler_mapping",
+        "missing_executor_mapping"
+      ],
+      "runtimeBlocked": false,
+      "status": "not_implemented"
     },
     "trigger.storage_event": {
       "hasCompilerMapping": true,
@@ -2457,13 +2354,13 @@
     "runtimeBlocked": "runtime_blocked"
   },
   "summary": {
-    "compilerCount": 264,
-    "executorCount": 279,
+    "compilerCount": 289,
+    "executorCount": 312,
     "hiddenCompilerCount": 17,
     "hiddenExecutorCount": 50,
-    "missingCompilerCount": 34,
-    "missingExecutorCount": 52,
+    "missingCompilerCount": 10,
+    "missingExecutorCount": 20,
     "runtimeBlockedCount": 16,
-    "studioCount": 281
+    "studioCount": 282
   }
 }

@@ -4,6 +4,10 @@
 import { create } from "zustand";
 import { FlowNode, FlowEdge } from "../types/flow";
 import { getNodeTemplate } from "../data/nodeTemplates";
+import {
+  EXPLICIT_TRIGGER_REQUIRED_MESSAGE,
+  EXPLICIT_TRIGGER_REQUIRED_TITLE,
+} from "../lib/triggerGuards";
 
 export type ValidationSeverity = "error" | "warning" | "info";
 
@@ -108,8 +112,8 @@ const validateNodes = (nodes: FlowNode[], edges: FlowEdge[]): ValidationIssue[] 
   if (triggerNodes.length === 0) {
     issues.push({
       id: "no-trigger",
-      severity: "info",
-      message: "No trigger node found. A Manual Trigger will be added automatically.",
+      severity: "error",
+      message: `${EXPLICIT_TRIGGER_REQUIRED_TITLE}. ${EXPLICIT_TRIGGER_REQUIRED_MESSAGE}`,
     });
   }
 

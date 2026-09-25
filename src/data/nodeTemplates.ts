@@ -7,7 +7,12 @@ export const nodeTemplates: NodeTemplate[] = [
   // ============================================
   // TRIGGER - Scheduling & Triggers
   // ============================================
-  // NOTE: Schedule Trigger removed - scheduling is handled by the Orchestrator, not Studio
+  // NOTE: Runtime schedule configuration is handled by the Orchestrator, not Studio.
+  // A future Studio node should declare schedule intent only (for example,
+  // trigger.scheduled_run) and must not carry cron/timezone/runner settings.
+  // Form and webhook triggers follow the same boundary: Studio may declare schema/intent,
+  // but live public URLs, embed snippets, signing secrets, rate limits, allowed origins/IPs
+  // and activation lifecycle are owned by the Orchestrator.
   {
     type: "trigger.file_watch",
     category: "trigger",
@@ -42,12 +47,13 @@ export const nodeTemplates: NodeTemplate[] = [
     type: "trigger.webhook",
     category: "trigger",
     label: "Webhook Trigger",
-    description: "Trigger via HTTP webhook",
+    description: "Declare an HTTP webhook intent",
     icon: "Webhook",
-    defaultConfig: { method: "POST" },
+    defaultConfig: {},
     configSchema: [
-      { name: "path", label: "Webhook Path", type: "text", required: true, placeholder: "/webhook/my-trigger" },
-      { name: "method", label: "HTTP Method", type: "select", default: "POST", options: [{ value: "GET", label: "GET" }, { value: "POST", label: "POST" }] },
+      { name: "payloadSchema", label: "Payload Schema", type: "textarea", placeholder: '{"incidentId": "string", "severity": "string"}' },
+      { name: "samplePayload", label: "Sample Payload", type: "textarea", placeholder: '{"incidentId": "INC-123", "severity": "high"}' },
+      { name: "inputMapping", label: "Input Mapping Intent", type: "textarea", placeholder: '{"incidentId": "body.incidentId"}' },
     ],
     outputSchema: [
       { name: "body", type: "object", description: "Request body (JSON)" },
@@ -85,6 +91,23 @@ export const nodeTemplates: NodeTemplate[] = [
     ],
   },
   {
+    type: "trigger.scheduled_run",
+    category: "trigger",
+    label: "Scheduled Run",
+    description: "Declare that Orchestrator may schedule this automation",
+    icon: "CalendarClock",
+    defaultConfig: {},
+    configSchema: [
+      { name: "intentLabel", label: "Intent Label", type: "text", placeholder: "Daily operations run" },
+      { name: "intentDescription", label: "Description", type: "textarea", placeholder: "Runtime schedule is configured in Orchestrator." },
+      { name: "suggestedCadenceLabel", label: "Suggested Cadence Hint", type: "text", placeholder: "Daily, weekly, monthly..." },
+    ],
+    outputSchema: [
+      { name: "triggeredAt", type: "string", description: "Timestamp when Orchestrator starts the run" },
+      { name: "scheduleDefinitionId", type: "string", description: "Orchestrator-owned schedule definition" },
+    ],
+  },
+  {
     type: "trigger.form",
     category: "trigger",
     label: "Form Trigger",
@@ -113,15 +136,13 @@ export const nodeTemplates: NodeTemplate[] = [
     type: "trigger.api_polling",
     category: "trigger",
     label: "API Polling",
-    description: "Poll an API endpoint at intervals",
+    description: "Declare an API polling trigger intent",
     icon: "RefreshCw",
-    defaultConfig: { method: "GET", interval: 60 },
+    defaultConfig: {},
     configSchema: [
-      { name: "url", label: "API URL", type: "text", required: true, placeholder: "https://api.example.com/status" },
-      { name: "method", label: "HTTP Method", type: "select", default: "GET", options: [{ value: "GET", label: "GET" }, { value: "POST", label: "POST" }] },
-      { name: "interval", label: "Polling Interval (seconds)", type: "number", default: 60 },
-      { name: "headers", label: "Headers (JSON)", type: "textarea", placeholder: '{"Authorization": "Bearer ..."}' },
-      { name: "condition", label: "Trigger Condition (JSONPath)", type: "text", placeholder: "$.status == 'ready'" },
+      { name: "resourceHint", label: "Resource Hint", type: "text", placeholder: "Incident API, CRM status API, internal service..." },
+      { name: "responseSchema", label: "Response Schema", type: "textarea", placeholder: '{"status": "string", "id": "string"}' },
+      { name: "pollingIntent", label: "Polling Intent", type: "textarea", placeholder: "Describe the event that should start this automation." },
     ],
     outputSchema: [
       { name: "response", type: "object", description: "API response data" },
