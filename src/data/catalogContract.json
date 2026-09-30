@@ -13,13 +13,13 @@
     "engine_hidden": "Backed by compiler or executor but not visible in Studio."
   },
   "summary": {
-    "totalNodes": 340,
-    "studioVisibleCount": 281,
+    "totalNodes": 341,
+    "studioVisibleCount": 282,
     "compilerMappingCount": 289,
     "executorMappingCount": 312,
     "executableCount": 239,
     "runtimeBlockedCount": 16,
-    "notImplementedCount": 26,
+    "notImplementedCount": 27,
     "engineHiddenCount": 59
   },
   "nodes": {
@@ -15499,7 +15499,7 @@
       "nodeType": "trigger.api_polling",
       "category": "trigger",
       "label": "API Polling",
-      "description": "Poll an API endpoint at intervals",
+      "description": "Declare an API polling trigger intent",
       "status": "executable",
       "plannerEligible": true,
       "studioVisible": true,
@@ -15512,33 +15512,21 @@
         "defaultConfig": {},
         "configSchema": [
           {
-            "name": "url",
-            "label": "API URL",
+            "name": "resourceHint",
+            "label": "Resource Hint",
             "type": "text",
-            "required": true
-          },
-          {
-            "name": "method",
-            "label": "HTTP Method",
-            "type": "select",
             "required": false
           },
           {
-            "name": "interval",
-            "label": "Polling Interval (seconds)",
-            "type": "number",
-            "required": false
-          },
-          {
-            "name": "headers",
-            "label": "Headers (JSON)",
+            "name": "responseSchema",
+            "label": "Response Schema",
             "type": "textarea",
             "required": false
           },
           {
-            "name": "condition",
-            "label": "Trigger Condition (JSONPath)",
-            "type": "text",
+            "name": "pollingIntent",
+            "label": "Polling Intent",
+            "type": "textarea",
             "required": false
           }
         ],
@@ -16274,6 +16262,61 @@
         "nodeType": "trigger.schedule"
       }
     },
+    "trigger.scheduled_run": {
+      "nodeType": "trigger.scheduled_run",
+      "category": "trigger",
+      "label": "Scheduled Run",
+      "description": "Declare that Orchestrator may schedule this automation",
+      "status": "not_implemented",
+      "plannerEligible": false,
+      "studioVisible": true,
+      "hasCompilerMapping": false,
+      "hasExecutorMapping": false,
+      "runtimeBlocked": false,
+      "reasons": [
+        "missing_compiler_mapping",
+        "missing_executor_mapping"
+      ],
+      "studio": {
+        "icon": "CalendarClock",
+        "defaultConfig": {},
+        "configSchema": [
+          {
+            "name": "intentLabel",
+            "label": "Intent Label",
+            "type": "text",
+            "required": false
+          },
+          {
+            "name": "intentDescription",
+            "label": "Description",
+            "type": "textarea",
+            "required": false
+          },
+          {
+            "name": "suggestedCadenceLabel",
+            "label": "Suggested Cadence Hint",
+            "type": "text",
+            "required": false
+          }
+        ],
+        "outputSchema": [
+          {
+            "name": "triggeredAt",
+            "label": null,
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "scheduleDefinitionId",
+            "label": null,
+            "type": "string",
+            "required": false
+          }
+        ]
+      },
+      "executor": null
+    },
     "trigger.storage_event": {
       "nodeType": "trigger.storage_event",
       "category": "trigger",
@@ -16456,7 +16499,7 @@
       "nodeType": "trigger.webhook",
       "category": "trigger",
       "label": "Webhook Trigger",
-      "description": "Trigger via HTTP webhook",
+      "description": "Declare an HTTP webhook intent",
       "status": "executable",
       "plannerEligible": true,
       "studioVisible": true,
@@ -16469,15 +16512,21 @@
         "defaultConfig": {},
         "configSchema": [
           {
-            "name": "path",
-            "label": "Webhook Path",
-            "type": "text",
-            "required": true
+            "name": "payloadSchema",
+            "label": "Payload Schema",
+            "type": "textarea",
+            "required": false
           },
           {
-            "name": "method",
-            "label": "HTTP Method",
-            "type": "select",
+            "name": "samplePayload",
+            "label": "Sample Payload",
+            "type": "textarea",
+            "required": false
+          },
+          {
+            "name": "inputMapping",
+            "label": "Input Mapping Intent",
+            "type": "textarea",
             "required": false
           }
         ],

@@ -8,6 +8,23 @@ on:
   workflow_dispatch:
 
 jobs:
+  eg-label-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for the EG label
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+        run: |
+          TEXT="${PR_BODY}${COMMIT_MSG}"
+          STATE=$(printf '%s' "$TEXT" | grep -oE 'EG:[[:space:]]*[A-Za-z_]+' | tail -1 | sed -E 's/^EG:[[:space:]]*//')
+          if [ "$STATE" = "EG" ]; then
+            echo "EG: EG label found."
+          else
+            echo "::error::No 'EG: EG' label found (got '${STATE:-<none>}'). NOT_EG/BLOCK/CODE_SIGNED/DEPLOYED_NOT_EG do not pass this gate."
+            exit 1
+          fi
+
   ip-gate:
     runs-on: ubuntu-latest
     steps:
